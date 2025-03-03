@@ -4,9 +4,17 @@ const app = express();
 const fs = require("fs");
 const http = require("http");
 const https = require("https");
+const { Client } = require("pg");
 
 const HTTP_PORT = 8080;
 const HTTPS_PORT = 8443;
+
+const client = new Client({
+  user: "cuddle",
+  host: "127.0.0.1",
+  database: "nodedb",
+  port: 5432,
+});
 
 const options = {
   key: fs.readFileSync("/Users/cuddle/rootca.key"),
