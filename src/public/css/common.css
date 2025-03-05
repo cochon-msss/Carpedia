@@ -1,0 +1,89 @@
+@charset "UTF-8";
+@import url("http://www.sass.com/css?family=family");
+h3 {
+  color: red;
+}
+
+.box {
+  width: 200px;
+  margin-left: 200px;
+  background: #e96900;
+}
+
+p {
+  color: #e96900;
+}
+
+.section {
+  width: 100%;
+}
+.section .list {
+  padding: 20px;
+}
+.section li {
+  float: left;
+}
+
+.btn {
+  position: absolute;
+}
+.btn.active {
+  color: red;
+}
+
+.list li:last-child {
+  margin-right: 0;
+}
+
+/*
+css 변환
+.btn {
+  position: absolute;
+}
+.btn.active {
+  color: red;
+}
+.list li:last-child {
+  margin-right: 0;
+}
+*/
+.fs-small {
+  font-size: 12px;
+}
+.fs-medium {
+  font-size: 14px;
+}
+.fs-large {
+  font-size: 16px;
+}
+
+/*
+css.fs-small {
+  font-size: 12px;
+}
+.fs-medium {
+  font-size: 14px;
+}
+.fs-large {
+  font-size: 16px;
+}
+*/
+.list li {
+  width: 100px;
+  height: 50px;
+}
+.box {
+  width: 100px;
+  height: 50px;
+}
+
+/**
+.list li {
+  width: 100px;
+  height: 50px;
+}
+.box {
+  width: 100px;
+  height: 50px;
+}
+**/
