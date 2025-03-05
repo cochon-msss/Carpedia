@@ -1,18 +1,16 @@
-const loaders = require("./loaders");
 const express = require("express");
+const path = require("path");
+const app = express();
 
-async function startServer() {
-  const app = express();
+// 뷰 엔진 설정
+app.set("view engine", "ejs");
+app.set("view", path.join(__dirname, "views"));
 
-  await loaders.init({ expressApp: app });
+// 정적 파일 서빙
+app.use(express.static(path.join(__dirname, "public")));
 
-  app.listen(8080, (err) => {
-    if (err) {
-      console.log(err);
-      return;
-    }
-    console.log("server running");
-  });
-}
+// 라우터 불러오기
+const indexRouter = require("./routes/index");
+app.use("/", indexRouter);
 
-startServer();
+module.exports = app;
