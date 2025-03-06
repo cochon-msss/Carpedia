@@ -1,0 +1,3 @@
+$(function () {
+  $("#national").select2();
+});

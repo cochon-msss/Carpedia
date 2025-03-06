@@ -1,5 +1,7 @@
 # 프로젝트 구조
 
+node src/server.js
+
 ```bash
 /project-root
 │── /src

@@ -2,6 +2,7 @@ const fs = require("fs");
 const http = require("http");
 const https = require("https");
 const app = require("./app");
+const logger = require("./utils/logger");
 require("dotenv").config();
 
 const HTTP_PORT = process.env.HTTP_PORT;
@@ -13,9 +14,9 @@ const options = {
 };
 
 http.createServer(app).listen(HTTP_PORT, () => {
-  console.log("HTTP Server listening on " + HTTP_PORT);
+  logger.info("HTTP Server listening on " + HTTP_PORT);
 });
 
 https.createServer(options, app).listen(HTTPS_PORT, () => {
-  console.log("HTTPS server listening on " + HTTPS_PORT);
+  logger.info("HTTPS Server listening on " + HTTPS_PORT);
 });

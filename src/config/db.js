@@ -1,4 +1,5 @@
 const { Client } = require("pg");
+const logger = require("../utils/logger");
 require("dotenv").config();
 
 const client = new Client({
@@ -10,8 +11,8 @@ const client = new Client({
 
 client
   .connect()
-  .then(() => console.log("PostgreSQL Connection"))
-  .catch((err) => console.error("PostgreSQL Connection Error: " + err));
+  .then(() => logger.info("PostgreSQL Connection"))
+  .catch((err) => logger.error("PostgreSQL Connection Error: " + err));
 
 // 모듈화 다른 곳에서 client를 사용하려고
 module.exports = client;
