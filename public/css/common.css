@@ -5,10 +5,6 @@
   padding: 0;
   box-sizing: border-box;
 }
-body {
-  width: 100%;
-  height: 100%;
-}
 
 button {
   background: none;
@@ -33,4 +29,8 @@ input:focus {
 
 html {
   font-size: 62.5%;
+}
+
+.hidden {
+  display: none;
 }

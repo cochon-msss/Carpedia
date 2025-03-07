@@ -1,5 +1,25 @@
 main {
-  background-image: url("../images/mainImage.jpg");
-  background-image: no-repeat;
+  //background-image: url("../images/mainImage.jpg");
+  //background-image: no-repeat;
   background-size: 100% 100%;
+}
+
+.container {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  border: 1px solid black;
+  width: 75%;
+  height: 20%;
+}
+.brand-div,
+.car-div,
+.other {
+  width: 25%;
+  font-size: x-large;
+  a {
+  }
 }
