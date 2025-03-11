@@ -2,14 +2,31 @@ main {
   //background-image: url("../images/mainImage.jpg");
   //background-image: no-repeat;
   background-size: 100% 100%;
-}
-.container {
-  margin: auto;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  width: 75%;
-  div {
+  place-items: center;
+  min-height: 80dvh;
+  .container {
+    display: grid;
+    grid-template-columns: 300px 300px 300px 200px;
     border: 1px solid black;
     text-align: center;
+    height: 10%;
+    div {
+      border: 1px solid black;
+      text-align: left;
+      padding: 10px;
+    }
+    .search {
+      background-color: orange;
+    }
+  }
+}
+header {
+  display: grid;
+  border: 1px solid black;
+  grid-template-columns: 200px 200px 200px;
+  height: 5%;
+  div {
+    border: 1px solid black;
   }
 }
