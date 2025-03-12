@@ -32,3 +32,20 @@ html {
 .hidden {
   display: none;
 }
+
+header {
+  display: grid;
+  border: 1px solid black;
+  grid-template-columns: 200px 200px 200px;
+  height: 5%;
+  margin-bottom: 47px;
+  div {
+    border: 1px solid black;
+    cursor: pointer;
+  }
+}
+
+main {
+  margin-left: 20%;
+  margin-right: 20%;
+}

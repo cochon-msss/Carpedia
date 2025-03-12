@@ -6,38 +6,32 @@
 
     <link rel="stylesheet" type="text/css" href="/css/main.css">
     <link rel="stylesheet" type="text/css" href="/css/common.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-    <!-- select2 -->
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="/js/jquery-3.6.0.js"></script>
     <script src="/js/main.js"></script>
-    <title>Document</title>
+    <script src="/js/common.js"></script>
+    <title>어서오세요</title>
 </head>
 
 <body>
-    <header>
-        <div>로고 이미지</div>
-        <div>비교하기</div>
-        <div>커뮤니티</div>
-    </header>
+    <%-include('header.ejs')%>
 
-    <main>
-        <div class="container">
-            <div class="brand-div">
-                <a><span>제조사</span></a>
+        <main>
+            <div class="container">
+                <div class="brand-div">
+                    <a><span>제조사</span></a>
+                </div>
+                <div class="car-div">
+                    <a><span>모델</span></a>
+                </div>
+                <div class="other">
+                    <a><span>세부모델</span></a>
+                </div>
+                <div class="search car-search">
+                    <button>검색</button>
+                </div>
             </div>
-            <div class="car-div">
-                <a><span>모델</span></a>
-            </div>
-            <div class="other">
-                <a><span>세부모델</span></a>
-            </div>
-            <div class="search">
-                <button>검색</button>
-            </div>
-        </div>
 
-    </main>
+        </main>
 
 </body>
 

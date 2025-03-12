@@ -1,3 +1,5 @@
-$(function () {
-  $("#national").select2();
+$(() => {
+  $(".car-search").on("click", function () {
+    window.location.href = `/carInfo`;
+  });
 });

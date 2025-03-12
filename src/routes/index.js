@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const fs = require("fs");
+const path = require("path");
 
 // routes 폴더 안의 모든 파일을 불러와서 자동으로 등록
 fs.readdirSync(__dirname).forEach((file) => {

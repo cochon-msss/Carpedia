@@ -1,0 +1,13 @@
+main {
+  border: 1px solid black;
+  .container {
+    display: grid;
+    grid-template-rows: 500px 200px 200px;
+    border: 1px solid black;
+    div {
+      border: 1px solid black;
+      place-content: center;
+      text-align: center;
+    }
+  }
+}

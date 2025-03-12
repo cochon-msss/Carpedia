@@ -14,6 +14,7 @@ app.set("views", path.join(__dirname, "views"));
 
 // 정적 파일 서빙
 app.use(express.static("public"));
+app.use("/js", express.static(__dirname + "/js"));
 
 // 라우터 불러오기
 const indexRouter = require("./routes/index");

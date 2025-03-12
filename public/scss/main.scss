@@ -15,18 +15,10 @@ main {
       border: 1px solid black;
       text-align: left;
       padding: 10px;
+      cursor: pointer;
     }
     .search {
       background-color: orange;
     }
-  }
-}
-header {
-  display: grid;
-  border: 1px solid black;
-  grid-template-columns: 200px 200px 200px;
-  height: 5%;
-  div {
-    border: 1px solid black;
   }
 }

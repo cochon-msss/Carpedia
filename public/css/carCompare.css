@@ -1,0 +1,10 @@
+.compare-section {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 300px 1fr;
+  border: 1px solid black;
+}
+.compare-section .compare-column {
+  border: 1px solid black;
+  text-align: center;
+}
