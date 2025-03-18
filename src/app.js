@@ -4,7 +4,10 @@ const express = require("express");
 const path = require("path");
 const app = express();
 const db = require("./config/db"); // db.js 불러오기
-const logger = require("./middlewares/logger");
+const logger = require("./middlewares/loggerMiddleware");
+const applySecurityMiddleware = require("./middlewares/securityMiddleware");
+
+applySecurityMiddleware(app);
 
 app.use(logger); // 모든 요청에 대해 로깅을 기록
 

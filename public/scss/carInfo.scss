@@ -1,13 +1,82 @@
 main {
-  border: 1px solid black;
   .container {
     display: grid;
-    grid-template-rows: 500px 200px 200px;
-    border: 1px solid black;
-    div {
-      border: 1px solid black;
-      place-content: center;
-      text-align: center;
+    grid-template-rows: 500px 50px auto;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 30px;
+  }
+}
+
+.engine_category {
+  display: flex;
+  overflow-x: auto; // 가로 스크롤 허용
+  white-space: nowrap; // 줄바꿈 방지
+  gap: 10px; // 리스트 사이 간격 조정
+
+  .tab_list {
+    display: flex; // ul 내부 요소 가로 정렬
+    align-items: center; // 수직 정렬
+    height: 46px;
+    padding: 0 19px;
+
+    .tab_item {
+      .menu {
+        font-size: 1.6rem;
+        font-weight: bold;
+        border-bottom: 1px solid black;
+        padding-bottom: 4px;
+      }
+    }
+  }
+}
+
+.table_section {
+  background: #f9f9f9;
+  border-radius: 10px;
+
+  .middle_title {
+    font-size: 22px;
+    font-weight: bold;
+    padding: 12px 0;
+    border-bottom: 2px solid #ddd;
+    margin-bottom: 15px;
+    margin-left: 15px;
+    margin-right: 15px;
+    text-align: center;
+  }
+  .table_area {
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      color: #333;
+
+      th,
+      td {
+        padding: 12px;
+        border-bottom: 1px solid #ddd;
+        text-align: left;
+      }
+
+      th {
+        background: #f1f1f1;
+        font-weight: bold;
+        width: 30%;
+      }
+
+      td {
+        background: #fff;
+      }
+
+      tr:last-child th,
+      tr:last-child td {
+        border-bottom: none;
+      }
     }
   }
 }

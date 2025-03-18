@@ -1,10 +1,102 @@
-.compare-section {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: 300px 1fr;
-  border: 1px solid black;
+main .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 30px;
+  width: 100%;
+  max-width: 1200px;
 }
-.compare-section .compare-column {
-  border: 1px solid black;
+main .car_images {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  width: 100%;
+}
+main .car_images .car_image {
+  width: 100%;
+  height: 250px;
+  background-color: #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+main .engine_category {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+  flex-wrap: wrap;
+}
+main .engine_category .tab_list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  padding: 0 25px;
+  flex-grow: 1;
+}
+main .engine_category .tab_list .tab_item .menu {
+  font-size: 1.8rem;
+  font-weight: bold;
+  border-bottom: 2px solid black;
+  padding-bottom: 5px;
+}
+main .specs_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  width: 100%;
+  max-width: 1200px;
+}
+main .specs_container .specs {
+  width: 45%;
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+}
+main .specs_container .specs .middle_title {
+  font-size: 22px;
+  font-weight: bold;
+  padding: 12px 0;
+  border-bottom: 3px solid #ddd;
+  margin-bottom: 15px;
   text-align: center;
+}
+main .specs_container .specs .table_area {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+}
+main .specs_container .specs .table_area table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 16px;
+  color: #333;
+}
+main .specs_container .specs .table_area table th,
+main .specs_container .specs .table_area table td {
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+main .specs_container .specs .table_area table th {
+  background: #f1f1f1;
+  font-weight: bold;
+  width: 40%;
+  font-size: 16px;
+}
+main .specs_container .specs .table_area table td {
+  background: #fff;
+  font-size: 16px;
+}
+main .specs_container .specs .table_area table tr:last-child th,
+main .specs_container .specs .table_area table tr:last-child td {
+  border-bottom: none;
 }

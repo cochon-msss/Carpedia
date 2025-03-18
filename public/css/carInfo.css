@@ -1,13 +1,70 @@
-main {
-  border: 1px solid black;
-}
 main .container {
   display: grid;
-  grid-template-rows: 500px 200px 200px;
-  border: 1px solid black;
+  grid-template-rows: 500px 50px auto;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 30px;
 }
-main .container div {
-  border: 1px solid black;
-  place-content: center;
+
+.engine_category {
+  display: flex;
+  overflow-x: auto;
+  white-space: nowrap;
+  gap: 10px;
+}
+.engine_category .tab_list {
+  display: flex;
+  align-items: center;
+  height: 46px;
+  padding: 0 19px;
+}
+.engine_category .tab_list .tab_item .menu {
+  font-size: 1.6rem;
+  font-weight: bold;
+  border-bottom: 1px solid black;
+  padding-bottom: 4px;
+}
+
+.table_section {
+  background: #f9f9f9;
+  border-radius: 10px;
+}
+.table_section .middle_title {
+  font-size: 22px;
+  font-weight: bold;
+  padding: 12px 0;
+  border-bottom: 2px solid #ddd;
+  margin-bottom: 15px;
+  margin-left: 15px;
+  margin-right: 15px;
   text-align: center;
+}
+.table_section .table_area {
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: 8px;
+}
+.table_section .table_area table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  color: #333;
+}
+.table_section .table_area table th,
+.table_section .table_area table td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+.table_section .table_area table th {
+  background: #f1f1f1;
+  font-weight: bold;
+  width: 30%;
+}
+.table_section .table_area table td {
+  background: #fff;
+}
+.table_section .table_area table tr:last-child th,
+.table_section .table_area table tr:last-child td {
+  border-bottom: none;
 }

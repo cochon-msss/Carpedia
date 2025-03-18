@@ -1,10 +1,120 @@
-.compare-section {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: 300px 1fr;
-  border: 1px solid black;
-  .compare-column {
-    border: 1px solid black;
-    text-align: center;
+main {
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 30px;
+    width: 100%;
+    max-width: 1200px;
+  }
+
+  .car_images {
+    display: flex;
+    justify-content: center;
+    align-items: center; // 수직 정렬 추가
+    gap: 40px;
+    width: 100%;
+
+    .car_image {
+      width: 100%;
+      height: 250px;
+      background-color: #ddd;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.5rem;
+    }
+  }
+
+  .engine_category {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    width: 100%; // 전체 너비 활용
+    flex-wrap: wrap; // 줄 바꿈 가능하도록 설정
+
+    .tab_list {
+      display: flex;
+      align-items: center;
+      justify-content: center; // 가로 정렬
+      height: 50px;
+      padding: 0 25px;
+      flex-grow: 1; // 가로 너비 균등 배분
+
+      .tab_item {
+        .menu {
+          font-size: 1.8rem;
+          font-weight: bold;
+          border-bottom: 2px solid black;
+          padding-bottom: 5px;
+        }
+      }
+    }
+  }
+
+  .specs_container {
+    display: flex;
+    justify-content: center;
+    align-items: center; // 수직 정렬 추가
+    gap: 50px;
+    width: 100%;
+    max-width: 1200px;
+
+    .specs {
+      width: 45%;
+      background: #f9f9f9;
+      padding: 20px;
+      border-radius: 10px;
+
+      .middle_title {
+        font-size: 22px;
+        font-weight: bold;
+        padding: 12px 0;
+        border-bottom: 3px solid #ddd;
+        margin-bottom: 15px;
+        text-align: center;
+      }
+
+      .table_area {
+        background: #fff;
+        padding: 20px;
+        border-radius: 10px;
+
+        table {
+          width: 100%;
+          border-collapse: collapse;
+          font-size: 16px;
+          color: #333;
+
+          th,
+          td {
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+          }
+
+          th {
+            background: #f1f1f1;
+            font-weight: bold;
+            width: 40%;
+            font-size: 16px;
+          }
+
+          td {
+            background: #fff;
+            font-size: 16px;
+          }
+
+          tr:last-child th,
+          tr:last-child td {
+            border-bottom: none;
+          }
+        }
+      }
+    }
   }
 }

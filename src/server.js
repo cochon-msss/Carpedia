@@ -2,7 +2,7 @@ const fs = require("fs");
 const http = require("http");
 const https = require("https");
 const app = require("./app");
-const logger = require("./utils/logger");
+const logger = require("./utils/loggerUtil");
 require("dotenv").config();
 
 const HTTP_PORT = process.env.HTTP_PORT;
