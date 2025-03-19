@@ -9,6 +9,7 @@
     <script src="/js/jquery-3.6.0.js"></script>
     <script src="/js/main.js"></script>
     <script src="/js/common.js"></script>
+
     <title>어서오세요</title>
 </head>
 
@@ -17,33 +18,68 @@
 
         <main>
             <div class="container">
-                <form class="search-form">
+                <div class="search-form">
+                    <!-- 제조사 드롭다운 -->
                     <div class="select-group">
-                        <label for="brand">제조사</label>
-                        <select id="brand">
-                            <option value="">선택</option>
-                            <option value="hyundai">현대</option>
-                            <option value="kia">기아</option>
-                        </select>
+                        <div class="custom-dropdown dropdown-btn" id="brand-dropdown">
+                            <span class="selected">제조사</span>
+                            <svg class="dropdown-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                            <ul class="dropdown-list">
+                                <li>현대</li>
+                                <li>기아</li>
+                                <li>BMW</li>
+                                <li>벤츠</li>
+                            </ul>
+                        </div>
                     </div>
+
+                    <!-- 모델 드롭다운 -->
                     <div class="select-group">
-                        <label for="model">모델</label>
-                        <select id="model">
-                            <option value="">선택</option>
-                        </select>
+                        <div class="custom-dropdown dropdown-btn" id="model-dropdown">
+                            <span class="selected">모델</span>
+                            <svg class="dropdown-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                            <ul class="dropdown-list">
+                                <li>아반떼</li>
+                                <li>쏘나타</li>
+                                <li>K5</li>
+                                <li>G70</li>
+                            </ul>
+                        </div>
                     </div>
+
+                    <!-- 세부 모델 드롭다운 -->
                     <div class="select-group">
-                        <label for="trim">세부모델</label>
-                        <select id="trim">
-                            <option value="">선택</option>
-                        </select>
+                        <div class="custom-dropdown dropdown-btn" id="trim-dropdown">
+                            <span class="selected">세부모델</span>
+                            <svg class="dropdown-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                            <ul class="dropdown-list">
+                                <li>N Line</li>
+                                <li>스포츠 패키지</li>
+                                <li>기본 트림</li>
+                            </ul>
+                        </div>
                     </div>
+
+                    <!-- 검색 버튼 -->
                     <div class="search-button">
-                        <button type="submit">검색</button>
+                        <button type="button" class="car-search">검색</button>
                     </div>
-                </form>
+                </div>
             </div>
         </main>
+
 
 
 

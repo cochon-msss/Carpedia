@@ -38,13 +38,18 @@ html {
 main {
   margin-left: 20%;
   margin-right: 20%;
+  padding-top: 70px;
 }
 
 header {
   width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
   background-color: #fff;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   padding: 10px 20px;
+  z-index: 1000;
 }
 header .header-container {
   display: flex;

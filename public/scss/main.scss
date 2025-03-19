@@ -1,71 +1,140 @@
+main {
+  padding-top: 0 !important;
+}
+
 .container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-size: cover;
-  background-position: center;
+  background: rgba(255, 255, 255, 0.9);
 }
 
 .search-form {
   display: flex;
+  align-items: center;
   gap: 15px;
-  padding: 15px;
+  background: white;
+  padding: 15px 25px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 1000px;
+  position: relative; // 드롭다운 리스트를 감싸는 기준점
 }
 
 .select-group {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
+  flex-grow: 1;
+  margin: 0 10px;
 
-  label {
-    font-size: 14px;
-    color: black;
-    text-align: center;
-  }
-
-  select {
-    width: 180px;
-    padding: 12px;
-    border: 2px solid rgba(255, 255, 255, 0.5);
-    border-radius: 30px;
-    font-size: 16px;
-    background: rgba(255, 255, 255, 0.2);
-    color: #fff;
+  .custom-dropdown {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
     cursor: pointer;
-    text-align: center;
-    transition: border 0.3s, background 0.3s;
 
-    &:focus,
-    &:hover {
-      border-color: #ffd700;
-      background: rgba(255, 255, 255, 0.4);
+    .selected {
+      font-size: 16px;
+      color: #333;
     }
 
-    option {
+    .dropdown-icon {
+      transition: transform 0.3s ease-in-out;
+    }
+
+    &.open .dropdown-icon {
+      transform: rotate(180deg);
+    }
+
+    .dropdown-list {
+      position: absolute;
+      top: 100%;
+      left: 0;
       background: white;
-      color: black;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+      padding: 10px;
+      white-space: nowrap;
+      z-index: 10;
+      width: 100%;
+      display: none; // 기본적으로 숨김
+
+      &.open {
+        display: flex !important; // `display: none;`을 무시하고 강제 적용
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+      }
+
+      li {
+        list-style: none;
+        padding: 8px 12px;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: background 0.2s;
+        border: 1px solid #ddd;
+        min-width: 100px;
+        text-align: center;
+
+        &:hover {
+          background: #f0f0f0;
+        }
+      }
+    }
+  }
+
+  .dropdown-list {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: white;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    max-height: 200px;
+    overflow-y: auto;
+
+    li {
+      padding: 10px;
+      font-size: 14px;
+      color: #333;
+      cursor: pointer;
+      transition: background 0.2s;
+
+      &:hover {
+        background: #f1f1f1;
+      }
     }
   }
 }
 
 .search-button {
-  display: flex;
-  align-items: flex-end;
+  flex-shrink: 0;
 
   button {
     padding: 12px 25px;
     font-size: 16px;
     font-weight: bold;
-    color: #fff;
-    background: linear-gradient(45deg, #ff8c00, #ff4500);
+    background-color: #333;
+    color: white;
     border: none;
-    border-radius: 30px;
+    border-radius: 8px;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: all 0.3s;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.3);
 
     &:hover {
-      background: linear-gradient(45deg, #ff4500, #ff8c00);
+      background-color: #222;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);
     }
   }
 }
