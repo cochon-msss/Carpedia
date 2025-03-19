@@ -17,21 +17,35 @@
 
         <main>
             <div class="container">
-                <div class="brand-div">
-                    <a><span>제조사</span></a>
-                </div>
-                <div class="car-div">
-                    <a><span>모델</span></a>
-                </div>
-                <div class="other">
-                    <a><span>세부모델</span></a>
-                </div>
-                <div class="search car-search">
-                    <button>검색</button>
-                </div>
+                <form class="search-form">
+                    <div class="select-group">
+                        <label for="brand">제조사</label>
+                        <select id="brand">
+                            <option value="">선택</option>
+                            <option value="hyundai">현대</option>
+                            <option value="kia">기아</option>
+                        </select>
+                    </div>
+                    <div class="select-group">
+                        <label for="model">모델</label>
+                        <select id="model">
+                            <option value="">선택</option>
+                        </select>
+                    </div>
+                    <div class="select-group">
+                        <label for="trim">세부모델</label>
+                        <select id="trim">
+                            <option value="">선택</option>
+                        </select>
+                    </div>
+                    <div class="search-button">
+                        <button type="submit">검색</button>
+                    </div>
+                </form>
             </div>
-
         </main>
+
+
 
 </body>
 

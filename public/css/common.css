@@ -35,19 +35,46 @@ html {
   display: none;
 }
 
-header {
-  display: grid;
-  border: 1px solid black;
-  grid-template-columns: 200px 200px 200px;
-  height: 5%;
-  margin-bottom: 47px;
-}
-header div {
-  border: 1px solid black;
-  cursor: pointer;
-}
-
 main {
   margin-left: 20%;
   margin-right: 20%;
+}
+
+header {
+  width: 100%;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 10px 20px;
+}
+header .header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+header .header-container .logo {
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+header .header-container .nav-menu {
+  display: flex;
+  gap: 20px;
+}
+header .header-container .nav-menu div {
+  cursor: pointer;
+  padding: 5px 10px;
+  transition: 0.3s;
+}
+header .header-container .nav-menu div span {
+  font-size: 15px;
+}
+header .header-container .nav-menu div:hover {
+  color: #007bff;
+}
+header .header-container .user-menu {
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }

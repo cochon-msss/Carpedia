@@ -7,7 +7,6 @@ main .container {
   border-radius: 8px;
   padding: 30px;
   width: 100%;
-  max-width: 1200px;
 }
 main .car_images {
   display: flex;
@@ -53,7 +52,6 @@ main .specs_container {
   align-items: center;
   gap: 50px;
   width: 100%;
-  max-width: 1200px;
 }
 main .specs_container .specs {
   width: 45%;

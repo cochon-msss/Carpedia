@@ -1,22 +1,64 @@
-main {
-  background-size: 100% 100%;
-  display: grid;
-  place-items: center;
-  min-height: 80dvh;
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
 }
-main .container {
-  display: grid;
-  grid-template-columns: 300px 300px 300px 200px;
-  border: 1px solid black;
+
+.search-form {
+  display: flex;
+  gap: 15px;
+  padding: 15px;
+}
+
+.select-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.select-group label {
+  font-size: 14px;
+  color: black;
   text-align: center;
-  height: 10%;
 }
-main .container div {
-  border: 1px solid black;
-  text-align: left;
-  padding: 10px;
+.select-group select {
+  width: 180px;
+  padding: 12px;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 30px;
+  font-size: 16px;
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
   cursor: pointer;
+  text-align: center;
+  transition: border 0.3s, background 0.3s;
 }
-main .container .search {
-  background-color: orange;
+.select-group select:focus, .select-group select:hover {
+  border-color: #ffd700;
+  background: rgba(255, 255, 255, 0.4);
+}
+.select-group select option {
+  background: white;
+  color: black;
+}
+
+.search-button {
+  display: flex;
+  align-items: flex-end;
+}
+.search-button button {
+  padding: 12px 25px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  background: linear-gradient(45deg, #ff8c00, #ff4500);
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.search-button button:hover {
+  background: linear-gradient(45deg, #ff4500, #ff8c00);
 }
