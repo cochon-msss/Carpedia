@@ -3,16 +3,20 @@ $(() => {
     window.location.href = `/carInfo`;
   });
 
-  function updateDropdownWidth() {
-    let lastSelectGroup = $(".select-group").last(); // 마지막 select-group (세부모델)
-    let formWidth = $(".search-form").outerWidth(); // search-form의 전체 너비
-    let lastElementRight =
-      lastSelectGroup.offset().left + lastSelectGroup.outerWidth(); // 세부모델의 오른쪽 끝 위치
-    let formLeft = $(".search-form").offset().left; // search-form의 왼쪽 위치
-    let dropdownWidth = lastElementRight - formLeft; // 드롭다운 너비 계산
+  $(".custom-dropdown").click(function (event) {
+    event.stopPropagation();
+    $(".custom-dropdown").not(this).removeClass("open");
+    $(this).toggleClass("open");
 
-    $(".dropdown-list").css("width", dropdownWidth + "px");
-  }
+    let dropdownList = $(this).find(".dropdown-list");
+
+    if ($(this).hasClass("open")) {
+      let dropdownWidth = $(this).outerWidth(); // 클릭된 요소의 너비 가져오기
+      dropdownList.css("width", dropdownWidth + "px").addClass("open");
+    } else {
+      dropdownList.removeClass("open");
+    }
+  });
 
   // 창 크기 변경 시 다시 계산
   $(window).resize(updateDropdownWidth);

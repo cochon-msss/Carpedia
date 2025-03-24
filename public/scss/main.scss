@@ -20,122 +20,70 @@ main {
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 1000px;
-  position: relative; // 드롭다운 리스트를 감싸는 기준점
+  position: relative;
 }
 
 .select-group {
-  flex: 1; // 모든 요소가 동일한 너비를 가지도록 설정
-  min-width: 150px; // 최소 너비 지정
-  margin: 0 10px;
-
-  .custom-dropdown {
-    position: relative;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    border: 2px solid #ccc;
-    border-radius: 5px;
-    background-color: #fff;
-    cursor: pointer;
-
-    .selected {
-      font-size: 16px;
-      color: #333;
-    }
-
-    .dropdown-icon {
-      transition: transform 0.3s ease-in-out;
-    }
-
-    &.open .dropdown-icon {
-      transform: rotate(180deg);
-    }
-
-    .dropdown-list {
-      position: absolute;
-      top: 100%;
-      left: 0;
-      background: white;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-      padding: 10px;
-      white-space: nowrap;
-      z-index: 10;
-      width: 100%;
-      display: none; // 기본적으로 숨김
-
-      &.open {
-        display: flex !important; // `display: none;`을 무시하고 강제 적용
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 10px;
-      }
-
-      li {
-        list-style: none;
-        padding: 8px 12px;
-        cursor: pointer;
-        border-radius: 5px;
-        transition: background 0.2s;
-        border: 1px solid #ddd;
-        min-width: 100px;
-        text-align: center;
-
-        &:hover {
-          background: #f0f0f0;
-        }
-      }
-    }
-  }
-
-  .dropdown-list {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    background: white;
-    border: 2px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 10;
-    max-height: 200px;
-    overflow-y: auto;
-
-    li {
-      padding: 10px;
-      font-size: 14px;
-      color: #333;
-      cursor: pointer;
-      transition: background 0.2s;
-
-      &:hover {
-        background: #f1f1f1;
-      }
-    }
-  }
+  flex: 1;
+  min-width: 150px;
+  position: relative;
 }
 
-.search-button {
-  flex-shrink: 0;
+.custom-dropdown {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  cursor: pointer;
+}
 
-  button {
-    padding: 12px 25px;
-    font-size: 16px;
-    font-weight: bold;
-    background-color: #333;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s;
-    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.3);
+.custom-dropdown .dropdown-list {
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 0;
+  width: 100%;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 10px 0;
+  display: none;
+  z-index: 10;
+}
 
-    &:hover {
-      background-color: #222;
-      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);
-    }
-  }
+.custom-dropdown.open .dropdown-list {
+  display: block;
+}
+
+.dropdown-list li {
+  list-style: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  text-align: center;
+  transition: background 0.2s;
+}
+
+.dropdown-list li:hover {
+  background: #f0f0f0;
+}
+
+.search-button button {
+  padding: 12px 25px;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #333;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.search-button button:hover {
+  background-color: #222;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);
 }

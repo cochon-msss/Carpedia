@@ -26,9 +26,10 @@ main {
 .select-group {
   flex: 1;
   min-width: 150px;
-  margin: 0 10px;
+  position: relative;
 }
-.select-group .custom-dropdown {
+
+.custom-dropdown {
   position: relative;
   display: flex;
   justify-content: space-between;
@@ -39,77 +40,37 @@ main {
   background-color: #fff;
   cursor: pointer;
 }
-.select-group .custom-dropdown .selected {
-  font-size: 16px;
-  color: #333;
-}
-.select-group .custom-dropdown .dropdown-icon {
-  transition: transform 0.3s ease-in-out;
-}
-.select-group .custom-dropdown.open .dropdown-icon {
-  transform: rotate(180deg);
-}
-.select-group .custom-dropdown .dropdown-list {
+
+.custom-dropdown .dropdown-list {
   position: absolute;
-  top: 100%;
+  top: calc(100% + 5px);
   left: 0;
+  width: 100%;
   background: white;
   border: 1px solid #ddd;
   border-radius: 5px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  padding: 10px;
-  white-space: nowrap;
-  z-index: 10;
-  width: 100%;
+  padding: 10px 0;
   display: none;
+  z-index: 10;
 }
-.select-group .custom-dropdown .dropdown-list.open {
-  display: flex !important;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
+
+.custom-dropdown.open .dropdown-list {
+  display: block;
 }
-.select-group .custom-dropdown .dropdown-list li {
+
+.dropdown-list li {
   list-style: none;
   padding: 8px 12px;
   cursor: pointer;
-  border-radius: 5px;
-  transition: background 0.2s;
-  border: 1px solid #ddd;
-  min-width: 100px;
   text-align: center;
-}
-.select-group .custom-dropdown .dropdown-list li:hover {
-  background: #f0f0f0;
-}
-.select-group .dropdown-list {
-  display: none;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  width: 100%;
-  background: white;
-  border: 2px solid #ccc;
-  border-radius: 5px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  z-index: 10;
-  max-height: 200px;
-  overflow-y: auto;
-}
-.select-group .dropdown-list li {
-  padding: 10px;
-  font-size: 14px;
-  color: #333;
-  cursor: pointer;
   transition: background 0.2s;
-}
-.select-group .dropdown-list li:hover {
-  background: #f1f1f1;
 }
 
-.search-button {
-  flex-shrink: 0;
+.dropdown-list li:hover {
+  background: #f0f0f0;
 }
+
 .search-button button {
   padding: 12px 25px;
   font-size: 16px;
@@ -120,8 +81,8 @@ main {
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s;
-  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.3);
 }
+
 .search-button button:hover {
   background-color: #222;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);
