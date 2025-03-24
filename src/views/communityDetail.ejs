@@ -1,0 +1,61 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/css/common.css">
+    <link rel="stylesheet" type="text/css" href="/css/communityDetail.css">
+    <script src="/js/jquery-3.6.0.js"></script>
+    <script src="/js/common.js"></script>
+    <title>커뮤니티 : 카피디아</title>
+</head>
+
+<body>
+    <%-include('header.ejs')%>
+        <main>
+            <div class="container">
+                <div class="community-detail">
+                    <div class="post-header">
+                        <h1 class="post-title">게시글 제목</h1>
+                        <div class="post-meta">
+                            <span class="author">작성자: 홍길동</span>
+                            <span class="date">2025-03-18</span>
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        <p>
+                            게시글의 내용이 여기에 들어갑니다. 원하는 스타일과 레이아웃을 추가할 수 있습니다.
+                        </p>
+                    </div>
+                    <div class="comment-section">
+                        <h2 class="comment-title">댓글</h2>
+                        <div class="comment-list">
+                            <div class="comment">
+                                <div class="comment-meta">
+                                    <span class="comment-author">댓글 작성자</span>
+                                    <span class="comment-date">2025-03-18</span>
+                                </div>
+                                <p class="comment-text">이곳에 댓글 내용이 들어갑니다.</p>
+                            </div>
+                            <div class="comment">
+                                <div class="comment-meta">
+                                    <span class="comment-author">또 다른 작성자</span>
+                                    <span class="comment-date">2025-03-18</span>
+                                </div>
+                                <p class="comment-text">여러 개의 댓글이 있을 수 있습니다.</p>
+                            </div>
+                        </div>
+                        <div class="comment-form">
+                            <textarea class="comment-input" placeholder="댓글을 입력하세요..."></textarea>
+                            <button type="button" class="comment-submit">댓글 작성</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+
+
+</body>
+
+</html>
