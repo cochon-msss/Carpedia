@@ -2,6 +2,11 @@
 
 node src/server.js
 
+```
+database : postgresql
+템플릿 : ejs 사용 불편으로 바꿀까 생각중
+```
+
 ```bash
 /project-root
 │── /src
