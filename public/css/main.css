@@ -2,12 +2,15 @@ main {
   padding-top: 0 !important;
 }
 
+body {
+  background-image: url("../images/harry-potter-1176447_1920.jpg");
+}
+
 .container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: rgba(255, 255, 255, 0.9);
 }
 
 .search-form {
@@ -40,7 +43,6 @@ main {
   background-color: #fff;
   cursor: pointer;
 }
-
 .custom-dropdown .dropdown-list {
   position: absolute;
   top: calc(100% + 5px);
@@ -54,21 +56,19 @@ main {
   display: none;
   z-index: 10;
 }
-
-.custom-dropdown.open .dropdown-list {
-  display: block;
-}
-
-.dropdown-list li {
+.custom-dropdown .dropdown-list li {
   list-style: none;
   padding: 8px 12px;
   cursor: pointer;
   text-align: center;
   transition: background 0.2s;
 }
-
-.dropdown-list li:hover {
+.custom-dropdown .dropdown-list li:hover {
   background: #f0f0f0;
+}
+
+.custom-dropdown.open .dropdown-list {
+  display: block;
 }
 
 .search-button button {
@@ -82,7 +82,6 @@ main {
   cursor: pointer;
   transition: all 0.3s;
 }
-
 .search-button button:hover {
   background-color: #222;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);

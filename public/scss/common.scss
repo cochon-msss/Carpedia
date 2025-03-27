@@ -44,8 +44,8 @@ header {
   position: fixed;
   top: 0;
   left: 0;
-  background-color: #fff;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   padding: 10px 20px;
   z-index: 1000; // 다른 요소 위에 배치
 
