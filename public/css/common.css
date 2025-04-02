@@ -59,9 +59,16 @@ header .header-container {
   margin: 0 auto;
 }
 header .header-container .logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   font-size: 20px;
   font-weight: bold;
   cursor: pointer;
+}
+header .header-container .logo .mainLogo {
+  width: 40px;
+  height: auto;
 }
 header .header-container .nav-menu {
   display: flex;

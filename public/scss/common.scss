@@ -57,9 +57,17 @@ header {
     margin: 0 auto;
 
     .logo {
+      display: flex;
+      align-items: center; // 이미지와 텍스트 정렬
+      gap: 10px; // 이미지와 텍스트 사이 간격
       font-size: 20px;
       font-weight: bold;
       cursor: pointer;
+
+      .mainLogo {
+        width: 40px; // 적절한 크기 조정
+        height: auto; // 비율 유지
+      }
     }
 
     .nav-menu {

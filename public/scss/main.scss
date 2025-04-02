@@ -69,6 +69,8 @@ body {
 
 .custom-dropdown.open .dropdown-list {
   display: block;
+  max-height: 300px;
+  overflow-y: scroll;
 }
 
 .search-button {
