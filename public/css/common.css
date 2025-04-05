@@ -56,18 +56,16 @@ header .header-container {
   justify-content: space-between;
   align-items: center;
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 5 auto;
 }
 header .header-container .logo {
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 20px;
-  font-weight: bold;
   cursor: pointer;
 }
 header .header-container .logo .mainLogo {
-  width: 50px;
+  width: 90px;
   height: auto;
 }
 header .header-container .nav-menu {
@@ -80,7 +78,8 @@ header .header-container .nav-menu div {
   transition: 0.3s;
 }
 header .header-container .nav-menu div span {
-  font-size: 15px;
+  font-size: 20px;
+  font-weight: bold;
 }
 header .header-container .nav-menu div:hover {
   color: #007bff;
