@@ -5,10 +5,16 @@ const getManufacturerList = async () => {
     const manufacturerList = await manufacturerModel.getManufacturerList();
     return manufacturerList;
   } catch (error) {
-    throw new Error(
-      "Failed to fetch manufacturers in service: " + error.message
-    );
+    logger.error(error);
+  }
+};
+const getModelList = async (id) => {
+  try {
+    const modelList = await manufacturerModel.getModelList(id);
+    return modelList;
+  } catch (error) {
+    logger.error(error);
   }
 };
 
-module.exports = { getManufacturerList };
+module.exports = { getManufacturerList, getModelList };

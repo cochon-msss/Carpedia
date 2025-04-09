@@ -12,4 +12,14 @@ const getManufacturerList = async (req, res) => {
   }
 };
 
-module.exports = { getManufacturerList };
+const getModelList = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const modelList = await manufacturerService.getModelList(id);
+    res.json(modelList);
+  } catch (error) {
+    logger.error(error);
+  }
+};
+
+module.exports = { getManufacturerList, getModelList };

@@ -30,7 +30,7 @@
                             </svg>
                             <ul class="dropdown-list">
                                 <% manufacturers.forEach((manufacturer)=> { %>
-                                    <li>
+                                    <li data-id="<%= manufacturer.id %>">
                                         <%= manufacturer.name %>
                                     </li>
                                     <% }) %>

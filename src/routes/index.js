@@ -4,6 +4,7 @@ const fs = require("fs");
 const path = require("path");
 const {
   getManufacturerList,
+  getModelList,
 } = require("../controllers/manufacturerController");
 
 // routes 폴더 안의 모든 파일을 불러와서 자동으로 등록
@@ -17,5 +18,5 @@ fs.readdirSync(__dirname).forEach((file) => {
 
 // "/" 경로를 처리하는 핸들러 추가 (index.ejs 렌더링)
 router.get("/", getManufacturerList);
-
+router.get("/:id", getModelList);
 module.exports = router;

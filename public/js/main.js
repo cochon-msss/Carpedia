@@ -42,12 +42,21 @@ $(() => {
           .addClass("open")
           .find(".dropdown-list")
           .addClass("open");
+        let manufacturerId = $(this).attr("data-id");
+        $.ajax({
+          url: "/" + manufacturerId,
+          method: "GET",
+          success: function (data) {
+            console.log(data);
+          },
+        });
         break;
       case "model-dropdown":
         $("#trim-dropdown")
           .addClass("open")
           .find(".dropdown-list")
           .addClass("open");
+
         break;
       case "trim-dropdown":
         break;
