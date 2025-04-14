@@ -7,12 +7,16 @@ const getManufacturerList = async () => {
     )
   ).rows;
 };
-const getModelList = async (id) => {
+const getModelList = async (manufacturerId) => {
   return (
-    await dbHelper.query("SELECT * FROM model WHERE manufacturer_id = $1;", [
-      id,
-    ])
+    await dbHelper.query(
+      "SELECT id, manufacturer_id AS manufacturerId, name, release_year AS releaseYear, discontinued, image_url, created_at AS createdAt FROM model WHERE manufacturer_id = $1;",
+      [manufacturerId]
+    )
   ).rows;
 };
+const getTrimList = async (modelId) => {
+  return (await dbHelper.query("", [modelId])).rows;
+};
 
-module.exports = { getManufacturerList, getModelList };
+module.exports = { getManufacturerList, getModelList, getTrimList };

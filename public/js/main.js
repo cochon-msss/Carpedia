@@ -37,28 +37,44 @@ $(() => {
 
     let thisId = custom_dropdown.attr("id");
     switch (thisId) {
-      case "brand-dropdown":
+      case "brand-dropdown": // 제조사
         $("#model-dropdown")
           .addClass("open")
           .find(".dropdown-list")
           .addClass("open");
         let manufacturerId = $(this).attr("data-id");
+        let modelDropdown = $("#model-dropdown").find(".dropdown-list");
         $.ajax({
-          url: "/" + manufacturerId,
+          url: "/model/" + manufacturerId,
           method: "GET",
+          beforeSend: function () {
+            modelDropdown.empty();
+          },
           success: function (data) {
-            console.log(data);
+            let modelData = data;
+            let modelHtml = "";
+            modelData.forEach((model) => {
+              modelHtml += `<li data-id="${model.id}">${model.name}</li>`;
+            });
+            modelDropdown.append(modelHtml);
           },
         });
         break;
-      case "model-dropdown":
+      case "model-dropdown": // 모델
         $("#trim-dropdown")
           .addClass("open")
           .find(".dropdown-list")
           .addClass("open");
-
+        let modelId = $(this).attr("data-id");
+        let trimDropdown = $("#trim-dropdown").find(".dropdown-list");
+        $.ajax({
+          url: "",
+          method: "",
+          beforeSend: function () {},
+          success: function (data) {},
+        });
         break;
-      case "trim-dropdown":
+      case "trim-dropdown": // 상세
         break;
     }
   });

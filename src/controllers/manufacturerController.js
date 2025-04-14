@@ -21,5 +21,13 @@ const getModelList = async (req, res) => {
     logger.error(error);
   }
 };
-
-module.exports = { getManufacturerList, getModelList };
+const getTrimList = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const trimList = await manufacturerService.getTrimList(id);
+    res.json(trimList);
+  } catch (error) {
+    logger.error(error);
+  }
+};
+module.exports = { getManufacturerList, getModelList, getTrimList };

@@ -8,13 +8,21 @@ const getManufacturerList = async () => {
     logger.error(error);
   }
 };
-const getModelList = async (id) => {
+const getModelList = async (manufacturerId) => {
   try {
-    const modelList = await manufacturerModel.getModelList(id);
+    const modelList = await manufacturerModel.getModelList(manufacturerId);
     return modelList;
   } catch (error) {
     logger.error(error);
   }
 };
+const getTrimList = async (modelId) => {
+  try {
+    const trimList = await manufacturerModel.getTrimList(modelId);
+    return trimList;
+  } catch (error) {
+    logger.error(error);
+  }
+};
 
-module.exports = { getManufacturerList, getModelList };
+module.exports = { getManufacturerList, getModelList, getTrimList };
