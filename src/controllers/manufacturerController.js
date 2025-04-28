@@ -14,8 +14,8 @@ const getManufacturerList = async (req, res) => {
 
 const getModelList = async (req, res) => {
   try {
-    const { id } = req.params;
-    const modelList = await manufacturerService.getModelList(id);
+    const { manufacturerId } = req.params;
+    const modelList = await manufacturerService.getModelList(manufacturerId);
     res.json(modelList);
   } catch (error) {
     logger.error(error);
@@ -23,8 +23,8 @@ const getModelList = async (req, res) => {
 };
 const getTrimList = async (req, res) => {
   try {
-    const { id } = req.params;
-    const trimList = await manufacturerService.getTrimList(id);
+    const { modelId } = req.params;
+    const trimList = await manufacturerService.getTrimList(modelId);
     res.json(trimList);
   } catch (error) {
     logger.error(error);
