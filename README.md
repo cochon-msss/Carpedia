@@ -33,8 +33,7 @@ database : postgresql
 
 ERD
 
-```image
 ![erd](https://github.com/user-attachments/assets/7aea9b5d-5e32-49ce-bb85-b43c1a5487cb)
-```
+
 
 
