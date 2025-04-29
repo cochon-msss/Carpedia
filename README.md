@@ -33,4 +33,6 @@ database : postgresql
 
 ERD
 
-![erd](https://github.com/user-attachments/assets/b1300748-deca-4c2b-9881-192a5860d5f6)
+![erd](https://github.com/user-attachments/assets/d62ea729-cb4b-4a23-ad90-fe13a64575e9)
+
+
