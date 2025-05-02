@@ -27,7 +27,7 @@ $(() => {
     }
   });
 
-  $(".dropdown-list li").click(function (event) {
+  $(".dropdown-list").on("click", "li", function (event) {
     event.stopPropagation();
     let selectedText = $(this).text().trim();
     let custom_dropdown = $(this).closest(".custom-dropdown");
@@ -54,7 +54,7 @@ $(() => {
             let modelData = data;
             let modelHtml = "";
             modelData.forEach((model) => {
-              modelHtml += `<li data-id="${model.id}">${model.name}</li>`;
+              modelHtml += `<li data-id="${model.modelSeq}">${model.modelName}</li>`;
             });
             modelDropdown.append(modelHtml);
           },
