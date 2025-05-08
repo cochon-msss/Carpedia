@@ -1,6 +1,7 @@
 const manufacturerService = require("../services/manufacturerService");
 const logger = require("../utils/loggerUtil");
 
+// 제조사 목록 조회
 const getManufacturerList = async (req, res) => {
   try {
     const manufacturers = await manufacturerService.getManufacturerList();
@@ -12,6 +13,7 @@ const getManufacturerList = async (req, res) => {
   }
 };
 
+// 모델 목록 조회
 const getModelList = async (req, res) => {
   try {
     const { manufacturerSeq } = req.params;
@@ -21,6 +23,8 @@ const getModelList = async (req, res) => {
     logger.error(error);
   }
 };
+
+// 세부 모델 목록 조회
 const getTrimList = async (req, res) => {
   try {
     const { modelSeq } = req.params;

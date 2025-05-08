@@ -45,6 +45,7 @@ $(() => {
         let manufacturerSeq = $(this).attr("data-id");
         let modelDropdown = $("#model-dropdown").find(".dropdown-list");
         $.ajax({
+          // 제조사 클릭 시 해당 제조사 모델 정보 조회
           url: "/model/" + manufacturerSeq,
           method: "GET",
           beforeSend: function () {
@@ -68,6 +69,7 @@ $(() => {
         let modelSeq = $(this).attr("data-id");
         let trimDropdown = $("#trim-dropdown").find(".dropdown-list");
         $.ajax({
+          // 모델 클릭 시 해당 모델 상세 정보 조회
           url: "/trim/" + modelSeq,
           method: "",
           beforeSend: function () {
