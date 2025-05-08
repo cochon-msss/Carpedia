@@ -42,13 +42,13 @@ $(() => {
           .addClass("open")
           .find(".dropdown-list")
           .addClass("open");
-        let manufacturerId = $(this).attr("data-id");
+        let manufacturerSeq = $(this).attr("data-id");
         let modelDropdown = $("#model-dropdown").find(".dropdown-list");
         $.ajax({
-          url: "/model/" + manufacturerId,
+          url: "/model/" + manufacturerSeq,
           method: "GET",
           beforeSend: function () {
-            modelDropdown.empty();
+            modelDropdown.empty(); // 모델 정보 비워준다.
           },
           success: function (data) {
             let modelData = data;
@@ -65,13 +65,22 @@ $(() => {
           .addClass("open")
           .find(".dropdown-list")
           .addClass("open");
-        let modelId = $(this).attr("data-id");
+        let modelSeq = $(this).attr("data-id");
         let trimDropdown = $("#trim-dropdown").find(".dropdown-list");
         $.ajax({
-          url: "",
+          url: "/trim/" + modelSeq,
           method: "",
-          beforeSend: function () {},
-          success: function (data) {},
+          beforeSend: function () {
+            trimDropdown.empty(); // 세부모델 비워준다.
+          },
+          success: function (data) {
+            let trimData = data;
+            let trimHtml = "";
+            trimData.forEach((trim) => {
+              trimHtml += `<li data-id="${trim.trimSeq}">${trim.trimName}</li>`;
+            });
+            trimDropdown.append(trimHtml);
+          },
         });
         break;
       case "trim-dropdown": // 상세

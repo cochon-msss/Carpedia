@@ -19,6 +19,6 @@ fs.readdirSync(__dirname).forEach((file) => {
 
 // "/" 경로를 처리하는 핸들러 추가 (index.ejs 렌더링)
 router.get("/", getManufacturerList);
-router.get("/model/:manufacturerId", getModelList);
-router.get("/trim/:modelId", getTrimList);
+router.get("/model/:manufacturerSeq", getModelList);
+router.get("/trim/:modelSeq", getTrimList);
 module.exports = router;

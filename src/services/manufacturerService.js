@@ -8,17 +8,17 @@ const getManufacturerList = async () => {
     logger.error(error);
   }
 };
-const getModelList = async (manufacturerId) => {
+const getModelList = async (manufacturerSeq) => {
   try {
-    const modelList = await manufacturerModel.getModelList(manufacturerId);
+    const modelList = await manufacturerModel.getModelList(manufacturerSeq);
     return modelList;
   } catch (error) {
     logger.error(error);
   }
 };
-const getTrimList = async (modelId) => {
+const getTrimList = async (modelSeq) => {
   try {
-    const trimList = await manufacturerModel.getTrimList(modelId);
+    const trimList = await manufacturerModel.getTrimList(modelSeq);
     return trimList;
   } catch (error) {
     logger.error(error);

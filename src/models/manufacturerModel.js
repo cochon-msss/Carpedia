@@ -1,5 +1,6 @@
 const dbHelper = require("../utils/dbHelper");
 
+// 제조사 목록 조회
 const getManufacturerList = async () => {
   return await dbHelper.query(
     `SELECT manufacturer_seq AS manufacturerSeq,
@@ -15,7 +16,9 @@ const getManufacturerList = async () => {
           END DESC, manufacturerName`
   );
 };
-const getModelList = async (manufacturerId) => {
+
+// 모델 목록 조회
+const getModelList = async (manufacturerSeq) => {
   return await dbHelper.query(
     `SELECT model_seq AS modelSeq,
             manufacturer_seq AS manufacturerSeq,
@@ -24,13 +27,27 @@ const getModelList = async (manufacturerId) => {
             segment,
             vehicle_type AS vehicleType,
             create_at AS createAt
-            FROM model
-            WHERE manufacturer_seq = ?`,
-    [manufacturerId]
+        FROM model
+        WHERE manufacturer_seq = ? AND use_flag = 'Y'`,
+    [manufacturerSeq]
   );
 };
-const getTrimList = async (modelId) => {
-  return (await dbHelper.query("", [modelId])).rows;
+
+// 세부 모델 목롤 조회
+const getTrimList = async (modelSeq) => {
+  return await dbHelper.query(
+    `SELECT trim_seq AS trimSeq,
+            model_seq AS modelSeq,
+            trim_name AS trimName,
+            release_date AS releaseDate,
+            discontinued_flag AS discontinuedFlag,
+            discontinued_date AS discontinuedDate,
+            image_path AS imagePath,
+            create_at AS createAt
+        FROM model_trims
+        WHERE model_seq = ?`,
+    [modelSeq]
+  );
 };
 
 module.exports = { getManufacturerList, getModelList, getTrimList };
