@@ -9,7 +9,9 @@ $(() => {
   }
 
   $(".car-search").on("click", function () {
-    window.location.href = `/carInfo`;
+    // 검색
+    let trimSeq = $("#trim-dropdown").children(".selected").attr("data-seq");
+    window.location.href = `/carInfo?trimSeq=` + trimSeq;
   });
 
   $(".custom-dropdown").click(function (event) {
@@ -30,8 +32,10 @@ $(() => {
   $(".dropdown-list").on("click", "li", function (event) {
     event.stopPropagation();
     let selectedText = $(this).text().trim();
+    let selectedSeq = $(this).attr("data-seq");
     let custom_dropdown = $(this).closest(".custom-dropdown");
     custom_dropdown.find(".selected").text(selectedText);
+    custom_dropdown.find(".selected").attr("data-seq", selectedSeq);
     custom_dropdown.removeClass("open");
     $(this).closest(".dropdown-list").removeClass("open");
 
@@ -42,7 +46,7 @@ $(() => {
           .addClass("open")
           .find(".dropdown-list")
           .addClass("open");
-        let manufacturerSeq = $(this).attr("data-id");
+        let manufacturerSeq = $(this).attr("data-seq");
         let modelDropdown = $("#model-dropdown").find(".dropdown-list");
         $.ajax({
           // 제조사 클릭 시 해당 제조사 모델 정보 조회
@@ -50,12 +54,15 @@ $(() => {
           method: "GET",
           beforeSend: function () {
             modelDropdown.empty(); // 모델 정보 비워준다.
+            $("#model-dropdown")
+              .parents(".select-group")
+              .removeClass("is_disabled");
           },
           success: function (data) {
             let modelData = data;
             let modelHtml = "";
             modelData.forEach((model) => {
-              modelHtml += `<li data-id="${model.modelSeq}">${model.modelName}</li>`;
+              modelHtml += `<li data-seq="${model.modelSeq}">${model.modelName}</li>`;
             });
             modelDropdown.append(modelHtml);
           },
@@ -66,7 +73,7 @@ $(() => {
           .addClass("open")
           .find(".dropdown-list")
           .addClass("open");
-        let modelSeq = $(this).attr("data-id");
+        let modelSeq = $(this).attr("data-seq");
         let trimDropdown = $("#trim-dropdown").find(".dropdown-list");
         $.ajax({
           // 모델 클릭 시 해당 모델 상세 정보 조회
@@ -74,12 +81,15 @@ $(() => {
           method: "",
           beforeSend: function () {
             trimDropdown.empty(); // 세부모델 비워준다.
+            $("#trim-dropdown")
+              .parents(".select-group")
+              .removeClass("is_disabled");
           },
           success: function (data) {
             let trimData = data;
             let trimHtml = "";
             trimData.forEach((trim) => {
-              trimHtml += `<li data-id="${trim.trimSeq}">${trim.trimName}</li>`;
+              trimHtml += `<li data-seq="${trim.trimSeq}">${trim.trimName}</li>`;
             });
             trimDropdown.append(trimHtml);
           },

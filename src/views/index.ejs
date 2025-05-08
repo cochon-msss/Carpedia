@@ -30,7 +30,7 @@
                             </svg>
                             <ul class="dropdown-list">
                                 <% manufacturers.forEach((manufacturer)=> { %>
-                                    <li data-id="<%= manufacturer.manufacturerSeq %>">
+                                    <li data-seq="<%= manufacturer.manufacturerSeq %>">
                                         <%= manufacturer.manufacturerName %>
                                     </li>
                                     <% }) %>
@@ -39,7 +39,7 @@
                     </div>
 
                     <!-- 모델 드롭다운 -->
-                    <div class="select-group">
+                    <div class="select-group is_disabled">
                         <div class="custom-dropdown dropdown-btn" id="model-dropdown">
                             <span class="selected">모델</span>
                             <svg class="dropdown-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -48,16 +48,12 @@
                                 <polyline points="6 9 12 15 18 9"></polyline>
                             </svg>
                             <ul class="dropdown-list">
-                                <li>아반떼</li>
-                                <li>쏘나타</li>
-                                <li>K5</li>
-                                <li>G70</li>
                             </ul>
                         </div>
                     </div>
 
                     <!-- 세부 모델 드롭다운 -->
-                    <div class="select-group">
+                    <div class="select-group is_disabled">
                         <div class="custom-dropdown dropdown-btn" id="trim-dropdown">
                             <span class="selected">세부모델</span>
                             <svg class="dropdown-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -66,9 +62,6 @@
                                 <polyline points="6 9 12 15 18 9"></polyline>
                             </svg>
                             <ul class="dropdown-list">
-                                <li>N Line</li>
-                                <li>스포츠 패키지</li>
-                                <li>기본 트림</li>
                             </ul>
                         </div>
                     </div>

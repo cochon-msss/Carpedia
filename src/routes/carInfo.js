@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router();
+const { getCarInfo } = require("../controllers/carInfoController");
 
-router.get("/", (req, res) => {
-  res.render("carInfo");
-});
+// /carInfo 경로 route
+
+router.get("/", getCarInfo);
 
 module.exports = router;
