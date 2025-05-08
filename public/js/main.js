@@ -10,8 +10,10 @@ $(() => {
 
   $(".car-search").on("click", function () {
     // 검색
-    let trimSeq = $("#trim-dropdown").children(".selected").attr("data-seq");
-    window.location.href = `/carInfo?trimSeq=` + trimSeq;
+    let generationSeq = $("#generation-dropdown")
+      .children(".selected")
+      .attr("data-seq");
+    window.location.href = `/carInfo?generationSeq=` + generationSeq;
   });
 
   $(".custom-dropdown").click(function (event) {
@@ -69,33 +71,35 @@ $(() => {
         });
         break;
       case "model-dropdown": // 모델
-        $("#trim-dropdown")
+        $("#generation-dropdown")
           .addClass("open")
           .find(".dropdown-list")
           .addClass("open");
         let modelSeq = $(this).attr("data-seq");
-        let trimDropdown = $("#trim-dropdown").find(".dropdown-list");
+        let generationDropdown = $("#generation-dropdown").find(
+          ".dropdown-list"
+        );
         $.ajax({
           // 모델 클릭 시 해당 모델 상세 정보 조회
-          url: "/trim/" + modelSeq,
+          url: "/generation/" + modelSeq,
           method: "",
           beforeSend: function () {
-            trimDropdown.empty(); // 세부모델 비워준다.
-            $("#trim-dropdown")
+            generationDropdown.empty(); // 세부모델 비워준다.
+            $("#generation-dropdown")
               .parents(".select-group")
               .removeClass("is_disabled");
           },
           success: function (data) {
-            let trimData = data;
-            let trimHtml = "";
-            trimData.forEach((trim) => {
-              trimHtml += `<li data-seq="${trim.trimSeq}">${trim.trimName}</li>`;
+            let generationData = data;
+            let generationHtml = "";
+            generationData.forEach((generation) => {
+              generationHtml += `<li data-seq="${generation.generationSeq}">${generation.generationName}</li>`;
             });
-            trimDropdown.append(trimHtml);
+            generationDropdown.append(generationHtml);
           },
         });
         break;
-      case "trim-dropdown": // 상세
+      case "generation-dropdown": // 상세
         break;
     }
   });

@@ -27,27 +27,27 @@ const getModelList = async (manufacturerSeq) => {
             segment,
             vehicle_type AS vehicleType,
             create_at AS createAt
-        FROM model
+        FROM models
         WHERE manufacturer_seq = ? AND use_flag = 'Y'`,
     [manufacturerSeq]
   );
 };
 
 // 세부 모델 목롤 조회
-const getTrimList = async (modelSeq) => {
+const getGenerationList = async (modelSeq) => {
   return await dbHelper.query(
-    `SELECT trim_seq AS trimSeq,
+    `SELECT generation_seq AS generationSeq,
             model_seq AS modelSeq,
-            trim_name AS trimName,
+            generation_name AS generationName,
             release_date AS releaseDate,
             discontinued_flag AS discontinuedFlag,
             discontinued_date AS discontinuedDate,
             image_path AS imagePath,
             create_at AS createAt
-        FROM model_trims
+        FROM generations
         WHERE model_seq = ?`,
     [modelSeq]
   );
 };
 
-module.exports = { getManufacturerList, getModelList, getTrimList };
+module.exports = { getManufacturerList, getModelList, getGenerationList };

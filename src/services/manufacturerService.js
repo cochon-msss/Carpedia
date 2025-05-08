@@ -22,13 +22,13 @@ const getModelList = async (manufacturerSeq) => {
 };
 
 // 세부 목록 조회
-const getTrimList = async (modelSeq) => {
+const getGenerationList = async (modelSeq) => {
   try {
-    const trimList = await manufacturerModel.getTrimList(modelSeq);
-    return trimList;
+    const generationList = await manufacturerModel.getGenerationList(modelSeq);
+    return generationList;
   } catch (error) {
     logger.error(error);
   }
 };
 
-module.exports = { getManufacturerList, getModelList, getTrimList };
+module.exports = { getManufacturerList, getModelList, getGenerationList };

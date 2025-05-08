@@ -25,13 +25,15 @@ const getModelList = async (req, res) => {
 };
 
 // 세부 모델 목록 조회
-const getTrimList = async (req, res) => {
+const getGenerationList = async (req, res) => {
   try {
     const { modelSeq } = req.params;
-    const trimList = await manufacturerService.getTrimList(modelSeq);
-    res.json(trimList);
+    const generationList = await manufacturerService.getGenerationList(
+      modelSeq
+    );
+    res.json(generationList);
   } catch (error) {
     logger.error(error);
   }
 };
-module.exports = { getManufacturerList, getModelList, getTrimList };
+module.exports = { getManufacturerList, getModelList, getGenerationList };
