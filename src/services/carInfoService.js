@@ -1,3 +1,4 @@
+const { error } = require("winston");
 const carInfoModel = require("../models/carInfoModel");
 const logger = require("../utils/loggerUtil");
 
@@ -6,6 +7,16 @@ const getCarInfo = async (trimSeq) => {
   try {
     const carInfo = carInfoModel.getCarInfo(trimSeq);
     return carInfo;
+  } catch (error) {
+    logger.error(error);
+  }
+};
+
+// 자동차 상세 목록 조회
+const getTrimList = async (generationSeq) => {
+  try {
+    const trimList = carInfoModel.getTrimList(generationSeq);
+    return trimList;
   } catch (error) {
     logger.error(error);
   }
