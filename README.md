@@ -3,7 +3,7 @@
 node src/server.js
 
 ```
-database : postgresql
+database : mysql
 템플릿 : ejs 사용 불편으로 바꿀까 생각중
 ```
 
