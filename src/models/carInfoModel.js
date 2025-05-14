@@ -2,7 +2,7 @@ const dbHelper = require("../utils/dbHelper");
 
 // 자동차 상세 정보 조회
 const getCarInfo = async (trimSeq) => {
-  return dbHelper.query(
+  return await dbHelper.query(
     `
       SELECT es.engine_type AS engineType,
               es.aspiration,
@@ -42,7 +42,7 @@ const getCarInfo = async (trimSeq) => {
 
 // 자동차 상세 목록 조회
 const getTrimList = async (generationSeq) => {
-  return dbHelper.query(
+  return await dbHelper.query(
     `SELECT trim_seq AS trimSeq,
             generation_seq AS generationSeq,
             trim_name AS trimName
@@ -52,4 +52,4 @@ const getTrimList = async (generationSeq) => {
   );
 };
 
-module.exports = { getCarInfo };
+module.exports = { getCarInfo, getTrimList };

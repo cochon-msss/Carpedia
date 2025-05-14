@@ -19,7 +19,7 @@ main {
     align-items: center; // 수직 정렬
     height: 46px;
     padding: 0 19px;
-
+    gap: 20px; // 여기에 간격 추가
     .tab_item {
       .menu {
         font-size: 1.6rem;

@@ -1,11 +1,10 @@
-const { error } = require("winston");
 const carInfoModel = require("../models/carInfoModel");
 const logger = require("../utils/loggerUtil");
 
 // 자동차 상세 정보 조회
 const getCarInfo = async (trimSeq) => {
   try {
-    const carInfo = carInfoModel.getCarInfo(trimSeq);
+    const carInfo = await carInfoModel.getCarInfo(trimSeq);
     return carInfo;
   } catch (error) {
     logger.error(error);
@@ -15,11 +14,11 @@ const getCarInfo = async (trimSeq) => {
 // 자동차 상세 목록 조회
 const getTrimList = async (generationSeq) => {
   try {
-    const trimList = carInfoModel.getTrimList(generationSeq);
+    const trimList = await carInfoModel.getTrimList(generationSeq);
     return trimList;
   } catch (error) {
     logger.error(error);
   }
 };
 
-module.exports = { getCarInfo };
+module.exports = { getCarInfo, getTrimList };

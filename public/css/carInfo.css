@@ -17,6 +17,7 @@ main .container {
   align-items: center;
   height: 46px;
   padding: 0 19px;
+  gap: 20px;
 }
 .engine_category .tab_list .tab_item .menu {
   font-size: 1.6rem;

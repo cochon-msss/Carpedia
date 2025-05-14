@@ -19,18 +19,16 @@
                 <div>차 이미지</div>
                 <div class="engine_category">
                     <ul class="tab_list">
-                        <li class="tab_item">
-                            <a>
-                                <span class="menu">1.6 가솔린 터보</span>
-                            </a>
-                        </li>
-                    </ul>
-                    <ul class="tab_list">
-                        <li class="tab_item">
-                            <a>
-                                <span class="menu">2.0 가솔린 터보</span>
-                            </a>
-                        </li>
+                        <% carTrimList.forEach((trim)=> { %>
+                            <li class="tab_item">
+                                <a>
+                                    <span class="menu">
+                                        <%= trim.trimName %>
+                                    </span>
+                                </a>
+                            </li>
+                            <% }) %>
+
                     </ul>
                 </div>
                 <div>
