@@ -1,7 +1,7 @@
 const dbHelper = require("../utils/dbHelper");
 
 // 자동차 상세 정보 조회
-const getCarInfo = async (trimSeq) => {
+const getCarInfoDetail = async (trimSeq) => {
   return await dbHelper.query(
     `
       SELECT es.engine_type AS engineType,
@@ -28,13 +28,12 @@ const getCarInfo = async (trimSeq) => {
               cs.front_breake AS frontBreake,
               cs.rear_breake AS rearBreake,
               cs.steering_type AS steeringType
-          FROM (SELECT trim_seq
-                FROM trims t
-                WHERE t.trim_seq = ?) st
+          FROM trims t
           INNER JOIN engine_specs es USING(trim_seq)
           INNER JOIN performance_specs ps USING(trim_seq)
           INNER JOIN dismension_specs ds USING(trim_seq)
           INNER JOIN chassis_specs cs USING(trim_seq)
+          WHERE t.trim_seq = ?
     `,
     [trimSeq]
   );
@@ -52,4 +51,4 @@ const getTrimList = async (generationSeq) => {
   );
 };
 
-module.exports = { getCarInfo, getTrimList };
+module.exports = { getCarInfoDetail, getTrimList };

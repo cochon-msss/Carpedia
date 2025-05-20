@@ -1,0 +1,43 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/css/carInfo.css">
+    <link rel="stylesheet" type="text/css" href="/css/common.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/js/jquery-3.6.0.js"></script>
+    <script src="/js/common.js"></script>
+    <script src="/js/carInfoCommon.js"></script>
+
+    <title>자동차 정보 : 카피디아</title>
+
+</head>
+
+<body>
+    <%- include('../includes/header') %>
+        <main>
+            <div class="container">
+                <div>차 이미지</div>
+                <div class="engine_category">
+                    <ul class="tab_list">
+                        <% carTrimList.forEach((trim)=> { %>
+                            <li class="tab_item car_trim">
+                                <a>
+                                    <span class="menu" data-seq="<%= trim.trimSeq %>">
+                                        <%= trim.trimName %>
+                                    </span>
+                                </a>
+                            </li>
+                            <% }) %>
+
+                    </ul>
+                </div>
+                <div class="car_info_detail">
+
+                </div>
+            </div>
+        </main>
+
+</body>
+
+</html>
