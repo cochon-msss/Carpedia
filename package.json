@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "node-sass": "node-sass",
-    "sass": "node-sass public/scss/common.scss public/css/common.css"
+    "sass": "npx sass public/scss/common.scss public/css/common.css --no-source-map && npx sass public/scss/main.scss public/css/main.css --no-source-map && npx sass public/scss/carInfo.scss public/css/carInfo.css --no-source-map && npx sass public/scss/carCompare.scss public/css/carCompare.css --no-source-map && npx sass public/scss/community.scss public/css/community.css --no-source-map && npx sass public/scss/communityDetail.scss public/css/communityDetail.css --no-source-map"
   },
   "keywords": [],
   "author": "",

@@ -1,43 +1,88 @@
-<html lang="en">
+<html lang="ko">
 
 <head>
+    <script src="/js/theme-init.js"></script>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="/css/carInfo.css">
-    <link rel="stylesheet" type="text/css" href="/css/common.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/common.css">
+    <link rel="stylesheet" type="text/css" href="/css/carInfo.css">
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
     <script src="/js/jquery-3.6.0.js"></script>
     <script src="/js/common.js"></script>
     <script src="/js/carInfoCommon.js"></script>
-
     <title>자동차 정보 : 카피디아</title>
-
 </head>
 
 <body>
     <%- include('../includes/header') %>
-        <main>
-            <div class="container">
-                <div>차 이미지</div>
-                <div class="engine_category">
-                    <ul class="tab_list">
-                        <% carTrimList.forEach((trim)=> { %>
-                            <li class="tab_item car_trim">
-                                <a>
-                                    <span class="menu" data-seq="<%= trim.trimSeq %>">
-                                        <%= trim.trimName %>
-                                    </span>
-                                </a>
-                            </li>
-                            <% }) %>
+    <main>
+        <div class="container">
+            <div class="car-image-area">
+                <model-viewer
+                    src="/models/sample-car.glb"
+                    alt="3D 자동차 모델"
+                    auto-rotate
+                    camera-controls
+                    rotation-per-second="30deg"
+                    camera-orbit="45deg 65deg 105%"
+                    min-camera-orbit="auto auto 50%"
+                    max-camera-orbit="auto auto 200%"
+                    interaction-prompt="auto"
+                    shadow-intensity="1"
+                    environment-image="neutral"
+                    exposure="1"
+                    style="width: 100%; height: 100%; background: transparent;">
 
-                    </ul>
-                </div>
-                <div class="car_info_detail">
+                    <!-- 로딩 상태 -->
+                    <div class="model-loading" slot="poster">
+                        <div class="loading-spinner"></div>
+                        <p>3D 모델 로딩중...</p>
+                    </div>
+                </model-viewer>
 
+                <!-- 3D 모델이 없을 때 폴백 -->
+                <div class="model-fallback">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                        <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                        <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                    </svg>
+                    <p>3D 모델을 준비 중입니다</p>
+                    <span>마우스로 드래그하여 360° 회전, 스크롤하여 줌</span>
                 </div>
             </div>
-        </main>
 
+            <!-- 조작 안내 -->
+            <div class="viewer-controls">
+                <div class="control-hint">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 9l7 7 7-7"/></svg>
+                    드래그: 회전
+                </div>
+                <div class="control-hint">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                    스크롤: 줌
+                </div>
+            </div>
+
+            <div class="engine_category">
+                <ul class="tab_list">
+                    <% carTrimList.forEach((trim, index)=> { %>
+                        <li class="tab_item car_trim">
+                            <a>
+                                <span class="menu" data-seq="<%= trim.trimSeq %>">
+                                    <%= trim.trimName %>
+                                </span>
+                            </a>
+                        </li>
+                    <% }) %>
+                </ul>
+            </div>
+            <div class="car_info_detail">
+            </div>
+        </div>
+    </main>
 </body>
 
 </html>

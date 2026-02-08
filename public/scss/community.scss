@@ -1,3 +1,5 @@
+@import 'var';
+
 .community-container {
   max-width: 1000px;
   margin: 0 auto;
@@ -20,24 +22,26 @@
 
       input {
         padding: 10px;
-        border: 2px solid #ddd;
-        border-radius: 8px;
+        border: 2px solid var(--border);
+        border-radius: $radius-sm;
         font-size: 14px;
         width: 200px;
+        background: var(--bg-card);
+        color: var(--text-primary);
       }
 
       .search-btn {
         padding: 10px 15px;
         border: none;
-        background: #333;
-        color: white;
+        background: var(--text-primary);
+        color: var(--bg-card);
         font-size: 14px;
-        border-radius: 8px;
+        border-radius: $radius-sm;
         cursor: pointer;
         transition: 0.3s;
 
         &:hover {
-          background: #555;
+          background: var(--text-secondary);
         }
       }
     }
@@ -51,17 +55,18 @@
 
       button {
         padding: 8px 12px;
-        border: 2px solid #ddd;
+        border: 2px solid var(--border);
         border-radius: 6px;
-        background: white;
+        background: var(--bg-card);
+        color: var(--text-primary);
         cursor: pointer;
         transition: 0.3s;
 
         &.active,
         &:hover {
-          background: #333;
-          color: white;
-          border-color: #333;
+          background: var(--text-primary);
+          color: var(--bg-card);
+          border-color: var(--text-primary);
         }
       }
     }
@@ -74,13 +79,13 @@
       .post-card {
         padding: 15px;
         border-radius: 10px;
-        background: white;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        background: var(--bg-card);
+        box-shadow: var(--shadow-sm);
         transition: 0.3s;
 
         &:hover {
           transform: translateY(-3px);
-          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+          box-shadow: var(--shadow-md);
           cursor: pointer;
         }
 
@@ -92,7 +97,7 @@
 
         .post-preview {
           font-size: 14px;
-          color: #666;
+          color: var(--text-secondary);
           margin-bottom: 10px;
         }
 
@@ -100,7 +105,7 @@
           display: flex;
           justify-content: space-between;
           font-size: 12px;
-          color: #888;
+          color: var(--text-light);
         }
       }
     }

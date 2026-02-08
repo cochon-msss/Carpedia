@@ -5,12 +5,12 @@ const app = require("./app");
 const logger = require("./utils/loggerUtil");
 require("dotenv").config();
 
-const HTTP_PORT = process.env.HTTP_PORT;
-const HTTPS_PORT = process.env.HTTPS_PORT;
+const HTTP_PORT = 8080;
+const HTTPS_PORT = 8443;
 
 const options = {
-  key: fs.readFileSync(process.env.SSL_KEY_PATH),
-  cert: fs.readFileSync(process.env.SSL_CERT_PATH),
+  key: fs.readFileSync("/Users/cuddle/rootca.key"),
+  cert: fs.readFileSync("/Users/cuddle/rootca.crt"),
 };
 
 http.createServer(app).listen(HTTP_PORT, () => {

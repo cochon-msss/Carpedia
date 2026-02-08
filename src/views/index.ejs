@@ -1,82 +1,69 @@
-<html lang="en">
+<html lang="ko">
 
 <head>
+    <script src="/js/theme-init.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/svg+xml" href="/svg/favicon.svg">
-    <link rel="stylesheet" type="text/css" href="/css/main.css">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
     <link rel="stylesheet" type="text/css" href="/css/common.css">
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
     <script src="/js/jquery-3.6.0.js"></script>
     <script src="/js/main.js"></script>
     <script src="/js/common.js"></script>
-
     <title>카피디아</title>
 </head>
 
 <body>
     <%- include('./includes/header') %>
 
-        <main>
-            <div class="container">
-                <div class="search-form">
-                    <!-- 제조사 드롭다운 -->
-                    <div class="select-group">
-                        <div class="custom-dropdown dropdown-btn" id="brand-dropdown">
-                            <span class="selected">제조사</span>
-                            <svg class="dropdown-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="6 9 12 15 18 9"></polyline>
-                            </svg>
-                            <ul class="dropdown-list">
-                                <% manufacturers.forEach((manufacturer)=> { %>
-                                    <li data-seq="<%= manufacturer.manufacturerSeq %>">
-                                        <%= manufacturer.manufacturerName %>
-                                    </li>
-                                    <% }) %>
-                            </ul>
-                        </div>
-                    </div>
+    <main>
+        <div class="hero-section">
+            <div class="hero-content">
+                <h1>나에게 맞는 차를 찾아보세요</h1>
+                <p>제조사, 모델, 세부모델을 선택하여 상세 제원을 확인하세요</p>
+            </div>
+        </div>
 
-                    <!-- 모델 드롭다운 -->
-                    <div class="select-group is_disabled">
-                        <div class="custom-dropdown dropdown-btn" id="model-dropdown">
-                            <span class="selected">모델</span>
-                            <svg class="dropdown-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="6 9 12 15 18 9"></polyline>
-                            </svg>
-                            <ul class="dropdown-list">
-                            </ul>
+        <div class="browse-container">
+            <!-- Step 1: 제조사 선택 -->
+            <div class="browse-step" id="step-manufacturer">
+                <div class="step-header">
+                    <span class="step-number">1</span>
+                    <h3>제조사 선택</h3>
+                </div>
+                <div class="card-grid manufacturer-grid">
+                    <% manufacturers.forEach((manufacturer) => { %>
+                        <div class="select-card manufacturer-card" data-seq="<%= manufacturer.manufacturerSeq %>">
+                            <span class="card-name"><%= manufacturer.manufacturerName %></span>
+                            <span class="card-sub"><%= manufacturer.foundedYear %>년 설립</span>
                         </div>
-                    </div>
-
-                    <!-- 세부 모델 드롭다운 -->
-                    <div class="select-group is_disabled">
-                        <div class="custom-dropdown dropdown-btn" id="generation-dropdown">
-                            <span class="selected">세부모델</span>
-                            <svg class="dropdown-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="6 9 12 15 18 9"></polyline>
-                            </svg>
-                            <ul class="dropdown-list">
-                            </ul>
-                        </div>
-                    </div>
-
-                    <!-- 검색 버튼 -->
-                    <div class="search-button">
-                        <button type="button" class="car-search">검색</button>
-                    </div>
+                    <% }) %>
                 </div>
             </div>
-        </main>
 
+            <!-- Step 2: 모델 선택 -->
+            <div class="browse-step hidden" id="step-model">
+                <div class="step-header">
+                    <span class="step-number">2</span>
+                    <h3>모델 선택</h3>
+                </div>
+                <div class="card-grid model-grid">
+                </div>
+            </div>
 
-
-
+            <!-- Step 3: 세대 선택 -->
+            <div class="browse-step hidden" id="step-generation">
+                <div class="step-header">
+                    <span class="step-number">3</span>
+                    <h3>세부모델 선택</h3>
+                </div>
+                <div class="card-grid generation-grid">
+                </div>
+            </div>
+        </div>
+    </main>
 </body>
 
 </html>

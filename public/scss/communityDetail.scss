@@ -1,10 +1,12 @@
+@import 'var';
+
 .community-detail {
   max-width: 800px;
   margin: 40px auto;
   padding: 20px;
-  background: #fff;
+  background: var(--bg-card);
   border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-md);
   animation: fadeIn 0.3s ease-in-out;
 }
 
@@ -17,7 +19,7 @@
 .community-detail .meta {
   display: flex;
   justify-content: space-between;
-  color: #666;
+  color: var(--text-secondary);
   font-size: 14px;
   margin-bottom: 20px;
 }
@@ -31,7 +33,7 @@
 .comment-section {
   margin-top: 30px;
   padding-top: 20px;
-  border-top: 1px solid #ddd;
+  border-top: 1px solid var(--border);
 }
 
 .comment-section h2 {
@@ -45,7 +47,7 @@
 
 .comment {
   padding: 10px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--border-light);
 }
 
 .comment .author {
@@ -55,7 +57,7 @@
 
 .comment .text {
   font-size: 14px;
-  color: #333;
+  color: var(--text-primary);
 }
 
 .comment-form {
@@ -67,15 +69,17 @@
 .comment-form textarea {
   width: 100%;
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border);
   border-radius: 5px;
   resize: none;
+  background: var(--bg-card);
+  color: var(--text-primary);
 }
 
 .comment-form button {
   padding: 10px;
-  background: #333;
-  color: white;
+  background: var(--text-primary);
+  color: var(--bg-card);
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -83,7 +87,7 @@
 }
 
 .comment-form button:hover {
-  background: #555;
+  background: var(--text-secondary);
 }
 
 @keyframes fadeIn {

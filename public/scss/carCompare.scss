@@ -1,118 +1,166 @@
+@import 'var';
+
 main {
   .container {
+    background: var(--bg-card);
+    border-radius: $radius-lg;
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+    transition: background-color 0.3s;
+  }
+}
+
+.compare-header {
+  padding: 24px 30px;
+  border-bottom: 1px solid var(--border);
+
+  h2 { font-size: 22px; font-weight: 800; color: var(--text-primary); }
+  p { font-size: 14px; color: var(--text-secondary); margin-top: 4px; }
+}
+
+.car_images {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  .car_image {
+    height: 320px;
+    background: linear-gradient(135deg, #111827 0%, #1e293b 100%);
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 30px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 30px;
-    width: 100%;
-  }
-
-  .car_images {
-    display: flex;
     justify-content: center;
-    align-items: center; // 수직 정렬 추가
-    gap: 40px;
-    width: 100%;
+    color: rgba(255, 255, 255, 0.25);
+    font-size: 15px;
+    font-weight: 500;
+    position: relative;
 
-    .car_image {
+    &:first-child { border-right: 1px solid rgba(255, 255, 255, 0.1); }
+
+    .car-label {
+      position: absolute;
+      top: 16px; left: 16px;
+      background: var(--accent);
+      color: #fff;
+      padding: 4px 12px;
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 700;
+      z-index: 1;
+    }
+
+    model-viewer {
       width: 100%;
-      height: 250px;
-      background-color: #ddd;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      font-size: 1.5rem;
+      height: 100%;
+      --poster-color: transparent;
     }
   }
+}
 
-  .engine_category {
+.engine_category {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-secondary);
+  transition: background-color 0.3s;
+
+  .tab_list {
     display: flex;
-    justify-content: center;
-    gap: 20px;
-    width: 100%; // 전체 너비 활용
-    flex-wrap: wrap; // 줄 바꿈 가능하도록 설정
+    align-items: center;
+    padding: 16px 20px;
+    gap: 8px;
+    overflow-x: auto;
 
-    .tab_list {
-      display: flex;
-      align-items: center;
-      justify-content: center; // 가로 정렬
-      height: 50px;
-      padding: 0 25px;
-      flex-grow: 1; // 가로 너비 균등 배분
+    &:first-child { border-right: 1px solid var(--border); }
 
-      .tab_item {
-        .menu {
-          font-size: 1.8rem;
-          font-weight: bold;
-          border-bottom: 2px solid black;
-          padding-bottom: 5px;
-        }
+    .tab_item a .menu {
+      display: inline-block;
+      padding: 6px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+
+      &:hover {
+        color: var(--accent);
+        border-color: var(--accent);
+        background: var(--accent-light);
       }
     }
   }
+}
 
-  .specs_container {
-    display: flex;
-    justify-content: center;
-    align-items: center; // 수직 정렬 추가
-    gap: 50px;
+.specs_container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  .specs {
+    padding: 24px;
+
+    &:first-child { border-right: 1px solid var(--border); }
+  }
+}
+
+.middle_title {
+  font-size: 14px;
+  font-weight: 700;
+  padding: 10px 16px;
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-secondary);
+  border-radius: $radius-sm $radius-sm 0 0;
+  border: 1px solid var(--border);
+  border-bottom: none;
+  transition: background-color 0.3s;
+
+  .cat-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  &.engine-title { color: var(--engine-color); .cat-dot { background: var(--engine-color); } }
+  &.performance-title { color: var(--performance-color); .cat-dot { background: var(--performance-color); } }
+  &.dimension-title { color: var(--dimension-color); .cat-dot { background: var(--dimension-color); } }
+  &.chassis-title { color: var(--chassis-color); .cat-dot { background: var(--chassis-color); } }
+}
+
+.table_area {
+  border: 1px solid var(--border);
+  border-radius: 0 0 $radius-sm $radius-sm;
+  overflow: hidden;
+  margin-bottom: 16px;
+
+  table {
     width: 100%;
+    border-collapse: collapse;
 
-    .specs {
-      width: 45%;
-      background: #f9f9f9;
-      padding: 20px;
-      border-radius: 10px;
+    tr:not(:last-child) { border-bottom: 1px solid var(--border-light); }
 
-      .middle_title {
-        font-size: 22px;
-        font-weight: bold;
-        padding: 12px 0;
-        border-bottom: 3px solid #ddd;
-        margin-bottom: 15px;
-        text-align: center;
-      }
+    th, td {
+      padding: 10px 16px;
+      font-size: 13px;
+      text-align: left;
+    }
 
-      .table_area {
-        background: #fff;
-        padding: 20px;
-        border-radius: 10px;
+    th {
+      color: var(--text-secondary);
+      font-weight: 500;
+      width: 40%;
+      background: var(--bg-secondary);
+      transition: background-color 0.3s;
+    }
 
-        table {
-          width: 100%;
-          border-collapse: collapse;
-          font-size: 16px;
-          color: #333;
-
-          th,
-          td {
-            padding: 15px;
-            border-bottom: 1px solid #ddd;
-            text-align: left;
-          }
-
-          th {
-            background: #f1f1f1;
-            font-weight: bold;
-            width: 40%;
-            font-size: 16px;
-          }
-
-          td {
-            background: #fff;
-            font-size: 16px;
-          }
-
-          tr:last-child th,
-          tr:last-child td {
-            border-bottom: none;
-          }
-        }
-      }
+    td {
+      color: var(--text-primary);
+      font-weight: 600;
+      background: var(--bg-card);
+      transition: background-color 0.3s;
     }
   }
 }

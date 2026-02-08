@@ -1,82 +1,225 @@
+@import 'var';
+
 main {
   .container {
-    display: grid;
-    grid-template-rows: 500px 50px auto;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 30px;
+    background: var(--bg-card);
+    border-radius: $radius-lg;
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+    transition: background-color 0.3s;
+  }
+}
+
+.car-image-area {
+  background: linear-gradient(135deg, #111827 0%, #1e293b 100%);
+  height: 450px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.25);
+  font-size: 16px;
+  font-weight: 500;
+  position: relative;
+  overflow: hidden;
+
+  model-viewer {
+    width: 100%;
+    height: 100%;
+    --poster-color: transparent;
+  }
+
+  .model-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    color: rgba(255, 255, 255, 0.5);
+
+    .loading-spinner {
+      width: 36px;
+      height: 36px;
+      border: 3px solid rgba(255, 255, 255, 0.15);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    p { font-size: 13px; font-weight: 500; }
+  }
+
+  .model-fallback {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    color: rgba(255, 255, 255, 0.25);
+    pointer-events: none;
+    z-index: 0;
+
+    p { font-size: 16px; font-weight: 600; }
+    span { font-size: 12px; color: rgba(255, 255, 255, 0.15); }
+  }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.viewer-controls {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  padding: 10px 0;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border);
+  transition: background-color 0.3s;
+
+  .control-hint {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--text-light);
+
+    svg { color: var(--text-light); }
   }
 }
 
 .engine_category {
-  display: flex;
-  overflow-x: auto; // 가로 스크롤 허용
-  white-space: nowrap; // 줄바꿈 방지
-  gap: 10px; // 리스트 사이 간격 조정
+  padding: 20px 30px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-secondary);
+  transition: background-color 0.3s;
 
   .tab_list {
-    display: flex; // ul 내부 요소 가로 정렬
-    align-items: center; // 수직 정렬
-    height: 46px;
-    padding: 0 19px;
-    gap: 20px; // 여기에 간격 추가
-    .tab_item {
-      .menu {
-        font-size: 1.6rem;
-        font-weight: bold;
-        border-bottom: 1px solid black;
-        padding-bottom: 4px;
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+
+    .tab_item.car_trim {
+      a {
+        display: block;
+
+        .menu {
+          display: inline-block;
+          padding: 8px 20px;
+          font-size: 14px;
+          font-weight: 600;
+          color: var(--text-secondary);
+          background: var(--bg-card);
+          border-radius: 100px;
+          border: 1px solid var(--border);
+          cursor: pointer;
+          transition: all 0.2s;
+          white-space: nowrap;
+
+          &:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+            background: var(--accent-light);
+          }
+        }
+      }
+
+      &.active a .menu {
+        color: #fff;
+        background: var(--accent);
+        border-color: var(--accent);
       }
     }
   }
 }
 
-.table_section {
-  background: #f9f9f9;
-  border-radius: 10px;
+.car_info_detail {
+  padding: 30px;
+}
 
-  .middle_title {
-    font-size: 22px;
-    font-weight: bold;
-    padding: 12px 0;
-    border-bottom: 2px solid #ddd;
-    margin-bottom: 15px;
-    margin-left: 15px;
-    margin-right: 15px;
-    text-align: center;
+.spec-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.spec-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: $radius-md;
+  overflow: hidden;
+  transition: all 0.2s;
+
+  &:hover { box-shadow: var(--shadow-md); }
+
+  .spec-card-header {
+    padding: 14px 20px;
+    font-size: 15px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg-secondary);
+    transition: background-color 0.3s;
+
+    .spec-icon {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
   }
-  .table_area {
-    background: #f9f9f9;
-    padding: 15px;
-    border-radius: 8px;
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 14px;
-      color: #333;
+  &.engine .spec-card-header {
+    color: var(--engine-color);
+    border-left: 3px solid var(--engine-color);
+    .spec-icon { background: var(--engine-color); }
+  }
 
-      th,
-      td {
-        padding: 12px;
-        border-bottom: 1px solid #ddd;
-        text-align: left;
-      }
+  &.performance .spec-card-header {
+    color: var(--performance-color);
+    border-left: 3px solid var(--performance-color);
+    .spec-icon { background: var(--performance-color); }
+  }
 
-      th {
-        background: #f1f1f1;
-        font-weight: bold;
-        width: 30%;
-      }
+  &.dimension .spec-card-header {
+    color: var(--dimension-color);
+    border-left: 3px solid var(--dimension-color);
+    .spec-icon { background: var(--dimension-color); }
+  }
 
-      td {
-        background: #fff;
-      }
+  &.chassis .spec-card-header {
+    color: var(--chassis-color);
+    border-left: 3px solid var(--chassis-color);
+    .spec-icon { background: var(--chassis-color); }
+  }
 
-      tr:last-child th,
-      tr:last-child td {
-        border-bottom: none;
-      }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+
+    tr:not(:last-child) {
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    th, td {
+      padding: 11px 20px;
+      font-size: 13px;
+      text-align: left;
+    }
+
+    th {
+      color: var(--text-secondary);
+      font-weight: 500;
+      width: 40%;
+      background: var(--bg-secondary);
+      transition: background-color 0.3s;
+    }
+
+    td {
+      color: var(--text-primary);
+      font-weight: 600;
     }
   }
 }

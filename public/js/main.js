@@ -1,117 +1,87 @@
 $(() => {
-  function updateDropdownWidth() {
-    $(".custom-dropdown").each(function () {
-      let dropdownWidth = $(this).outerWidth(); // 클릭된 요소의 너비 가져오기
-      $(this)
-        .find(".dropdown-list")
-        .css("width", dropdownWidth + "px");
+  // Step 1: 제조사 클릭
+  $(".manufacturer-card").on("click", function () {
+    const manufacturerSeq = $(this).data("seq");
+
+    $(".manufacturer-card").removeClass("active");
+    $(this).addClass("active");
+
+    $.ajax({
+      url: "/model/" + manufacturerSeq,
+      method: "GET",
+      success: function (data) {
+        const modelGrid = $(".model-grid");
+        modelGrid.empty();
+
+        data.forEach((model) => {
+          modelGrid.append(`
+            <div class="select-card model-card" data-seq="${model.modelSeq}">
+              <span class="card-badge">${model.bodyType}</span>
+              <span class="card-name">${model.modelName}</span>
+              <span class="card-sub">${model.segment}</span>
+            </div>
+          `);
+        });
+
+        $("#step-model").removeClass("hidden");
+        $("#step-generation").addClass("hidden");
+
+        // 스크롤 이동
+        $("#step-model")[0].scrollIntoView({ behavior: "smooth", block: "start" });
+      },
     });
-  }
-
-  $(".car-search").on("click", function () {
-    // 검색
-    let generationSeq = $("#generation-dropdown")
-      .children(".selected")
-      .attr("data-seq");
-    window.location.href = `/carInfo?generationSeq=` + generationSeq;
   });
 
-  $(".custom-dropdown").click(function (event) {
-    event.stopPropagation();
-    $(".custom-dropdown").not(this).removeClass("open");
-    $(this).toggleClass("open");
-    updateDropdownWidth(); // 너비 업데이트
+  // Step 2: 모델 클릭
+  $(document).on("click", ".model-card", function () {
+    const modelSeq = $(this).data("seq");
 
-    let dropdownList = $(this).find(".dropdown-list");
+    $(".model-card").removeClass("active");
+    $(this).addClass("active");
 
-    if ($(this).hasClass("open")) {
-      dropdownList.addClass("open");
-    } else {
-      dropdownList.removeClass("open");
-    }
-  });
+    $.ajax({
+      url: "/generation/" + modelSeq,
+      method: "GET",
+      success: function (data) {
+        const genGrid = $(".generation-grid");
+        genGrid.empty();
 
-  $(".dropdown-list").on("click", "li", function (event) {
-    event.stopPropagation();
-    let selectedText = $(this).text().trim();
-    let selectedSeq = $(this).attr("data-seq");
-    let custom_dropdown = $(this).closest(".custom-dropdown");
-    custom_dropdown.find(".selected").text(selectedText);
-    custom_dropdown.find(".selected").attr("data-seq", selectedSeq);
-    custom_dropdown.removeClass("open");
-    $(this).closest(".dropdown-list").removeClass("open");
+        data.forEach((gen) => {
+          const status = gen.discontinuedFlag === "Y"
+            ? `<span class="card-tag discontinued">단종</span>`
+            : `<span class="card-tag current">현재 판매</span>`;
 
-    let thisId = custom_dropdown.attr("id");
-    switch (thisId) {
-      case "brand-dropdown": // 제조사
-        $("#model-dropdown")
-          .addClass("open")
-          .find(".dropdown-list")
-          .addClass("open");
-        let manufacturerSeq = $(this).attr("data-seq");
-        let modelDropdown = $("#model-dropdown").find(".dropdown-list");
-        $.ajax({
-          // 제조사 클릭 시 해당 제조사 모델 정보 조회
-          url: "/model/" + manufacturerSeq,
-          method: "GET",
-          beforeSend: function () {
-            modelDropdown.empty(); // 모델 정보 비워준다.
-            $("#model-dropdown")
-              .parents(".select-group")
-              .removeClass("is_disabled");
-          },
-          success: function (data) {
-            let modelData = data;
-            let modelHtml = "";
-            modelData.forEach((model) => {
-              modelHtml += `<li data-seq="${model.modelSeq}">${model.modelName}</li>`;
-            });
-            modelDropdown.append(modelHtml);
-          },
+          const period = gen.discontinuedFlag === "Y"
+            ? `${gen.releaseDate} ~ ${gen.discontinuedDate}`
+            : `${gen.releaseDate} ~ 현재`;
+
+          genGrid.append(`
+            <div class="select-card generation-card" data-seq="${gen.generationSeq}">
+              <div class="card-top">
+                <span class="card-name">${gen.generationName}</span>
+                ${status}
+              </div>
+              <span class="card-sub">${period}</span>
+            </div>
+          `);
         });
-        break;
-      case "model-dropdown": // 모델
-        $("#generation-dropdown")
-          .addClass("open")
-          .find(".dropdown-list")
-          .addClass("open");
-        let modelSeq = $(this).attr("data-seq");
-        let generationDropdown = $("#generation-dropdown").find(
-          ".dropdown-list"
-        );
-        $.ajax({
-          // 모델 클릭 시 해당 모델 상세 정보 조회
-          url: "/generation/" + modelSeq,
-          method: "",
-          beforeSend: function () {
-            generationDropdown.empty(); // 세부모델 비워준다.
-            $("#generation-dropdown")
-              .parents(".select-group")
-              .removeClass("is_disabled");
-          },
-          success: function (data) {
-            let generationData = data;
-            let generationHtml = "";
-            generationData.forEach((generation) => {
-              generationHtml += `<li data-seq="${generation.generationSeq}">${generation.generationName}</li>`;
-            });
-            generationDropdown.append(generationHtml);
-          },
-        });
-        break;
-      case "generation-dropdown": // 상세
-        break;
-    }
+
+        $("#step-generation").removeClass("hidden");
+        $("#step-generation")[0].scrollIntoView({ behavior: "smooth", block: "start" });
+      },
+    });
   });
 
-  $(document).click(function () {
-    $(".custom-dropdown").removeClass("open");
-    $(".dropdown-list").removeClass("open");
+  // Step 3: 세대 클릭 → carInfo 페이지로 이동
+  $(document).on("click", ".generation-card", function () {
+    const generationSeq = $(this).data("seq");
+    window.location.href = "/carInfo?generationSeq=" + generationSeq;
   });
 
-  // 창 크기 변경 시 다시 계산
-  $(window).resize(updateDropdownWidth);
-
-  // 페이지 로드 시 한 번 실행
-  updateDropdownWidth();
+  // 뒤로가기 버튼
+  $(document).on("click", ".step-back", function () {
+    const targetId = $(this).data("target");
+    $(this).closest(".browse-step").addClass("hidden");
+    $("#" + targetId)[0].scrollIntoView({ behavior: "smooth", block: "start" });
+  });
 });

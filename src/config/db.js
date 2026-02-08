@@ -1,13 +1,12 @@
 const mysql = require("mysql2/promise");
 const logger = require("../utils/loggerUtil");
-require("dotenv").config();
 
 const client = mysql.createPool({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  database: process.env.DB_NAME,
-  password: process.env.DB_PASSWORD, // MySQL은 비번 필요
-  port: process.env.DB_PORT,
+  host: "localhost",
+  user: "root",
+  database: "carpidia",
+  password: "",
+  port: 3306,
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
