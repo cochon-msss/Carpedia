@@ -123,3 +123,9 @@ package-lock.json
 # Claude Code
 CLAUDE.md
 .claude/
+
+# IDE
+.idea/
+
+# 3D 모델
+public/models/
