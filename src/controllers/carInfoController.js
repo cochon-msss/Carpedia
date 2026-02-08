@@ -9,6 +9,7 @@ const getTrimList = async (req, res) => {
     res.render("carInfo/carInfo", { carTrimList });
   } catch (error) {
     logger.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 };
 
@@ -20,6 +21,7 @@ const getCarInfoDetail = async (req, res) => {
     res.render("carInfo/carInfoDetail", { carInfoDetail });
   } catch (error) {
     logger.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 };
 

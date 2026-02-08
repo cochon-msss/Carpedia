@@ -4,7 +4,7 @@ const winstonDaily = require("winston-daily-rotate-file");
 const logger = winston.createLogger({
   level: "info", // 로그 레벨
   format: winston.format.combine(
-    winston.format.label({ label: "[cochon-server access]" }),
+    winston.format.label({ label: "[carpedia access]" }),
     winston.format.colorize(),
     winston.format.timestamp({
       format: "YYYY-MM-DD HH:mm:ss",

@@ -6,9 +6,9 @@ $(() => {
       $(".car_trim").removeClass("active");
       $(this).addClass("active");
 
-      let trim_seq = $(this).find("span").attr("data-seq");
+      let trimSeq = $(this).find("span").attr("data-seq");
       $.ajax({
-        url: `/carInfo/detail?trimSeq=` + trim_seq,
+        url: `/carInfo/detail?trimSeq=` + trimSeq,
         method: "GET",
         beforeSend: function () {
           $(".car_info_detail").empty();
