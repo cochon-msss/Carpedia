@@ -6,7 +6,6 @@ main {
     border-radius: $radius-lg;
     box-shadow: var(--shadow-md);
     overflow: hidden;
-    transition: background-color 0.3s;
   }
 }
 
@@ -18,6 +17,76 @@ main {
   p { font-size: 14px; color: var(--text-secondary); margin-top: 4px; }
 }
 
+// ===== 차량 선택 슬롯 =====
+.compare-slots {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 1px solid var(--border);
+}
+
+.compare-slot {
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:first-child {
+    border-right: 1px solid var(--border);
+  }
+}
+
+.slot-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  color: var(--text-light);
+
+  .slot-placeholder-text {
+    font-size: 14px;
+  }
+}
+
+.btn-select-car,
+.btn-change-car {
+  padding: 10px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  background: var(--accent);
+  border-radius: $radius-sm;
+  transition: background 0.2s;
+
+  &:hover {
+    background: var(--accent-hover);
+  }
+}
+
+.btn-change-car {
+  padding: 6px 16px;
+  font-size: 12px;
+}
+
+.slot-selected {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+
+  .selected-car-name {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .selected-trim-name {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 4px;
+  }
+}
+
+// ===== 3D 모델 뷰어 =====
 .car_images {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -28,9 +97,6 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: rgba(255, 255, 255, 0.25);
-    font-size: 15px;
-    font-weight: 500;
     position: relative;
 
     &:first-child { border-right: 1px solid rgba(255, 255, 255, 0.1); }
@@ -55,44 +121,7 @@ main {
   }
 }
 
-.engine_category {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  border-bottom: 1px solid var(--border);
-  background: var(--bg-secondary);
-  transition: background-color 0.3s;
-
-  .tab_list {
-    display: flex;
-    align-items: center;
-    padding: 16px 20px;
-    gap: 8px;
-    overflow-x: auto;
-
-    &:first-child { border-right: 1px solid var(--border); }
-
-    .tab_item a .menu {
-      display: inline-block;
-      padding: 6px 16px;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text-secondary);
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 100px;
-      cursor: pointer;
-      transition: all 0.2s;
-      white-space: nowrap;
-
-      &:hover {
-        color: var(--accent);
-        border-color: var(--accent);
-        background: var(--accent-light);
-      }
-    }
-  }
-}
-
+// ===== 제원 비교 테이블 =====
 .specs_container {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -153,14 +182,159 @@ main {
       font-weight: 500;
       width: 40%;
       background: var(--bg-secondary);
-      transition: background-color 0.3s;
-    }
+      }
 
     td {
       color: var(--text-primary);
       font-weight: 600;
       background: var(--bg-card);
-      transition: background-color 0.3s;
+      }
+  }
+}
+
+// ===== 차량 선택 모달 =====
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background: var(--bg-card);
+  border-radius: $radius-lg;
+  width: 90%;
+  max-width: 720px;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-lg);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+
+  h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .modal-close {
+    font-size: 24px;
+    color: var(--text-secondary);
+    line-height: 1;
+    &:hover { color: var(--text-primary); }
+  }
+}
+
+.modal-steps {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+
+  .modal-step {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-light);
+
+    &.active {
+      color: var(--accent);
     }
+  }
+
+  .modal-step-arrow {
+    font-size: 13px;
+    color: var(--text-light);
+  }
+}
+
+.modal-body {
+  overflow-y: auto;
+  flex: 1;
+}
+
+.modal-step-content {
+  padding: 20px 24px;
+}
+
+.modal-back {
+  font-size: 13px;
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 16px;
+  display: inline-block;
+
+  &:hover {
+    color: var(--accent-hover);
+  }
+}
+
+.modal-card-grid {
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+}
+
+.modal-step4-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.btn-other-car {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  padding: 6px 12px;
+  border: 1px solid var(--border);
+  border-radius: $radius-sm;
+  transition: all 0.2s;
+
+  &:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+}
+
+// ===== 트림 리스트 =====
+.trim-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: $radius-sm;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    border-color: var(--accent);
+    background: var(--accent-light);
+  }
+
+  .trim-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .trim-select-arrow {
+    font-size: 18px;
+    color: var(--text-light);
   }
 }

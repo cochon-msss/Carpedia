@@ -20,28 +20,6 @@
   --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.1);
 }
 
-[data-theme=dark] {
-  --bg: #0f172a;
-  --bg-card: #1e293b;
-  --bg-secondary: #1e293b;
-  --bg-header: #0f172a;
-  --text-primary: #f1f5f9;
-  --text-secondary: #94a3b8;
-  --text-light: #64748b;
-  --accent: #818cf8;
-  --accent-hover: #6366f1;
-  --accent-light: rgba(129, 140, 248, 0.12);
-  --border: #334155;
-  --border-light: #1e293b;
-  --engine-color: #fb7185;
-  --performance-color: #fb923c;
-  --dimension-color: #2dd4bf;
-  --chassis-color: #a5b4fc;
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
-}
-
 *,
 ::before,
 ::after {
@@ -56,7 +34,6 @@ body {
   color: var(--text-primary);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
-  transition: background-color 0.3s, color 0.3s;
 }
 
 button {
@@ -111,7 +88,6 @@ header {
   padding: 0 40px;
   z-index: 1000;
   height: 80px;
-  transition: background-color 0.3s;
 }
 header .header-container {
   display: flex;
@@ -158,25 +134,6 @@ header .header-container .user-menu {
   align-items: center;
   gap: 8px;
 }
-header .header-container .user-menu .theme-toggle {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.2s;
-  color: rgba(255, 255, 255, 0.5);
-}
-header .header-container .user-menu .theme-toggle:hover {
-  background: rgba(255, 255, 255, 0.08);
-  color: #fff;
-}
-header .header-container .user-menu .theme-toggle .icon-sun,
-header .header-container .user-menu .theme-toggle .icon-moon {
-  display: none;
-}
 header .header-container .user-menu svg {
   color: rgba(255, 255, 255, 0.5);
   transition: color 0.2s;
@@ -186,18 +143,69 @@ header .header-container .user-menu svg:hover {
   color: #fff;
 }
 
-:root .icon-moon {
-  display: block !important;
+.card-grid {
+  display: grid;
+  gap: 12px;
 }
 
-:root .icon-sun {
-  display: none !important;
+.select-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 18px 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
-
-[data-theme=dark] .icon-moon {
-  display: none !important;
+.select-card:hover {
+  border-color: var(--accent);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
 }
-
-[data-theme=dark] .icon-sun {
-  display: block !important;
+.select-card.active {
+  border-color: var(--accent);
+  background: var(--accent-light);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+.select-card .card-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+.select-card .card-sub {
+  font-size: 12px;
+  color: var(--text-light);
+}
+.select-card .card-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent);
+  background: var(--accent-light);
+  padding: 2px 8px;
+  border-radius: 4px;
+  width: fit-content;
+}
+.select-card .card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.select-card .card-tag {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+.select-card .card-tag.current {
+  color: #059669;
+  background: rgba(5, 150, 105, 0.1);
+}
+.select-card .card-tag.discontinued {
+  color: var(--text-light);
+  background: var(--border-light);
 }

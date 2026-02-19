@@ -1,196 +1,255 @@
 <html lang="ko">
 
 <head>
-    <script src="/js/theme-init.js"></script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://cdn.jsdelivr.net">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
-    <link rel="stylesheet" type="text/css" href="/css/common.css">
-    <link rel="stylesheet" type="text/css" href="/css/carCompare.css">
-    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
-    <script src="/js/jquery-3.6.0.js"></script>
-    <script src="/js/common.js"></script>
-    <title>비교하기 : 카피디아</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="/svg/favicon.svg">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <link rel="stylesheet" type="text/css" href="/css/common.css">
+  <link rel="stylesheet" type="text/css" href="/css/carCompare.css">
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
+  <script src="/js/jquery-3.6.0.js"></script>
+  <script defer src="/js/common.js"></script>
+  <script defer src="/js/carCompare.js"></script>
+  <title>비교하기 : 카피디아</title>
 </head>
 
 <body>
-    <%- include('./includes/header') %>
-    <main>
-        <div class="container">
-            <div class="compare-header">
-                <h2>차량 비교</h2>
-                <p>두 차량의 제원을 한눈에 비교해보세요</p>
-            </div>
+  <%- include('./includes/header') %>
+  <main>
+    <div class="container">
+      <div class="compare-header">
+        <h2>차량 비교</h2>
+        <p>두 차량의 제원을 한눈에 비교해보세요</p>
+      </div>
 
-            <div class="car_images">
-                <div class="car_image">
-                    <span class="car-label">차량 1</span>
-                    <model-viewer
-                        src="/models/sample-car.glb"
-                        alt="차량 1 3D 모델"
-                        auto-rotate
-                        camera-controls
-                        rotation-per-second="30deg"
-                        camera-orbit="45deg 65deg 105%"
-                        shadow-intensity="0.8"
-                        environment-image="neutral"
-                        style="width: 100%; height: 100%; background: transparent;">
-                    </model-viewer>
-                </div>
-                <div class="car_image">
-                    <span class="car-label">차량 2</span>
-                    <model-viewer
-                        src="/models/sample-car.glb"
-                        alt="차량 2 3D 모델"
-                        auto-rotate
-                        camera-controls
-                        rotation-per-second="30deg"
-                        camera-orbit="45deg 65deg 105%"
-                        shadow-intensity="0.8"
-                        environment-image="neutral"
-                        style="width: 100%; height: 100%; background: transparent;">
-                    </model-viewer>
-                </div>
-            </div>
-
-            <div class="engine_category">
-                <ul class="tab_list">
-                    <li class="tab_item">
-                        <a href="#"><span class="menu">1.6 가솔린 터보</span></a>
-                    </li>
-                    <li class="tab_item">
-                        <a href="#"><span class="menu">2.0 가솔린 터보</span></a>
-                    </li>
-                </ul>
-                <ul class="tab_list">
-                    <li class="tab_item">
-                        <a href="#"><span class="menu">1.6 가솔린 터보</span></a>
-                    </li>
-                    <li class="tab_item">
-                        <a href="#"><span class="menu">2.0 가솔린 터보</span></a>
-                    </li>
-                    <li class="tab_item">
-                        <a href="#"><span class="menu">2.0 가솔린 터보</span></a>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="specs_container">
-                <!-- 첫 번째 차량 -->
-                <div class="specs">
-                    <div class="middle_title engine-title"><span class="cat-dot"></span>엔진</div>
-                    <div class="table_area">
-                        <table>
-                            <tbody>
-                                <tr><th>엔진형식</th><td>I4</td></tr>
-                                <tr><th>과급방식</th><td>싱글터보</td></tr>
-                                <tr><th>배기량</th><td>1,598cc</td></tr>
-                                <tr><th>연료</th><td>가솔린</td></tr>
-                                <tr><th>최고출력</th><td>204hp</td></tr>
-                                <tr><th>최대토크</th><td>27kg.m</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="middle_title performance-title"><span class="cat-dot"></span>성능</div>
-                    <div class="table_area">
-                        <table>
-                            <tbody>
-                                <tr><th>연비</th><td>14.5km/L</td></tr>
-                                <tr><th>CO2 배출량</th><td>130g/km</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="middle_title dimension-title"><span class="cat-dot"></span>치수</div>
-                    <div class="table_area">
-                        <table>
-                            <tbody>
-                                <tr><th>전장/전폭</th><td>4,715mm / 1,910mm</td></tr>
-                                <tr><th>전고/축거</th><td>1,630mm / 2,875mm</td></tr>
-                                <tr><th>윤거전/후</th><td>1,651mm / 1,667mm</td></tr>
-                                <tr><th>공차중량</th><td>1,905kg</td></tr>
-                                <tr><th>전륜타이어</th><td>235/60/18</td></tr>
-                                <tr><th>후륜타이어</th><td>235/60/18</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="middle_title chassis-title"><span class="cat-dot"></span>섀시</div>
-                    <div class="table_area">
-                        <table>
-                            <tbody>
-                                <tr><th>구동방식</th><td>AWD</td></tr>
-                                <tr><th>변속기</th><td>자동8단</td></tr>
-                                <tr><th>전륜 서스펜션</th><td>맥퍼슨 스트럿</td></tr>
-                                <tr><th>후륜 서스펜션</th><td>멀티링크</td></tr>
-                                <tr><th>전륜 제동장치</th><td>V디스크</td></tr>
-                                <tr><th>후륜 제동장치</th><td>V디스크</td></tr>
-                                <tr><th>스티어링</th><td>랙 앤 피니언</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <!-- 두 번째 차량 -->
-                <div class="specs">
-                    <div class="middle_title engine-title"><span class="cat-dot"></span>엔진</div>
-                    <div class="table_area">
-                        <table>
-                            <tbody>
-                                <tr><th>엔진형식</th><td>I4</td></tr>
-                                <tr><th>과급방식</th><td>싱글터보</td></tr>
-                                <tr><th>배기량</th><td>1,998cc</td></tr>
-                                <tr><th>연료</th><td>가솔린</td></tr>
-                                <tr><th>최고출력</th><td>275hp</td></tr>
-                                <tr><th>최대토크</th><td>36kg.m</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="middle_title performance-title"><span class="cat-dot"></span>성능</div>
-                    <div class="table_area">
-                        <table>
-                            <tbody>
-                                <tr><th>연비</th><td>13.6km/L</td></tr>
-                                <tr><th>CO2 배출량</th><td>140g/km</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="middle_title dimension-title"><span class="cat-dot"></span>치수</div>
-                    <div class="table_area">
-                        <table>
-                            <tbody>
-                                <tr><th>전장/전폭</th><td>4,715mm / 1,910mm</td></tr>
-                                <tr><th>전고/축거</th><td>1,630mm / 2,875mm</td></tr>
-                                <tr><th>윤거전/후</th><td>1,651mm / 1,667mm</td></tr>
-                                <tr><th>공차중량</th><td>1,905kg</td></tr>
-                                <tr><th>전륜타이어</th><td>235/60/18</td></tr>
-                                <tr><th>후륜타이어</th><td>235/60/18</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="middle_title chassis-title"><span class="cat-dot"></span>섀시</div>
-                    <div class="table_area">
-                        <table>
-                            <tbody>
-                                <tr><th>구동방식</th><td>AWD</td></tr>
-                                <tr><th>변속기</th><td>자동8단</td></tr>
-                                <tr><th>전륜 서스펜션</th><td>맥퍼슨 스트럿</td></tr>
-                                <tr><th>후륜 서스펜션</th><td>멀티링크</td></tr>
-                                <tr><th>전륜 제동장치</th><td>V디스크</td></tr>
-                                <tr><th>후륜 제동장치</th><td>V디스크</td></tr>
-                                <tr><th>스티어링</th><td>랙 앤 피니언</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+      <!-- 차량 선택 슬롯 -->
+      <div class="compare-slots">
+        <div class="compare-slot" data-slot="0">
+          <div class="slot-empty">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M7 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"></path>
+              <path d="M17 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"></path>
+              <path d="M5 17h-2v-6l2 -5h9l4 5h1a2 2 0 0 1 2 2v4h-2m-4 0h-6m-6 -6h15m-6 0v-5"></path>
+            </svg>
+            <span class="slot-placeholder-text">차량을 선택해주세요</span>
+            <button class="btn-select-car" data-slot="0">차량 선택</button>
+          </div>
+          <div class="slot-selected hidden">
+            <span class="selected-car-name"></span>
+            <span class="selected-trim-name"></span>
+            <button class="btn-change-car" data-slot="0">변경</button>
+          </div>
         </div>
-    </main>
+
+        <div class="compare-slot" data-slot="1">
+          <div class="slot-empty">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M7 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"></path>
+              <path d="M17 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"></path>
+              <path d="M5 17h-2v-6l2 -5h9l4 5h1a2 2 0 0 1 2 2v4h-2m-4 0h-6m-6 -6h15m-6 0v-5"></path>
+            </svg>
+            <span class="slot-placeholder-text">차량을 선택해주세요</span>
+            <button class="btn-select-car" data-slot="1">차량 선택</button>
+          </div>
+          <div class="slot-selected hidden">
+            <span class="selected-car-name"></span>
+            <span class="selected-trim-name"></span>
+            <button class="btn-change-car" data-slot="1">변경</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3D 모델 뷰어 -->
+      <div class="car_images hidden" id="model-viewers">
+        <div class="car_image" id="viewer-0">
+          <span class="car-label">차량 A</span>
+          <model-viewer
+            src="/models/sample-car.glb"
+            alt="3D 자동차 모델"
+            auto-rotate
+            camera-controls
+            rotation-per-second="30deg"
+            camera-orbit="45deg 65deg 105%"
+            min-camera-orbit="auto auto 50%"
+            max-camera-orbit="auto auto 200%"
+            shadow-intensity="1"
+            environment-image="neutral"
+            exposure="1">
+          </model-viewer>
+        </div>
+        <div class="car_image" id="viewer-1">
+          <span class="car-label">차량 B</span>
+          <model-viewer
+            src="/models/sample-car.glb"
+            alt="3D 자동차 모델"
+            auto-rotate
+            camera-controls
+            rotation-per-second="30deg"
+            camera-orbit="45deg 65deg 105%"
+            min-camera-orbit="auto auto 50%"
+            max-camera-orbit="auto auto 200%"
+            shadow-intensity="1"
+            environment-image="neutral"
+            exposure="1">
+          </model-viewer>
+        </div>
+      </div>
+
+      <!-- 제원 비교 테이블 -->
+      <div class="specs_container hidden" id="specs-container">
+        <!-- 좌측 차량 -->
+        <div class="specs" id="specs-0">
+          <div class="middle_title engine-title"><span class="cat-dot"></span>엔진</div>
+          <div class="table_area">
+            <table><tbody>
+              <tr><th>엔진형식</th><td data-field="engineType">-</td></tr>
+              <tr><th>과급방식</th><td data-field="aspiration">-</td></tr>
+              <tr><th>배기량</th><td data-field="displacement">-</td></tr>
+              <tr><th>연료</th><td data-field="fuelType">-</td></tr>
+              <tr><th>최고출력</th><td data-field="maxPower">-</td></tr>
+              <tr><th>최대토크</th><td data-field="maxTorque">-</td></tr>
+            </tbody></table>
+          </div>
+
+          <div class="middle_title performance-title"><span class="cat-dot"></span>성능</div>
+          <div class="table_area">
+            <table><tbody>
+              <tr><th>연비</th><td data-field="fuelEfficiency">-</td></tr>
+              <tr><th>CO2 배출량</th><td data-field="co2Emission">-</td></tr>
+            </tbody></table>
+          </div>
+
+          <div class="middle_title dimension-title"><span class="cat-dot"></span>치수</div>
+          <div class="table_area">
+            <table><tbody>
+              <tr><th>전장</th><td data-field="length">-</td></tr>
+              <tr><th>전폭</th><td data-field="width">-</td></tr>
+              <tr><th>전고</th><td data-field="heigth">-</td></tr>
+              <tr><th>축거</th><td data-field="wheelbase">-</td></tr>
+              <tr><th>윤거(전)</th><td data-field="frontTread">-</td></tr>
+              <tr><th>윤거(후)</th><td data-field="rearTread">-</td></tr>
+              <tr><th>공차중량</th><td data-field="curbWeight">-</td></tr>
+              <tr><th>전륜타이어</th><td data-field="fontTire">-</td></tr>
+              <tr><th>후륜타이어</th><td data-field="rearTire">-</td></tr>
+            </tbody></table>
+          </div>
+
+          <div class="middle_title chassis-title"><span class="cat-dot"></span>섀시</div>
+          <div class="table_area">
+            <table><tbody>
+              <tr><th>구동방식</th><td data-field="drivetrain">-</td></tr>
+              <tr><th>변속기</th><td data-field="transmission">-</td></tr>
+              <tr><th>전륜 서스펜션</th><td data-field="frontSuspension">-</td></tr>
+              <tr><th>후륜 서스펜션</th><td data-field="rearSuspension">-</td></tr>
+              <tr><th>전륜 제동장치</th><td data-field="frontBreake">-</td></tr>
+              <tr><th>후륜 제동장치</th><td data-field="rearBreake">-</td></tr>
+              <tr><th>스티어링</th><td data-field="steeringType">-</td></tr>
+            </tbody></table>
+          </div>
+        </div>
+
+        <!-- 우측 차량 -->
+        <div class="specs" id="specs-1">
+          <div class="middle_title engine-title"><span class="cat-dot"></span>엔진</div>
+          <div class="table_area">
+            <table><tbody>
+              <tr><th>엔진형식</th><td data-field="engineType">-</td></tr>
+              <tr><th>과급방식</th><td data-field="aspiration">-</td></tr>
+              <tr><th>배기량</th><td data-field="displacement">-</td></tr>
+              <tr><th>연료</th><td data-field="fuelType">-</td></tr>
+              <tr><th>최고출력</th><td data-field="maxPower">-</td></tr>
+              <tr><th>최대토크</th><td data-field="maxTorque">-</td></tr>
+            </tbody></table>
+          </div>
+
+          <div class="middle_title performance-title"><span class="cat-dot"></span>성능</div>
+          <div class="table_area">
+            <table><tbody>
+              <tr><th>연비</th><td data-field="fuelEfficiency">-</td></tr>
+              <tr><th>CO2 배출량</th><td data-field="co2Emission">-</td></tr>
+            </tbody></table>
+          </div>
+
+          <div class="middle_title dimension-title"><span class="cat-dot"></span>치수</div>
+          <div class="table_area">
+            <table><tbody>
+              <tr><th>전장</th><td data-field="length">-</td></tr>
+              <tr><th>전폭</th><td data-field="width">-</td></tr>
+              <tr><th>전고</th><td data-field="heigth">-</td></tr>
+              <tr><th>축거</th><td data-field="wheelbase">-</td></tr>
+              <tr><th>윤거(전)</th><td data-field="frontTread">-</td></tr>
+              <tr><th>윤거(후)</th><td data-field="rearTread">-</td></tr>
+              <tr><th>공차중량</th><td data-field="curbWeight">-</td></tr>
+              <tr><th>전륜타이어</th><td data-field="fontTire">-</td></tr>
+              <tr><th>후륜타이어</th><td data-field="rearTire">-</td></tr>
+            </tbody></table>
+          </div>
+
+          <div class="middle_title chassis-title"><span class="cat-dot"></span>섀시</div>
+          <div class="table_area">
+            <table><tbody>
+              <tr><th>구동방식</th><td data-field="drivetrain">-</td></tr>
+              <tr><th>변속기</th><td data-field="transmission">-</td></tr>
+              <tr><th>전륜 서스펜션</th><td data-field="frontSuspension">-</td></tr>
+              <tr><th>후륜 서스펜션</th><td data-field="rearSuspension">-</td></tr>
+              <tr><th>전륜 제동장치</th><td data-field="frontBreake">-</td></tr>
+              <tr><th>후륜 제동장치</th><td data-field="rearBreake">-</td></tr>
+              <tr><th>스티어링</th><td data-field="steeringType">-</td></tr>
+            </tbody></table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- 차량 선택 모달 -->
+  <div class="modal-overlay hidden" id="car-select-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>차량 선택</h3>
+        <button class="modal-close">&times;</button>
+      </div>
+
+      <div class="modal-steps">
+        <span class="modal-step active" data-step="1">제조사</span>
+        <span class="modal-step-arrow">&rsaquo;</span>
+        <span class="modal-step" data-step="2">모델</span>
+        <span class="modal-step-arrow">&rsaquo;</span>
+        <span class="modal-step" data-step="3">세대</span>
+        <span class="modal-step-arrow">&rsaquo;</span>
+        <span class="modal-step" data-step="4">트림</span>
+      </div>
+
+      <div class="modal-body">
+        <div class="modal-step-content" id="modal-step-1">
+          <div class="card-grid modal-card-grid"></div>
+        </div>
+
+        <div class="modal-step-content hidden" id="modal-step-2">
+          <button class="modal-back" data-target="1">&lsaquo; 뒤로</button>
+          <div class="card-grid modal-card-grid"></div>
+        </div>
+
+        <div class="modal-step-content hidden" id="modal-step-3">
+          <button class="modal-back" data-target="2">&lsaquo; 뒤로</button>
+          <div class="card-grid modal-card-grid"></div>
+        </div>
+
+        <div class="modal-step-content hidden" id="modal-step-4">
+          <div class="modal-step4-header">
+            <button class="modal-back" data-target="3">&lsaquo; 뒤로</button>
+            <button class="btn-other-car">다른 차량 선택</button>
+          </div>
+          <div class="modal-trim-list"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 
 </html>

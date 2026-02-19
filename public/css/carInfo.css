@@ -3,7 +3,6 @@ main .container {
   border-radius: 16px;
   box-shadow: var(--shadow-md);
   overflow: hidden;
-  transition: background-color 0.3s;
 }
 
 .car-image-area {
@@ -158,7 +157,6 @@ main .container {
   gap: 10px;
   border-bottom: 1px solid var(--border);
   background: var(--bg-secondary);
-  transition: background-color 0.3s;
 }
 .spec-card .spec-card-header .spec-icon {
   width: 8px;
@@ -211,7 +209,6 @@ main .container {
   font-weight: 500;
   width: 40%;
   background: var(--bg-secondary);
-  transition: background-color 0.3s;
 }
 .spec-card table td {
   color: var(--text-primary);

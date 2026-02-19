@@ -6,7 +6,6 @@ main {
     border-radius: $radius-lg;
     box-shadow: var(--shadow-md);
     overflow: hidden;
-    transition: background-color 0.3s;
   }
 }
 
@@ -161,7 +160,6 @@ main {
     gap: 10px;
     border-bottom: 1px solid var(--border);
     background: var(--bg-secondary);
-    transition: background-color 0.3s;
 
     .spec-icon {
       width: 8px;
@@ -214,8 +212,7 @@ main {
       font-weight: 500;
       width: 40%;
       background: var(--bg-secondary);
-      transition: background-color 0.3s;
-    }
+      }
 
     td {
       color: var(--text-primary);
