@@ -124,5 +124,8 @@ package-lock.json
 CLAUDE.md
 .claude/
 
+# Uploads
+public/uploads/community/*
+
 # IDE
 .idea/

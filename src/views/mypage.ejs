@@ -1,0 +1,60 @@
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="/svg/favicon.svg">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/common.css">
+    <link rel="stylesheet" type="text/css" href="/css/mypage.css">
+    <script src="/js/jquery-3.6.0.js"></script>
+    <script defer src="/js/common.js"></script>
+    <script defer src="/js/mypage.js"></script>
+    <title>마이페이지 : 카피디아</title>
+</head>
+
+<body>
+    <%- include('./includes/header') %>
+    <main>
+        <div class="mypage-container">
+            <div class="mypage-header">
+                <h1>마이페이지</h1>
+                <p class="mypage-user"><%= user.nickname %>님의 북마크</p>
+            </div>
+            <div class="bookmark-list">
+                <% if (bookmarkList && bookmarkList.length > 0) { %>
+                    <% bookmarkList.forEach((item) => { %>
+                        <div class="bookmark-card" data-seq="<%= item.postSeq %>">
+                            <span class="post-category-badge"><%= item.category %></span>
+                            <h3 class="post-title"><%= item.title %></h3>
+                            <div class="post-meta">
+                                <span class="post-author"><%= item.author %></span>
+                                <span class="post-date"><%= new Date(item.createAt).toLocaleDateString('ko-KR') %></span>
+                                <div class="post-stats">
+                                    <span>♥ <%= item.likeCount %></span>
+                                    <span>댓글 <%= item.commentCount %></span>
+                                    <span>조회 <%= item.viewCount %></span>
+                                </div>
+                            </div>
+                        </div>
+                    <% }) %>
+                <% } else { %>
+                    <div class="no-bookmarks">
+                        <p>북마크한 게시글이 없습니다.</p>
+                    </div>
+                <% } %>
+            </div>
+            <% if (totalPages > 1) { %>
+                <div class="pagination">
+                    <% for (let i = 1; i <= totalPages; i++) { %>
+                        <button class="page-btn <%= i === currentPage ? 'active' : '' %>" data-page="<%= i %>"><%= i %></button>
+                    <% } %>
+                </div>
+            <% } %>
+        </div>
+    </main>
+</body>
+
+</html>

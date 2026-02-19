@@ -1,0 +1,192 @@
+@import 'var';
+
+main {
+  .container {
+    background: var(--bg-card);
+    border-radius: $radius-lg;
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+  }
+}
+
+.page-header {
+  padding: 24px 30px;
+  border-bottom: 1px solid var(--border);
+
+  h2 { font-size: 22px; font-weight: 800; color: var(--text-primary); }
+  p { font-size: 14px; color: var(--text-secondary); margin-top: 4px; }
+}
+
+// ===== 카테고리 탭 =====
+.category-tabs {
+  display: flex;
+  gap: 8px;
+  padding: 20px 30px;
+  border-bottom: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+
+.category-tab {
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: $radius-sm;
+  transition: all 0.2s;
+
+  &:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  &.active {
+    color: #fff;
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+}
+
+// ===== 랭킹 리스트 =====
+.ranking-area {
+  padding: 24px 30px;
+}
+
+.ranking-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ranking-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 18px 24px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: $radius-md;
+  transition: all 0.2s;
+
+  &:hover {
+    border-color: var(--accent);
+    box-shadow: var(--shadow-sm);
+  }
+
+  &.rank-top {
+    border-color: var(--accent);
+    background: var(--accent-light);
+  }
+}
+
+.ranking-number {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--accent);
+  min-width: 36px;
+  text-align: center;
+}
+
+.ranking-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 200px;
+
+  .ranking-manufacturer {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-light);
+  }
+
+  .ranking-model {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .ranking-trim {
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+}
+
+.ranking-badges {
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.ranking-badges .spec-badge {
+  padding: 6px 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: $radius-sm;
+
+  .spec-value {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    white-space: nowrap;
+  }
+}
+
+.ranking-value {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-width: 100px;
+  padding: 10px 16px;
+  background: var(--accent);
+  border-radius: $radius-sm;
+
+  .value-label {
+    font-size: 11px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .value-number {
+    font-size: 15px;
+    font-weight: 800;
+    color: #fff;
+    white-space: nowrap;
+  }
+}
+
+.ranking-empty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 0;
+
+  p {
+    font-size: 15px;
+    color: var(--text-light);
+  }
+}
+
+// ===== 반응형 =====
+@media (max-width: 768px) {
+  .ranking-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .ranking-badges {
+    margin-left: 0;
+  }
+
+  .ranking-info {
+    min-width: auto;
+  }
+
+  .ranking-value {
+    align-self: stretch;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}

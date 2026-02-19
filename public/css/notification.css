@@ -1,0 +1,111 @@
+.notification-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+.notification-container .notification-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+.notification-container .notification-header h1 {
+  font-size: 24px;
+  font-weight: bold;
+}
+.notification-container .notification-header .read-all-btn {
+  padding: 8px 16px;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-card);
+  color: var(--text-primary);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.notification-container .notification-header .read-all-btn:hover {
+  background: var(--border-light);
+}
+.notification-container .notification-list {
+  display: flex;
+  flex-direction: column;
+}
+.notification-container .notification-list .notification-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border-light);
+  transition: background 0.2s;
+  text-decoration: none;
+  color: inherit;
+}
+.notification-container .notification-list .notification-item:hover {
+  background: var(--bg-secondary);
+}
+.notification-container .notification-list .notification-item.unread {
+  background: var(--accent-light);
+}
+.notification-container .notification-list .notification-item.unread:hover {
+  background: rgba(99, 102, 241, 0.12);
+}
+.notification-container .notification-list .notification-item .notification-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
+}
+.notification-container .notification-list .notification-item .notification-content .notification-type-badge {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent);
+  background: var(--bg-card);
+  border: 1px solid var(--accent);
+  padding: 2px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.notification-container .notification-list .notification-item .notification-content .notification-text {
+  font-size: 14px;
+  color: var(--text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.notification-container .notification-list .notification-item .notification-date {
+  font-size: 12px;
+  color: var(--text-light);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.notification-container .no-notifications {
+  text-align: center;
+  padding: 80px 20px;
+  color: var(--text-light);
+  font-size: 15px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 24px;
+}
+.pagination .page-btn {
+  padding: 8px 12px;
+  border: 2px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg-card);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: 0.3s;
+}
+.pagination .page-btn.active, .pagination .page-btn:hover {
+  background: var(--text-primary);
+  color: var(--bg-card);
+  border-color: var(--text-primary);
+}

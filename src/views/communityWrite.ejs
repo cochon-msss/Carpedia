@@ -1,0 +1,71 @@
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="/svg/favicon.svg">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/common.css">
+    <link rel="stylesheet" type="text/css" href="/css/community.css">
+    <script src="/js/jquery-3.6.0.js"></script>
+    <script defer src="/js/common.js"></script>
+    <script defer src="/js/communityWrite.js"></script>
+    <title><%= editMode ? '글 수정' : '글쓰기' %> : 카피디아</title>
+</head>
+
+<body>
+    <%- include('./includes/header') %>
+    <main>
+        <div class="community-container">
+            <div class="community-header">
+                <h1><%= editMode ? '글 수정' : '글쓰기' %></h1>
+            </div>
+            <div class="write-form" data-edit-mode="<%= editMode %>" data-post-seq="<%= post ? post.postSeq : '' %>">
+                <div class="form-group">
+                    <label>작성자</label>
+                    <span class="author-display"><%= user.nickname %></span>
+                </div>
+                <div class="form-group">
+                    <label for="category">카테고리</label>
+                    <select id="category">
+                        <option value="자유 게시판" <%= (post && post.category === '자유 게시판') ? 'selected' : '' %>>자유 게시판</option>
+                        <option value="정보 공유" <%= (post && post.category === '정보 공유') ? 'selected' : '' %>>정보 공유</option>
+                        <option value="Q&A" <%= (post && post.category === 'Q&A') ? 'selected' : '' %>>Q&A</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="title">제목</label>
+                    <input type="text" id="title" placeholder="제목을 입력하세요" maxlength="200" value="<%= post ? post.title : '' %>">
+                </div>
+                <div class="form-group">
+                    <label for="content">내용</label>
+                    <textarea id="content" placeholder="내용을 입력하세요" rows="15"><%= post ? post.content : '' %></textarea>
+                </div>
+                <div class="form-group">
+                    <label>이미지 첨부</label>
+                    <input type="file" id="image-input" multiple accept="image/*" style="display: none;">
+                    <% if (editMode && images.length > 0) { %>
+                        <div class="existing-image-list">
+                            <% images.forEach((img) => { %>
+                                <div class="existing-image-item" data-image-seq="<%= img.imageSeq %>">
+                                    <img src="/uploads/community/<%= img.fileName %>" alt="<%= img.originalName %>">
+                                    <button type="button" class="image-delete-btn">&times;</button>
+                                </div>
+                            <% }) %>
+                        </div>
+                    <% } %>
+                    <div class="image-preview-list"></div>
+                    <button type="button" class="image-upload-btn" id="image-upload-btn">+ 이미지 추가</button>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="cancel-btn">취소</button>
+                    <button type="button" class="submit-btn"><%= editMode ? '수정하기' : '작성하기' %></button>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>

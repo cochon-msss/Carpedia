@@ -3,56 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="/svg/favicon.svg">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
     <link rel="stylesheet" type="text/css" href="/css/common.css">
     <link rel="stylesheet" type="text/css" href="/css/community.css">
     <script src="/js/jquery-3.6.0.js"></script>
-    <script src="/js/common.js"></script>
+    <script defer src="/js/common.js"></script>
+    <script defer src="/js/community.js"></script>
     <title>커뮤니티 : 카피디아</title>
 </head>
 
 <body>
     <%- include('./includes/header') %>
-        <main>
-            <div class="community-container">
-                <div class="community-header">
-                    <h1>커뮤니티</h1>
-                    <div class="search-bar">
-                        <input type="text" placeholder="검색어를 입력하세요">
-                        <button type="button" class="search-btn">검색</button>
-                    </div>
-                </div>
-                <div class="community-content">
-                    <div class="post-filter">
-                        <button class="active">전체</button>
-                        <button>자유 게시판</button>
-                        <button>정보 공유</button>
-                        <button>Q&A</button>
-                    </div>
-                    <div class="post-list">
-                        <div class="post-card">
-                            <h3 class="post-title">첫 번째 게시글</h3>
-                            <p class="post-preview">이곳에 게시글의 미리보기가 들어갑니다...</p>
-                            <div class="post-meta">
-                                <span>작성자: 홍길동</span>
-                                <span>댓글 3</span>
-                                <span>조회수 120</span>
-                            </div>
-                        </div>
-                        <div class="post-card">
-                            <h3 class="post-title">두 번째 게시글</h3>
-                            <p class="post-preview">이곳에 게시글의 미리보기가 들어갑니다...</p>
-                            <div class="post-meta">
-                                <span>작성자: 김철수</span>
-                                <span>댓글 1</span>
-                                <span>조회수 45</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <main>
+        <div class="community-container">
+            <div class="community-header">
+                <h1>커뮤니티</h1>
+                <button type="button" class="write-btn<%= user ? '' : ' login-required' %>">글쓰기</button>
             </div>
-        </main>
-
-
+            <div class="community-content">
+                <div class="post-filter">
+                    <button class="<%= category === '전체' ? 'active' : '' %>" data-category="전체">전체</button>
+                    <button class="<%= category === '자유 게시판' ? 'active' : '' %>" data-category="자유 게시판">자유 게시판</button>
+                    <button class="<%= category === '정보 공유' ? 'active' : '' %>" data-category="정보 공유">정보 공유</button>
+                    <button class="<%= category === 'Q&A' ? 'active' : '' %>" data-category="Q&A">Q&A</button>
+                </div>
+                <div class="post-sort">
+                    <button class="<%= sort === 'latest' ? 'active' : '' %>" data-sort="latest">최신순</button>
+                    <button class="<%= sort === 'popular' ? 'active' : '' %>" data-sort="popular">인기순</button>
+                    <button class="<%= sort === 'views' ? 'active' : '' %>" data-sort="views">조회순</button>
+                </div>
+                <div class="post-search">
+                    <input type="text" class="search-input" placeholder="제목 또는 내용으로 검색"
+                           value="<%= typeof keyword !== 'undefined' && keyword ? keyword : '' %>">
+                    <button type="button" class="search-btn">검색</button>
+                </div>
+                <div class="post-list">
+                    <% if (postList && postList.length > 0) { %>
+                        <% postList.forEach((post) => { %>
+                            <div class="post-card" data-seq="<%= post.postSeq %>">
+                                <span class="post-category-badge"><%= post.category %></span>
+                                <h3 class="post-title"><%= post.title %></h3>
+                                <p class="post-preview"><%= post.preview ? post.preview.substring(0, 100) : '' %></p>
+                                <div class="post-meta">
+                                    <span class="post-author"><%= post.author %></span>
+                                    <span class="post-date"><%= new Date(post.createAt).toLocaleDateString('ko-KR') %></span>
+                                    <div class="post-stats">
+                                        <span>♥ <%= post.likeCount %></span>
+                                        <span>댓글 <%= post.commentCount %></span>
+                                        <span>조회 <%= post.viewCount %></span>
+                                    </div>
+                                </div>
+                            </div>
+                        <% }) %>
+                    <% } else { %>
+                        <div class="no-posts">
+                            <p><%= (typeof keyword !== 'undefined' && keyword) ? '"' + keyword + '" 검색 결과가 없습니다.' : '게시글이 없습니다.' %></p>
+                        </div>
+                    <% } %>
+                </div>
+                <% if (totalPages > 1) { %>
+                    <div class="pagination">
+                        <% for (let i = 1; i <= totalPages; i++) { %>
+                            <button class="page-btn <%= i === currentPage ? 'active' : '' %>" data-page="<%= i %>"><%= i %></button>
+                        <% } %>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+    </main>
 </body>
 
 </html>

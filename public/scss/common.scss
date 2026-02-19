@@ -98,6 +98,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
     max-width: 1200px;
     margin: 0 auto;
     height: 100%;
@@ -116,12 +117,16 @@ header {
 
     .nav-menu {
       display: flex;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
       gap: 4px;
 
       div {
         cursor: pointer;
-        padding: 8px 20px;
+        padding: 8px 16px;
         border-radius: $radius-sm;
+        white-space: nowrap;
         transition: all 0.2s ease;
 
         span {
@@ -144,16 +149,141 @@ header {
     .user-menu {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 12px;
 
-      svg {
-        color: rgba(255, 255, 255, 0.5);
-        transition: color 0.2s;
+      .user-nickname {
+        font-size: 14px;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      .notification-bell {
+        position: relative;
         cursor: pointer;
+        padding: 6px 10px;
+        border-radius: $radius-sm;
+        transition: 0.2s;
+
+        .bell-icon {
+          font-size: 18px;
+        }
+
+        .notification-badge {
+          position: absolute;
+          top: 2px;
+          right: 2px;
+          background: #f43f5e;
+          color: #fff;
+          font-size: 10px;
+          font-weight: 700;
+          min-width: 16px;
+          height: 16px;
+          line-height: 16px;
+          text-align: center;
+          border-radius: 8px;
+          padding: 0 4px;
+        }
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.06);
+        }
+      }
+
+      .mypage-btn,
+      .logout-btn,
+      .login-link {
+        font-size: 13px;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.5);
+        padding: 6px 14px;
+        border-radius: $radius-sm;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        transition: all 0.2s;
 
         &:hover {
           color: #fff;
+          border-color: rgba(255, 255, 255, 0.3);
+          background-color: rgba(255, 255, 255, 0.06);
         }
+      }
+    }
+  }
+}
+
+// ===== Custom Alert Modal =====
+.custom-alert-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.2s;
+
+  &.active {
+    opacity: 1;
+
+    .custom-alert {
+      transform: translateY(0);
+    }
+  }
+}
+
+.custom-alert {
+  background: var(--bg-card);
+  border-radius: $radius-md;
+  padding: 28px 32px 24px;
+  min-width: 320px;
+  max-width: 400px;
+  box-shadow: var(--shadow-lg);
+  transform: translateY(10px);
+  transition: transform 0.2s;
+
+  .custom-alert-message {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--text-primary);
+    text-align: center;
+    margin-bottom: 24px;
+    word-break: keep-all;
+  }
+
+  .custom-alert-actions {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+
+    button {
+      padding: 8px 24px;
+      border-radius: $radius-sm;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .custom-alert-confirm {
+      background: var(--text-primary);
+      color: var(--bg-card);
+      border: none;
+
+      &:hover {
+        background: var(--text-secondary);
+      }
+    }
+
+    .custom-alert-cancel {
+      background: var(--bg-card);
+      color: var(--text-primary);
+      border: 2px solid var(--border);
+
+      &:hover {
+        background: var(--border-light);
       }
     }
   }
@@ -163,6 +293,30 @@ header {
 .card-grid {
   display: grid;
   gap: 12px;
+}
+
+// ===== Toast Message =====
+.toast-message {
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--text-primary);
+  color: var(--bg-card);
+  padding: 12px 24px;
+  border-radius: $radius-sm;
+  font-size: 14px;
+  font-weight: 600;
+  z-index: 10000;
+  opacity: 0;
+  transition: opacity 0.3s, transform 0.3s;
+  pointer-events: none;
+  white-space: nowrap;
+
+  &.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
 }
 
 .select-card {

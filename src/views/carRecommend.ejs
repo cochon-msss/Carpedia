@@ -1,0 +1,75 @@
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="/svg/favicon.svg">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <link rel="stylesheet" type="text/css" href="/css/common.css">
+  <link rel="stylesheet" type="text/css" href="/css/carRecommend.css">
+  <script src="/js/jquery-3.6.0.js"></script>
+  <script defer src="/js/common.js"></script>
+  <script defer src="/js/carRecommend.js"></script>
+  <title>차량 추천 : 카피디아</title>
+</head>
+
+<body>
+  <%- include('./includes/header') %>
+  <main>
+    <div class="container">
+      <div class="page-header">
+        <h2>차량 추천</h2>
+        <p>원하는 조건을 선택하면 맞춤 차량을 추천해드립니다</p>
+      </div>
+
+      <!-- 필터 영역 -->
+      <div class="filter-area">
+        <div class="filter-group">
+          <label class="filter-label">차종</label>
+          <div class="filter-buttons" id="filter-body-type">
+            <button class="filter-btn active" data-value="">전체</button>
+            <button class="filter-btn" data-value="세단">세단</button>
+            <button class="filter-btn" data-value="SUV">SUV</button>
+            <button class="filter-btn" data-value="해치백">해치백</button>
+            <button class="filter-btn" data-value="왜건">왜건</button>
+            <button class="filter-btn" data-value="쿠페">쿠페</button>
+            <button class="filter-btn" data-value="기타">기타</button>
+          </div>
+        </div>
+        <div class="filter-group">
+          <label class="filter-label">연료</label>
+          <div class="filter-buttons" id="filter-fuel-type">
+            <button class="filter-btn active" data-value="">전체</button>
+            <button class="filter-btn" data-value="가솔린">가솔린</button>
+            <button class="filter-btn" data-value="디젤">디젤</button>
+            <button class="filter-btn" data-value="LPG">LPG</button>
+            <button class="filter-btn" data-value="하이브리드">하이브리드</button>
+            <button class="filter-btn" data-value="전기">전기</button>
+          </div>
+        </div>
+        <div class="filter-group">
+          <label class="filter-label">우선순위</label>
+          <div class="filter-buttons" id="filter-sort-by">
+            <button class="filter-btn active" data-value="efficiency">연비우선</button>
+            <button class="filter-btn" data-value="power">출력우선</button>
+            <button class="filter-btn" data-value="lightweight">경량우선</button>
+          </div>
+        </div>
+        <button class="btn-search" id="btn-search">검색</button>
+      </div>
+
+      <!-- 결과 영역 -->
+      <div class="result-area">
+        <div class="result-count" id="result-count"></div>
+        <div class="result-grid" id="result-grid"></div>
+        <div class="result-empty hidden" id="result-empty">
+          <p>조건에 맞는 차량이 없습니다</p>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+
+</html>

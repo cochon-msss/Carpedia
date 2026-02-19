@@ -1,0 +1,99 @@
+@charset "UTF-8";
+.mypage-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+}
+.mypage-container .mypage-header {
+  margin-bottom: 24px;
+}
+.mypage-container .mypage-header h1 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+.mypage-container .mypage-header .mypage-user {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+.mypage-container .bookmark-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.mypage-container .bookmark-list .bookmark-card {
+  padding: 18px 20px;
+  border-radius: 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  transition: all 0.2s;
+  cursor: pointer;
+}
+.mypage-container .bookmark-list .bookmark-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+  box-shadow: var(--shadow-md);
+}
+.mypage-container .bookmark-list .bookmark-card .post-category-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent);
+  background: var(--accent-light);
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+.mypage-container .bookmark-list .bookmark-card .post-title {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  line-height: 1.4;
+}
+.mypage-container .bookmark-list .bookmark-card .post-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--text-light);
+}
+.mypage-container .bookmark-list .bookmark-card .post-meta .post-author {
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+.mypage-container .bookmark-list .bookmark-card .post-meta .post-date::before {
+  content: "·";
+  margin-right: 8px;
+}
+.mypage-container .bookmark-list .bookmark-card .post-meta .post-stats {
+  margin-left: auto;
+  display: flex;
+  gap: 12px;
+}
+.mypage-container .no-bookmarks {
+  text-align: center;
+  padding: 80px 20px;
+  color: var(--text-light);
+  font-size: 15px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 24px;
+}
+.pagination .page-btn {
+  padding: 8px 12px;
+  border: 2px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg-card);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: 0.3s;
+}
+.pagination .page-btn.active, .pagination .page-btn:hover {
+  background: var(--text-primary);
+  color: var(--bg-card);
+  border-color: var(--text-primary);
+}

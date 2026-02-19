@@ -3,7 +3,7 @@
   margin: 40px auto;
   padding: 20px;
   background: var(--bg-card);
-  border-radius: 10px;
+  border-radius: 12px;
   box-shadow: var(--shadow-md);
   animation: fadeIn 0.3s ease-in-out;
 }
@@ -14,18 +14,147 @@
   margin-bottom: 10px;
 }
 
-.community-detail .meta {
+.post-header {
+  margin-bottom: 24px;
+}
+.post-header .post-category-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent);
+  background: var(--accent-light);
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+.post-header .post-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.post-header .post-meta {
   display: flex;
-  justify-content: space-between;
+  gap: 16px;
   color: var(--text-secondary);
-  font-size: 14px;
-  margin-bottom: 20px;
+  font-size: 13px;
 }
 
-.community-detail .content {
+.post-content {
+  font-size: 15px;
+  line-height: 1.9;
+  margin-bottom: 24px;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-primary);
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  min-height: 200px;
+}
+
+.post-images {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 24px;
+}
+.post-images a {
+  display: block;
+  cursor: pointer;
+}
+.post-images a img {
+  width: 100%;
+  border-radius: 8px;
+  transition: opacity 0.2s;
+}
+.post-images a img:hover {
+  opacity: 0.85;
+}
+
+.post-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+.post-actions .back-btn {
+  padding: 8px 16px;
+  border: 2px solid var(--border);
+  border-radius: 5px;
+  background: var(--bg-card);
+  color: var(--text-primary);
+  font-size: 13px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.post-actions .back-btn:hover {
+  background: var(--border-light);
+}
+.post-actions .bookmark-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 16px;
+  border: 2px solid var(--border);
+  border-radius: 5px;
+  background: var(--bg-card);
+  color: var(--text-primary);
+  font-size: 13px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.post-actions .bookmark-btn .bookmark-icon {
   font-size: 16px;
-  line-height: 1.6;
-  margin-bottom: 30px;
+}
+.post-actions .bookmark-btn:hover {
+  background: var(--border-light);
+}
+.post-actions .bookmark-btn.bookmarked {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.post-actions .share-btn {
+  padding: 8px 16px;
+  border: 2px solid var(--border);
+  border-radius: 5px;
+  background: var(--bg-card);
+  color: var(--text-primary);
+  font-size: 13px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.post-actions .share-btn:hover {
+  background: var(--border-light);
+}
+.post-actions .author-actions {
+  display: flex;
+  gap: 8px;
+}
+.post-actions .author-actions .edit-btn {
+  padding: 8px 16px;
+  border: 2px solid var(--border);
+  border-radius: 5px;
+  background: var(--bg-card);
+  color: var(--text-primary);
+  font-size: 13px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.post-actions .author-actions .edit-btn:hover {
+  background: var(--border-light);
+}
+.post-actions .author-actions .delete-btn {
+  padding: 8px 16px;
+  border: 2px solid var(--engine-color);
+  border-radius: 5px;
+  background: var(--bg-card);
+  color: var(--engine-color);
+  font-size: 13px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.post-actions .author-actions .delete-btn:hover {
+  background: var(--engine-color);
+  color: #fff;
 }
 
 .comment-section {
@@ -44,18 +173,118 @@
 }
 
 .comment {
-  padding: 10px;
+  padding: 14px 0;
   border-bottom: 1px solid var(--border-light);
 }
+.comment:last-child {
+  border-bottom: none;
+}
 
-.comment .author {
+.comment.reply {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  background: var(--bg-secondary);
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin-top: -1px;
+}
+.comment.reply .reply-indicator {
+  color: var(--text-light);
+  font-size: 14px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.comment.reply .comment-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.comment-reply-btn {
+  font-size: 12px;
+  color: var(--text-light);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 4px;
+  transition: 0.2s;
+}
+.comment-reply-btn:hover {
+  color: var(--accent);
+  background: var(--accent-light);
+}
+
+.reply-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: var(--accent-light);
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+.reply-info .reply-to {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent);
+}
+.reply-info .reply-cancel {
+  font-size: 12px;
+  color: var(--text-secondary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: auto;
+  padding: 2px 8px;
+  border-radius: 4px;
+  transition: 0.2s;
+}
+.reply-info .reply-cancel:hover {
+  color: var(--engine-color);
+  background: rgba(244, 63, 94, 0.08);
+}
+
+.comment-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+.comment-meta .comment-author {
   font-weight: bold;
   font-size: 14px;
 }
+.comment-meta .comment-date {
+  font-size: 12px;
+  color: var(--text-light);
+}
+.comment-meta .comment-delete-btn {
+  margin-left: auto;
+  font-size: 12px;
+  color: var(--text-light);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 4px;
+  transition: 0.2s;
+}
+.comment-meta .comment-delete-btn:hover {
+  color: var(--engine-color);
+  background: rgba(244, 63, 94, 0.08);
+}
 
-.comment .text {
+.comment-text {
   font-size: 14px;
   color: var(--text-primary);
+}
+
+.no-comments {
+  text-align: center;
+  padding: 20px;
+  color: var(--text-secondary);
+  font-size: 14px;
 }
 
 .comment-form {
@@ -64,14 +293,42 @@
   gap: 10px;
 }
 
+.comment-form .comment-author-display {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.comment-form .login-prompt {
+  font-size: 14px;
+  color: var(--text-secondary);
+  text-align: center;
+  padding: 16px 0;
+}
+.comment-form .login-prompt a {
+  color: var(--accent);
+  font-weight: 600;
+}
+.comment-form .login-prompt a:hover {
+  text-decoration: underline;
+}
+
 .comment-form textarea {
   width: 100%;
-  padding: 10px;
-  border: 1px solid var(--border);
-  border-radius: 5px;
-  resize: none;
+  padding: 12px;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  resize: vertical;
+  min-height: 80px;
   background: var(--bg-card);
   color: var(--text-primary);
+  font-family: inherit;
+  font-size: 14px;
+  transition: border-color 0.2s;
+}
+.comment-form textarea:focus {
+  border-color: var(--accent);
+  outline: none;
 }
 
 .comment-form button {
@@ -79,13 +336,177 @@
   background: var(--text-primary);
   color: var(--bg-card);
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
   cursor: pointer;
   transition: background 0.3s;
 }
-
 .comment-form button:hover {
   background: var(--text-secondary);
+}
+.comment-form button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.like-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--text-secondary);
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: color 0.2s, background 0.2s;
+}
+.like-btn .like-icon {
+  font-size: 16px;
+}
+.like-btn .like-count {
+  font-size: 13px;
+}
+.like-btn:hover {
+  color: var(--accent);
+  background: var(--accent-light);
+}
+.like-btn.liked {
+  color: var(--accent);
+}
+.like-btn.liked .like-icon {
+  color: var(--accent);
+}
+
+.post-like-btn {
+  font-size: 15px;
+}
+.post-like-btn .like-icon {
+  font-size: 18px;
+}
+
+.comment-like-btn {
+  margin-left: auto;
+}
+
+.comment-meta .comment-delete-btn {
+  margin-left: 0;
+}
+
+.report-btn {
+  font-size: 12px;
+  color: var(--text-light);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 4px;
+  transition: 0.2s;
+}
+.report-btn:hover {
+  color: var(--engine-color);
+  background: rgba(244, 63, 94, 0.08);
+}
+
+.post-actions .report-btn {
+  padding: 8px 16px;
+  border: 2px solid var(--border);
+  border-radius: 5px;
+  font-size: 13px;
+  color: var(--text-primary);
+  background: var(--bg-card);
+}
+.post-actions .report-btn:hover {
+  border-color: var(--engine-color);
+  color: var(--engine-color);
+  background: rgba(244, 63, 94, 0.04);
+}
+
+.report-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+.report-modal-overlay.hidden {
+  display: none;
+}
+
+.report-modal {
+  background: var(--bg-card);
+  border-radius: 12px;
+  padding: 28px 32px 24px;
+  min-width: 360px;
+  max-width: 440px;
+  box-shadow: var(--shadow-lg);
+}
+.report-modal h3 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+.report-modal .report-reason {
+  width: 100%;
+  min-height: 100px;
+  padding: 12px;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  resize: vertical;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--text-primary);
+  background: var(--bg-card);
+  transition: border-color 0.2s;
+}
+.report-modal .report-reason:focus {
+  border-color: var(--accent);
+  outline: none;
+}
+.report-modal .report-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 16px;
+}
+.report-modal .report-modal-actions .report-cancel {
+  padding: 8px 20px;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-card);
+  color: var(--text-primary);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.report-modal .report-modal-actions .report-cancel:hover {
+  background: var(--border-light);
+}
+.report-modal .report-modal-actions .report-submit {
+  padding: 8px 20px;
+  border: none;
+  border-radius: 8px;
+  background: var(--engine-color);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.report-modal .report-modal-actions .report-submit:hover {
+  opacity: 0.85;
+}
+.report-modal .report-modal-actions .report-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 @keyframes fadeIn {

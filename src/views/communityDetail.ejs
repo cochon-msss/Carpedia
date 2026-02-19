@@ -3,59 +3,126 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="/svg/favicon.svg">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
     <link rel="stylesheet" type="text/css" href="/css/common.css">
     <link rel="stylesheet" type="text/css" href="/css/communityDetail.css">
     <script src="/js/jquery-3.6.0.js"></script>
-    <script src="/js/common.js"></script>
-    <title>커뮤니티 : 카피디아</title>
+    <script defer src="/js/common.js"></script>
+    <script defer src="/js/communityDetail.js"></script>
+    <title><%= post.title %> : 카피디아</title>
 </head>
 
 <body>
     <%- include('./includes/header') %>
-        <main>
-            <div class="container">
-                <div class="community-detail">
-                    <div class="post-header">
-                        <h1 class="post-title">게시글 제목</h1>
-                        <div class="post-meta">
-                            <span class="author">작성자: 홍길동</span>
-                            <span class="date">2025-03-18</span>
-                        </div>
-                    </div>
-                    <div class="post-content">
-                        <p>
-                            게시글의 내용이 여기에 들어갑니다. 원하는 스타일과 레이아웃을 추가할 수 있습니다.
-                        </p>
-                    </div>
-                    <div class="comment-section">
-                        <h2 class="comment-title">댓글</h2>
-                        <div class="comment-list">
-                            <div class="comment">
-                                <div class="comment-meta">
-                                    <span class="comment-author">댓글 작성자</span>
-                                    <span class="comment-date">2025-03-18</span>
-                                </div>
-                                <p class="comment-text">이곳에 댓글 내용이 들어갑니다.</p>
-                            </div>
-                            <div class="comment">
-                                <div class="comment-meta">
-                                    <span class="comment-author">또 다른 작성자</span>
-                                    <span class="comment-date">2025-03-18</span>
-                                </div>
-                                <p class="comment-text">여러 개의 댓글이 있을 수 있습니다.</p>
-                            </div>
-                        </div>
-                        <div class="comment-form">
-                            <textarea class="comment-input" placeholder="댓글을 입력하세요..."></textarea>
-                            <button type="button" class="comment-submit">댓글 작성</button>
-                        </div>
-                    </div>
+    <main>
+        <div class="community-detail" data-post-seq="<%= post.postSeq %>">
+            <div class="post-header">
+                <span class="post-category-badge"><%= post.category %></span>
+                <h1 class="post-title"><%= post.title %></h1>
+                <div class="post-meta">
+                    <span class="author"><%= post.author %></span>
+                    <span class="date"><%= new Date(post.createAt).toISOString().split('T')[0] %></span>
+                    <span class="views">조회 <%= post.viewCount %></span>
                 </div>
             </div>
-        </main>
-
-
-
+            <div class="post-content">
+                <p><%- post.content.replace(/\n/g, '<br>') %></p>
+                <% if (images && images.length > 0) { %>
+                    <div class="post-images">
+                        <% images.forEach((img) => { %>
+                            <a href="/uploads/community/<%= img.fileName %>" target="_blank">
+                                <img src="/uploads/community/<%= img.fileName %>" alt="<%= img.originalName %>" loading="lazy">
+                            </a>
+                        <% }) %>
+                    </div>
+                <% } %>
+            </div>
+            <div class="post-actions">
+                <button type="button" class="back-btn">목록으로</button>
+                <button type="button" class="like-btn post-like-btn<%= postLiked ? ' liked' : '' %>" data-post-seq="<%= post.postSeq %>">
+                    <span class="like-icon"><%= postLiked ? '♥' : '♡' %></span>
+                    <span class="like-count"><%= post.likeCount %></span>
+                </button>
+                <% if (user) { %>
+                    <button type="button" class="bookmark-btn<%= bookmarked ? ' bookmarked' : '' %>" data-post-seq="<%= post.postSeq %>">
+                        <span class="bookmark-icon"><%= bookmarked ? '★' : '☆' %></span>
+                        <span class="bookmark-text"><%= bookmarked ? '북마크 해제' : '북마크' %></span>
+                    </button>
+                <% } %>
+                <button type="button" class="share-btn" title="공유">공유</button>
+                <% if (user && !isAuthor) { %>
+                    <button type="button" class="report-btn" data-target-type="post" data-target-seq="<%= post.postSeq %>">신고</button>
+                <% } %>
+                <% if (isAuthor) { %>
+                    <div class="author-actions">
+                        <button type="button" class="edit-btn">수정</button>
+                        <button type="button" class="delete-btn">삭제</button>
+                    </div>
+                <% } %>
+            </div>
+            <div class="comment-section">
+                <h2 class="comment-title">댓글 (<%= commentList.length %>)</h2>
+                <div class="comment-list">
+                    <% if (commentList && commentList.length > 0) { %>
+                        <% commentList.forEach((comment) => { %>
+                            <div class="comment<%= comment.depth > 0 ? ' reply' : '' %>" data-comment-seq="<%= comment.commentSeq %>" style="<%= comment.depth > 0 ? 'margin-left:' + (Math.min(comment.depth, 3) * 32) + 'px' : '' %>">
+                                <% if (comment.depth > 0) { %>
+                                    <span class="reply-indicator">↳</span>
+                                <% } %>
+                                <div class="comment-body">
+                                    <div class="comment-meta">
+                                        <span class="comment-author"><%= comment.author %></span>
+                                        <span class="comment-date"><%= new Date(comment.createAt).toISOString().split('T')[0] %></span>
+                                        <button type="button" class="like-btn comment-like-btn<%= commentLikeMap[comment.commentSeq] ? ' liked' : '' %>" data-comment-seq="<%= comment.commentSeq %>">
+                                            <span class="like-icon"><%= commentLikeMap[comment.commentSeq] ? '♥' : '♡' %></span>
+                                            <span class="like-count"><%= comment.likeCount %></span>
+                                        </button>
+                                        <% if (user) { %>
+                                            <button type="button" class="comment-reply-btn" data-comment-seq="<%= comment.commentSeq %>" data-author="<%= comment.author %>">답글</button>
+                                        <% } %>
+                                        <% if (user && user.userSeq === comment.userSeq) { %>
+                                            <button type="button" class="comment-delete-btn">삭제</button>
+                                        <% } else if (user) { %>
+                                            <button type="button" class="report-btn" data-target-type="comment" data-target-seq="<%= comment.commentSeq %>">신고</button>
+                                        <% } %>
+                                    </div>
+                                    <p class="comment-text"><%= comment.content %></p>
+                                </div>
+                            </div>
+                        <% }) %>
+                    <% } else { %>
+                        <p class="no-comments">댓글이 없습니다.</p>
+                    <% } %>
+                </div>
+                <div class="comment-form">
+                    <% if (user) { %>
+                        <span class="comment-author-display"><%= user.nickname %></span>
+                        <div class="reply-info hidden">
+                            <span class="reply-to"></span>
+                            <button type="button" class="reply-cancel">취소</button>
+                        </div>
+                        <textarea class="comment-input" placeholder="댓글을 입력하세요..."></textarea>
+                        <button type="button" class="comment-submit">댓글 작성</button>
+                    <% } else { %>
+                        <p class="login-prompt">댓글을 작성하려면 <a href="/auth/login">로그인</a>하세요.</p>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </main>
+    <div class="report-modal-overlay hidden">
+        <div class="report-modal">
+            <h3>신고하기</h3>
+            <textarea class="report-reason" placeholder="신고 사유를 입력하세요..." maxlength="500"></textarea>
+            <div class="report-modal-actions">
+                <button type="button" class="report-cancel">취소</button>
+                <button type="button" class="report-submit">신고</button>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>

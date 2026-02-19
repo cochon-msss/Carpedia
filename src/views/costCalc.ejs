@@ -1,0 +1,179 @@
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="/svg/favicon.svg">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <link rel="stylesheet" type="text/css" href="/css/common.css">
+  <link rel="stylesheet" type="text/css" href="/css/costCalc.css">
+  <script src="/js/jquery-3.6.0.js"></script>
+  <script defer src="/js/common.js"></script>
+  <script defer src="/js/costCalc.js"></script>
+  <title>유지비 계산기 : 카피디아</title>
+</head>
+
+<body>
+  <%- include('./includes/header') %>
+  <main>
+    <div class="container">
+      <div class="page-header">
+        <h2>유지비 계산기</h2>
+        <p>차량을 선택하고 예상 연간 유지비를 계산해보세요</p>
+      </div>
+
+      <!-- 차량 선택 영역 -->
+      <div class="car-select-area">
+        <div class="car-select-slot">
+          <div class="slot-empty" id="slot-empty">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M7 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"></path>
+              <path d="M17 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"></path>
+              <path d="M5 17h-2v-6l2 -5h9l4 5h1a2 2 0 0 1 2 2v4h-2m-4 0h-6m-6 -6h15m-6 0v-5"></path>
+            </svg>
+            <span class="slot-placeholder-text">차량을 선택해주세요</span>
+            <button class="btn-select-car" id="btn-select-car">차량 선택</button>
+          </div>
+          <div class="slot-selected hidden" id="slot-selected">
+            <div class="selected-info">
+              <span class="selected-car-name" id="selected-car-name"></span>
+              <span class="selected-trim-name" id="selected-trim-name"></span>
+            </div>
+            <div class="auto-specs" id="auto-specs">
+              <div class="spec-badge">
+                <span class="spec-label">연료</span>
+                <span class="spec-value" id="spec-fuel-type">-</span>
+              </div>
+              <div class="spec-badge">
+                <span class="spec-label">연비</span>
+                <span class="spec-value" id="spec-fuel-efficiency">-</span>
+              </div>
+              <div class="spec-badge">
+                <span class="spec-label">배기량</span>
+                <span class="spec-value" id="spec-displacement">-</span>
+              </div>
+            </div>
+            <button class="btn-change-car" id="btn-change-car">변경</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 입력 폼 -->
+      <div class="calc-form hidden" id="calc-form">
+        <div class="form-section">
+          <h3 class="form-title">비용 입력</h3>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="annual-distance">연간 주행거리 (km)</label>
+              <input type="number" id="annual-distance" value="15000" min="0" step="1000">
+            </div>
+            <div class="form-group">
+              <label for="fuel-price">유가 (원/L)</label>
+              <input type="number" id="fuel-price" value="1650" min="0" step="10">
+            </div>
+            <div class="form-group">
+              <label for="insurance-cost">보험료 (원/년)</label>
+              <input type="number" id="insurance-cost" value="800000" min="0" step="10000">
+            </div>
+            <div class="form-group">
+              <label for="maintenance-cost">정비비 (원/년)</label>
+              <input type="number" id="maintenance-cost" value="300000" min="0" step="10000">
+            </div>
+            <div class="form-group">
+              <label for="other-cost">기타비용 (원/년)</label>
+              <input type="number" id="other-cost" value="0" min="0" step="10000">
+              <span class="form-hint">주차비, 세차비, 톨비 등</span>
+            </div>
+          </div>
+          <button class="btn-calculate" id="btn-calculate">계산하기</button>
+        </div>
+      </div>
+
+      <!-- 계산 결과 -->
+      <div class="calc-result hidden" id="calc-result">
+        <h3 class="result-title">예상 유지비</h3>
+        <div class="result-cards">
+          <div class="result-card">
+            <span class="result-card-label">연료비</span>
+            <span class="result-card-value" id="result-fuel">0원</span>
+          </div>
+          <div class="result-card">
+            <span class="result-card-label">자동차세</span>
+            <span class="result-card-value" id="result-tax">0원</span>
+          </div>
+          <div class="result-card">
+            <span class="result-card-label">보험료</span>
+            <span class="result-card-value" id="result-insurance">0원</span>
+          </div>
+          <div class="result-card">
+            <span class="result-card-label">정비비</span>
+            <span class="result-card-value" id="result-maintenance">0원</span>
+          </div>
+          <div class="result-card">
+            <span class="result-card-label">기타비용</span>
+            <span class="result-card-value" id="result-other">0원</span>
+          </div>
+        </div>
+        <div class="result-total">
+          <div class="total-row">
+            <span class="total-label">연간 합계</span>
+            <span class="total-value" id="result-annual-total">0원</span>
+          </div>
+          <div class="total-row monthly">
+            <span class="total-label">월간 평균</span>
+            <span class="total-value" id="result-monthly-total">0원</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- 차량 선택 모달 -->
+  <div class="modal-overlay hidden" id="car-select-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>차량 선택</h3>
+        <button class="modal-close">&times;</button>
+      </div>
+
+      <div class="modal-steps">
+        <span class="modal-step active" data-step="1">제조사</span>
+        <span class="modal-step-arrow">&rsaquo;</span>
+        <span class="modal-step" data-step="2">모델</span>
+        <span class="modal-step-arrow">&rsaquo;</span>
+        <span class="modal-step" data-step="3">세대</span>
+        <span class="modal-step-arrow">&rsaquo;</span>
+        <span class="modal-step" data-step="4">트림</span>
+      </div>
+
+      <div class="modal-body">
+        <div class="modal-step-content" id="modal-step-1">
+          <div class="card-grid modal-card-grid"></div>
+        </div>
+
+        <div class="modal-step-content hidden" id="modal-step-2">
+          <button class="modal-back" data-target="1">&lsaquo; 뒤로</button>
+          <div class="card-grid modal-card-grid"></div>
+        </div>
+
+        <div class="modal-step-content hidden" id="modal-step-3">
+          <button class="modal-back" data-target="2">&lsaquo; 뒤로</button>
+          <div class="card-grid modal-card-grid"></div>
+        </div>
+
+        <div class="modal-step-content hidden" id="modal-step-4">
+          <div class="modal-step4-header">
+            <button class="modal-back" data-target="3">&lsaquo; 뒤로</button>
+            <button class="btn-other-car">다른 차량 선택</button>
+          </div>
+          <div class="modal-trim-list"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

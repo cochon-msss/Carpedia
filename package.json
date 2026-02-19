@@ -6,16 +6,20 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "node-sass": "node-sass",
-    "sass": "npx sass public/scss/common.scss public/css/common.css --no-source-map && npx sass public/scss/main.scss public/css/main.css --no-source-map && npx sass public/scss/carInfo.scss public/css/carInfo.css --no-source-map && npx sass public/scss/carCompare.scss public/css/carCompare.css --no-source-map && npx sass public/scss/community.scss public/css/community.css --no-source-map && npx sass public/scss/communityDetail.scss public/css/communityDetail.css --no-source-map"
+    "sass": "npx sass public/scss/common.scss public/css/common.css --no-source-map && npx sass public/scss/main.scss public/css/main.css --no-source-map && npx sass public/scss/carInfo.scss public/css/carInfo.css --no-source-map && npx sass public/scss/carCompare.scss public/css/carCompare.css --no-source-map && npx sass public/scss/community.scss public/css/community.css --no-source-map && npx sass public/scss/communityDetail.scss public/css/communityDetail.css --no-source-map && npx sass public/scss/auth.scss public/css/auth.css --no-source-map && npx sass public/scss/mypage.scss public/css/mypage.css --no-source-map && npx sass public/scss/notification.scss public/css/notification.css --no-source-map && npx sass public/scss/costCalc.scss public/css/costCalc.css --no-source-map && npx sass public/scss/carRecommend.scss public/css/carRecommend.css --no-source-map && npx sass public/scss/specRanking.scss public/css/specRanking.css --no-source-map"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "dotenv": "^16.4.7",
     "ejs": "^3.1.10",
     "express": "^4.21.2",
+    "express-mysql-session": "^3.0.3",
+    "express-session": "^1.19.0",
     "helmet": "^8.0.0",
+    "multer": "^2.0.2",
     "mysql2": "^3.14.1",
     "winston": "^3.17.0",
     "winston-daily-rotate-file": "^5.0.0",

@@ -7,21 +7,31 @@
             <div class="compare">
                 <span>비교하기</span>
             </div>
+            <div class="cost-calc">
+                <span>유지비 계산기</span>
+            </div>
+            <div class="car-recommend">
+                <span>차량 추천</span>
+            </div>
+            <div class="spec-ranking">
+                <span>제원 랭킹</span>
+            </div>
             <div class="community">
                 <span>커뮤니티</span>
             </div>
         </nav>
         <div class="user-menu">
-            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"
-                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"></path>
-                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-            </svg>
-            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"
-                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="7" r="4"></circle>
-                <path d="M5.4 21a8.38 8.38 0 0 1 13.2 0"></path>
-            </svg>
+            <% if (user) { %>
+                <span class="user-nickname"><%= user.nickname %></span>
+                <div class="notification-bell" title="알림">
+                    <span class="bell-icon">🔔</span>
+                    <span class="notification-badge hidden">0</span>
+                </div>
+                <button type="button" class="mypage-btn">마이페이지</button>
+                <button type="button" class="logout-btn">로그아웃</button>
+            <% } else { %>
+                <button type="button" class="login-link">로그인</button>
+            <% } %>
         </div>
     </div>
 </header>
