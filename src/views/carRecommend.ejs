@@ -33,9 +33,9 @@
             <button class="filter-btn" data-value="세단">세단</button>
             <button class="filter-btn" data-value="SUV">SUV</button>
             <button class="filter-btn" data-value="해치백">해치백</button>
-            <button class="filter-btn" data-value="왜건">왜건</button>
+            <button class="filter-btn" data-value="MPV">MPV</button>
             <button class="filter-btn" data-value="쿠페">쿠페</button>
-            <button class="filter-btn" data-value="기타">기타</button>
+            <button class="filter-btn" data-value="트럭">트럭</button>
           </div>
         </div>
         <div class="filter-group">
@@ -50,11 +50,22 @@
           </div>
         </div>
         <div class="filter-group">
+          <label class="filter-label">구동방식</label>
+          <div class="filter-buttons" id="filter-drivetrain">
+            <button class="filter-btn active" data-value="">전체</button>
+            <button class="filter-btn" data-value="FF">전륜(FF)</button>
+            <button class="filter-btn" data-value="AWD">사륜(AWD)</button>
+            <button class="filter-btn" data-value="후륜">후륜(RWD)</button>
+          </div>
+        </div>
+        <div class="filter-group">
           <label class="filter-label">우선순위</label>
           <div class="filter-buttons" id="filter-sort-by">
             <button class="filter-btn active" data-value="efficiency">연비우선</button>
             <button class="filter-btn" data-value="power">출력우선</button>
+            <button class="filter-btn" data-value="torque">토크우선</button>
             <button class="filter-btn" data-value="lightweight">경량우선</button>
+            <button class="filter-btn" data-value="displacement">대배기량</button>
           </div>
         </div>
         <button class="btn-search" id="btn-search">검색</button>

@@ -14,12 +14,13 @@ const getRecommendPage = async (req, res) => {
 // 차량 추천 목록 JSON API
 const getRecommendListJson = async (req, res) => {
   try {
-    const { bodyType, fuelType, sortBy } = req.query;
-    const list = await carRecommendService.getRecommendList(
-      bodyType || null,
-      fuelType || null,
-      sortBy || "efficiency"
-    );
+    const { bodyType, fuelType, sortBy, drivetrain } = req.query;
+    const list = await carRecommendService.getRecommendList({
+      bodyType: bodyType || null,
+      fuelType: fuelType || null,
+      sortBy: sortBy || "efficiency",
+      drivetrain: drivetrain || null,
+    });
     res.json(list);
   } catch (error) {
     logger.error(error);

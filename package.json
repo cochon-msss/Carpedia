@@ -4,9 +4,14 @@
   "description": "",
   "main": "server.js",
   "scripts": {
+    "start": "node src/server.js",
+    "build": "npm run sass",
     "test": "echo \"Error: no test specified\" && exit 1",
     "node-sass": "node-sass",
     "sass": "npx sass public/scss/common.scss public/css/common.css --no-source-map && npx sass public/scss/main.scss public/css/main.css --no-source-map && npx sass public/scss/carInfo.scss public/css/carInfo.css --no-source-map && npx sass public/scss/carCompare.scss public/css/carCompare.css --no-source-map && npx sass public/scss/community.scss public/css/community.css --no-source-map && npx sass public/scss/communityDetail.scss public/css/communityDetail.css --no-source-map && npx sass public/scss/auth.scss public/css/auth.css --no-source-map && npx sass public/scss/mypage.scss public/css/mypage.css --no-source-map && npx sass public/scss/notification.scss public/css/notification.css --no-source-map && npx sass public/scss/costCalc.scss public/css/costCalc.css --no-source-map && npx sass public/scss/carRecommend.scss public/css/carRecommend.css --no-source-map && npx sass public/scss/specRanking.scss public/css/specRanking.css --no-source-map && npx sass public/scss/admin.scss public/css/admin.css --no-source-map && npx sass public/scss/bodyTypeGuide.scss public/css/bodyTypeGuide.css --no-source-map"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   },
   "keywords": [],
   "author": "",
@@ -25,5 +30,8 @@
     "winston-daily-rotate-file": "^5.0.0",
     "express-rate-limit": "^7.5.0",
     "xss-clean": "^0.1.4"
+  },
+  "devDependencies": {
+    "sass": "^1.77.0"
   }
 }

@@ -5,19 +5,19 @@ const notificationService = require("./notificationService");
 const logger = require("../utils/loggerUtil");
 
 // 게시글 목록 조회
-const getPostList = async (generationSeq, page, pageSize, keyword = null, sortType = "latest") => {
+const getPostList = async (generationSeq, page, pageSize, keyword = null, sortType = "latest", category = null) => {
   try {
     const offset = (page - 1) * pageSize;
-    return await communityModel.getPostList(generationSeq, offset, pageSize, keyword, sortType);
+    return await communityModel.getPostList(generationSeq, offset, pageSize, keyword, sortType, category);
   } catch (error) {
     logger.error(error);
   }
 };
 
 // 게시글 전체 개수
-const getPostCount = async (generationSeq, keyword = null) => {
+const getPostCount = async (generationSeq, keyword = null, category = null) => {
   try {
-    const result = await communityModel.getPostCount(generationSeq, keyword);
+    const result = await communityModel.getPostCount(generationSeq, keyword, category);
     return result[0].totalCount;
   } catch (error) {
     logger.error(error);
@@ -25,9 +25,11 @@ const getPostCount = async (generationSeq, keyword = null) => {
 };
 
 // 게시글 상세 조회
-const getPostDetail = async (postSeq) => {
+const getPostDetail = async (postSeq, shouldIncrement = true) => {
   try {
-    await communityModel.increaseViewCount(postSeq);
+    if (shouldIncrement) {
+      await communityModel.increaseViewCount(postSeq);
+    }
     const post = await communityModel.getPostDetail(postSeq);
     return post[0];
   } catch (error) {
@@ -46,17 +48,57 @@ const getGenerationInfo = async (generationSeq) => {
   }
 };
 
-// 게시글 작성
-const createPost = async (generationSeq, title, content, author, userSeq) => {
+// 인기 게시판 조회
+const getPopularBoards = async (limit = 6) => {
   try {
-    return await communityModel.createPost(generationSeq, title, content, author, userSeq);
+    return await communityModel.getPopularBoards(limit);
+  } catch (error) {
+    logger.error(error);
+    return [];
+  }
+};
+
+// 전체 최신 게시글 조회
+const getRecentPostsAll = async (limit = 10) => {
+  try {
+    return await communityModel.getRecentPostsAll(limit);
+  } catch (error) {
+    logger.error(error);
+    return [];
+  }
+};
+
+// 전체 인기 게시글 조회
+const getPopularPostsAll = async (limit = 10) => {
+  try {
+    return await communityModel.getPopularPostsAll(limit);
+  } catch (error) {
+    logger.error(error);
+    return [];
+  }
+};
+
+// 전체 인기 게시글 조회 (offset 페이지네이션)
+const getPopularPostsAllWithOffset = async (limit = 10, offset = 0) => {
+  try {
+    return await communityModel.getPopularPostsAllWithOffset(limit, offset);
+  } catch (error) {
+    logger.error(error);
+    return [];
+  }
+};
+
+// 게시글 작성
+const createPost = async (generationSeq, title, content, author, userSeq, category = '') => {
+  try {
+    return await communityModel.createPost(generationSeq, title, content, author, userSeq, category);
   } catch (error) {
     logger.error(error);
   }
 };
 
 // 게시글 수정
-const updatePost = async (postSeq, title, content, userSeq) => {
+const updatePost = async (postSeq, title, content, userSeq, category = null) => {
   try {
     const post = await communityModel.getPostDetail(postSeq);
     if (!post || post.length === 0) {
@@ -65,7 +107,7 @@ const updatePost = async (postSeq, title, content, userSeq) => {
     if (post[0].userSeq !== userSeq) {
       return { success: false, message: "수정 권한이 없습니다." };
     }
-    await communityModel.updatePost(postSeq, title, content);
+    await communityModel.updatePost(postSeq, title, content, category);
     return { success: true };
   } catch (error) {
     logger.error(error);
@@ -313,6 +355,10 @@ module.exports = {
   getPostCount,
   getPostDetail,
   getGenerationInfo,
+  getPopularBoards,
+  getRecentPostsAll,
+  getPopularPostsAll,
+  getPopularPostsAllWithOffset,
   createPost,
   updatePost,
   deletePost,

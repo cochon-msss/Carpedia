@@ -134,6 +134,12 @@ header .header-container .nav-menu div:hover {
 header .header-container .nav-menu div:hover span {
   color: #fff;
 }
+header .header-container .nav-menu div.active {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+header .header-container .nav-menu div.active span {
+  color: #fff;
+}
 header .header-container .user-menu {
   display: flex;
   align-items: center;
@@ -263,6 +269,19 @@ header .header-container .user-menu .login-link:hover {
 .card-grid {
   display: grid;
   gap: 12px;
+}
+
+.section-title {
+  grid-column: 1/-1;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-secondary);
+  padding: 8px 0 4px;
+  border-bottom: 1px solid var(--border-light);
+  margin-bottom: 4px;
+}
+.section-title:not(:first-child) {
+  margin-top: 12px;
 }
 
 .toast-message {

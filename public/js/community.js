@@ -78,10 +78,15 @@ $(() => {
     return $(".post-sort button.active").data("sort") || "latest";
   }
 
-  function buildUrl(page, keyword, sort) {
+  function getCategory() {
+    return $(".category-filter button.active").data("category") || "";
+  }
+
+  function buildUrl(page, keyword, sort, category) {
     let url = "/community?generationSeq=" + generationSeq + "&page=" + page;
     if (keyword) url += "&keyword=" + encodeURIComponent(keyword);
     if (sort && sort !== "latest") url += "&sort=" + sort;
+    if (category) url += "&category=" + encodeURIComponent(category);
     return url;
   }
 
@@ -98,14 +103,21 @@ $(() => {
 
   function performSearch() {
     const keyword = $(".search-input").val().trim();
-    window.location.href = buildUrl(1, keyword, getSort());
+    window.location.href = buildUrl(1, keyword, getSort(), getCategory());
   }
+
+  // 카테고리 필터 클릭
+  $(".category-filter button").on("click", function () {
+    const cat = $(this).data("category");
+    const keyword = $(".search-input").val().trim();
+    window.location.href = buildUrl(1, keyword, getSort(), cat);
+  });
 
   // 정렬 버튼
   $(".post-sort button").on("click", function () {
     const sort = $(this).data("sort");
     const keyword = $(".search-input").val().trim();
-    window.location.href = buildUrl(1, keyword, sort);
+    window.location.href = buildUrl(1, keyword, sort, getCategory());
   });
 
   // 게시글 클릭 → 상세 페이지
@@ -130,6 +142,57 @@ $(() => {
   $(document).on("click", ".page-btn", function () {
     const page = $(this).data("page");
     const keyword = $(".search-input").val().trim();
-    window.location.href = buildUrl(page, keyword, getSort());
+    window.location.href = buildUrl(page, keyword, getSort(), getCategory());
+  });
+
+  // === 인기글 더보기 ===
+  $(document).on("click", "#load-more-popular", function () {
+    const $btn = $(this);
+    const offset = $btn.data("offset");
+    $btn.prop("disabled", true).text("로딩 중...");
+
+    $.ajax({
+      url: "/community/popular-posts?offset=" + offset,
+      method: "GET",
+      success: function (data) {
+        if (data.posts && data.posts.length > 0) {
+          data.posts.forEach(function (post) {
+            var badges = '<div class="post-badges">';
+            if (post.manufacturerName && post.modelName) {
+              badges += '<span class="post-vehicle-badge">' + $("<span>").text(post.manufacturerName + ' ' + post.modelName + ' ' + post.generationName).html() + '</span>';
+            }
+            if (post.category) {
+              badges += '<span class="category-badge">' + $("<span>").text(post.category).html() + '</span>';
+            }
+            badges += '</div>';
+
+            var card = '<div class="post-card" data-seq="' + post.postSeq + '">' +
+              badges +
+              '<h3 class="post-title">' + $("<span>").text(post.title).html() + '</h3>' +
+              '<p class="post-preview">' + $("<span>").text(post.preview ? post.preview.substring(0, 100) : '').html() + '</p>' +
+              '<div class="post-meta">' +
+              '<span class="post-author">' + $("<span>").text(post.author).html() + '</span>' +
+              '<span class="post-date">' + new Date(post.createAt).toLocaleDateString('ko-KR') + '</span>' +
+              '<div class="post-stats">' +
+              '<span>♥ ' + post.likeCount + '</span>' +
+              '<span>댓글 ' + post.commentCount + '</span>' +
+              '<span>조회 ' + post.viewCount + '</span>' +
+              '</div></div></div>';
+            $("#popular-post-list").append(card);
+          });
+          $btn.data("offset", offset + data.posts.length);
+          $btn.prop("disabled", false).text("더보기");
+          if (!data.hasMore) {
+            $btn.closest(".load-more-wrap").remove();
+          }
+        } else {
+          $btn.closest(".load-more-wrap").remove();
+        }
+      },
+      error: function () {
+        $btn.prop("disabled", false).text("더보기");
+        showAlert("인기글을 불러오는데 실패했습니다.");
+      },
+    });
   });
 });

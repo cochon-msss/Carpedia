@@ -16,11 +16,13 @@ const {
   toggleCommentLike,
   createReport,
   toggleBookmark,
+  getPopularPostsJson,
   getModelsJson,
   getGenerationsJson,
 } = require("../controllers/communityController");
 
 router.get("/", getPostList);
+router.get("/popular-posts", getPopularPostsJson);
 router.get("/models/:manufacturerSeq", getModelsJson);
 router.get("/generations/:modelSeq", getGenerationsJson);
 router.get("/write", requireLogin, getWriteForm);

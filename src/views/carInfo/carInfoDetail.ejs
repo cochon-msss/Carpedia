@@ -1,3 +1,20 @@
+<%
+  function fmt(v) {
+    if (v == null || v === '') return null;
+    var n = Number(v);
+    return isNaN(n) ? v : n.toLocaleString('ko-KR');
+  }
+  function v(val, unit) {
+    if (val == null || val === '') return '-';
+    var formatted = fmt(val);
+    return unit ? formatted + unit : formatted;
+  }
+  function v2(val1, val2, unit) {
+    var a = (val1 != null && val1 !== '') ? fmt(val1) + unit : '-';
+    var b = (val2 != null && val2 !== '') ? fmt(val2) + unit : '-';
+    return a + ' / ' + b;
+  }
+%>
 <div class="spec-grid">
     <!-- 엔진 -->
     <div class="spec-card engine">
@@ -8,27 +25,27 @@
             <tbody>
                 <tr>
                     <th>엔진형식</th>
-                    <td><%= carInfoDetail.engineType %></td>
+                    <td><%= v(carInfoDetail.engineType) %></td>
                 </tr>
                 <tr>
                     <th>과급방식</th>
-                    <td><%= carInfoDetail.aspiration %></td>
+                    <td><%= v(carInfoDetail.aspiration) %></td>
                 </tr>
                 <tr>
                     <th>배기량</th>
-                    <td><%= carInfoDetail.displacement %></td>
+                    <td><%= v(carInfoDetail.displacement) %></td>
                 </tr>
                 <tr>
                     <th>연료</th>
-                    <td><%= carInfoDetail.fuelType %></td>
+                    <td><%= v(carInfoDetail.fuelType) %></td>
                 </tr>
                 <tr>
                     <th>최고출력</th>
-                    <td><%= carInfoDetail.maxPower %>hp</td>
+                    <td><%= v(carInfoDetail.maxPower, 'hp') %></td>
                 </tr>
                 <tr>
                     <th>최대토크</th>
-                    <td><%= carInfoDetail.maxTorque %>kg.m</td>
+                    <td><%= v(carInfoDetail.maxTorque, 'kg.m') %></td>
                 </tr>
             </tbody>
         </table>
@@ -43,11 +60,11 @@
             <tbody>
                 <tr>
                     <th>연비</th>
-                    <td><%= carInfoDetail.fuelEfficiency %>km/L</td>
+                    <td><%= v(carInfoDetail.fuelEfficiency, 'km/L') %></td>
                 </tr>
                 <tr>
                     <th>CO2 배출량</th>
-                    <td><%= carInfoDetail.co2Emission %>g/km</td>
+                    <td><%= v(carInfoDetail.co2Emission, 'g/km') %></td>
                 </tr>
             </tbody>
         </table>
@@ -62,27 +79,27 @@
             <tbody>
                 <tr>
                     <th>전장/전폭</th>
-                    <td><%= carInfoDetail.length %>mm / <%= carInfoDetail.width %>mm</td>
+                    <td><%= v2(carInfoDetail.length, carInfoDetail.width, 'mm') %></td>
                 </tr>
                 <tr>
                     <th>전고/축거</th>
-                    <td><%= carInfoDetail.heigth %>mm / <%= carInfoDetail.wheelbase %>mm</td>
+                    <td><%= v2(carInfoDetail.heigth, carInfoDetail.wheelbase, 'mm') %></td>
                 </tr>
                 <tr>
                     <th>윤거전/후</th>
-                    <td><%= carInfoDetail.frontTread %>mm / <%= carInfoDetail.rearTread %>mm</td>
+                    <td><%= v2(carInfoDetail.frontTread, carInfoDetail.rearTread, 'mm') %></td>
                 </tr>
                 <tr>
                     <th>공차중량</th>
-                    <td><%= carInfoDetail.curbWeight %>kg</td>
+                    <td><%= v(carInfoDetail.curbWeight, 'kg') %></td>
                 </tr>
                 <tr>
                     <th>전륜타이어</th>
-                    <td><%= carInfoDetail.fontTire %></td>
+                    <td><%= v(carInfoDetail.fontTire) %></td>
                 </tr>
                 <tr>
                     <th>후륜타이어</th>
-                    <td><%= carInfoDetail.rearTire %></td>
+                    <td><%= v(carInfoDetail.rearTire) %></td>
                 </tr>
             </tbody>
         </table>
@@ -97,31 +114,31 @@
             <tbody>
                 <tr>
                     <th>구동방식</th>
-                    <td><%= carInfoDetail.drivetrain %></td>
+                    <td><%= v(carInfoDetail.drivetrain) %></td>
                 </tr>
                 <tr>
                     <th>변속기</th>
-                    <td><%= carInfoDetail.transmission %></td>
+                    <td><%= v(carInfoDetail.transmission) %></td>
                 </tr>
                 <tr>
                     <th>전륜 서스펜션</th>
-                    <td><%= carInfoDetail.frontSuspension %></td>
+                    <td><%= v(carInfoDetail.frontSuspension) %></td>
                 </tr>
                 <tr>
                     <th>후륜 서스펜션</th>
-                    <td><%= carInfoDetail.rearSuspension %></td>
+                    <td><%= v(carInfoDetail.rearSuspension) %></td>
                 </tr>
                 <tr>
                     <th>전륜 제동장치</th>
-                    <td><%= carInfoDetail.frontBreake %></td>
+                    <td><%= v(carInfoDetail.frontBreake) %></td>
                 </tr>
                 <tr>
                     <th>후륜 제동장치</th>
-                    <td><%= carInfoDetail.rearBreake %></td>
+                    <td><%= v(carInfoDetail.rearBreake) %></td>
                 </tr>
                 <tr>
                     <th>스티어링</th>
-                    <td><%= carInfoDetail.steeringType %></td>
+                    <td><%= v(carInfoDetail.steeringType) %></td>
                 </tr>
             </tbody>
         </table>

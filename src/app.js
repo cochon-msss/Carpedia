@@ -13,6 +13,11 @@ if (!process.env.SESSION_SECRET) {
   process.exit(1);
 }
 
+// Render 등 리버스 프록시 환경에서 secure 쿠키가 동작하도록 설정
+if (process.env.NODE_ENV === "production") {
+  app.set("trust proxy", 1);
+}
+
 applyBaseSecurityMiddleware(app);
 
 app.use(express.json());

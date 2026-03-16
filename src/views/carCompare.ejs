@@ -11,6 +11,7 @@
   <link rel="stylesheet" type="text/css" href="/css/carCompare.css">
   <script src="/js/jquery-3.6.0.js"></script>
   <script src="/js/silhouettes.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
   <script defer src="/js/common.js"></script>
   <script defer src="/js/carCompare.js"></script>
   <title>비교하기 : 카피디아</title>
@@ -64,15 +65,10 @@
         </div>
       </div>
 
-      <!-- 차량 실루엣 -->
-      <div class="car_images hidden" id="model-viewers">
-        <div class="car_image" id="viewer-0">
-          <span class="car-label">차량 A</span>
-          <div class="car-silhouette"></div>
-        </div>
-        <div class="car_image" id="viewer-1">
-          <span class="car-label">차량 B</span>
-          <div class="car-silhouette"></div>
+      <!-- 레이더 차트 -->
+      <div class="radar-section hidden" id="radar-section">
+        <div class="radar-wrap">
+          <canvas id="radar-canvas"></canvas>
         </div>
       </div>
 

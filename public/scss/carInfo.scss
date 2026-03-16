@@ -76,40 +76,6 @@ main {
   to { opacity: 1; transform: translateY(0); }
 }
 
-.brand-logo {
-  width: 100px;
-  height: 100px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  animation: logoGlow 3s ease-in-out infinite;
-
-  img {
-    max-width: 90px;
-    max-height: 90px;
-    object-fit: contain;
-  }
-
-  .brand-initial {
-    font-size: 48px;
-    font-weight: 800;
-    color: #fff;
-    opacity: 0.8;
-  }
-}
-
-@keyframes logoGlow {
-  0%, 100% { filter: drop-shadow(0 0 15px rgba(99, 102, 241, 0.3)); }
-  50% { filter: drop-shadow(0 0 35px rgba(99, 102, 241, 0.6)); }
-}
-
-.hero-divider {
-  width: 60px;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.6), transparent);
-  border-radius: 1px;
-}
-
 .hero-text {
   display: flex;
   flex-direction: column;

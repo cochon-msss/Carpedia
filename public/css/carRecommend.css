@@ -25,7 +25,7 @@ main .container {
   border-bottom: 1px solid var(--border);
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 14px;
 }
 
 .filter-group {
@@ -45,12 +45,12 @@ main .container {
 .filter-buttons {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 6px;
 }
 
 .filter-btn {
-  padding: 8px 16px;
-  font-size: 13px;
+  padding: 6px 14px;
+  font-size: 12px;
   font-weight: 600;
   color: var(--text-secondary);
   background: var(--bg-secondary);
@@ -96,14 +96,14 @@ main .container {
 .result-grid {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 }
 
 .recommend-card {
   display: flex;
   align-items: center;
   gap: 20px;
-  padding: 20px 24px;
+  padding: 18px 24px;
   background: var(--bg-secondary);
   border: 1px solid var(--border);
   border-radius: 12px;
@@ -112,6 +112,10 @@ main .container {
 .recommend-card:hover {
   border-color: var(--accent);
   box-shadow: var(--shadow-sm);
+}
+.recommend-card.rank-top {
+  border-color: var(--accent);
+  background: var(--accent-light);
 }
 
 .card-rank {
@@ -126,7 +130,7 @@ main .container {
   display: flex;
   flex-direction: column;
   gap: 4px;
-  min-width: 200px;
+  min-width: 180px;
 }
 .card-info .card-manufacturer {
   font-size: 12px;
@@ -134,7 +138,7 @@ main .container {
   color: var(--text-light);
 }
 .card-info .card-model {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 700;
   color: var(--text-primary);
 }
@@ -145,7 +149,7 @@ main .container {
 
 .card-specs {
   display: flex;
-  gap: 10px;
+  gap: 8px;
   margin-left: auto;
   flex-wrap: wrap;
 }
@@ -155,20 +159,43 @@ main .container {
   flex-direction: column;
   align-items: center;
   gap: 4px;
-  padding: 8px 14px;
+  padding: 6px 12px;
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: 8px;
 }
 .card-specs .spec-badge .spec-label {
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 500;
   color: var(--text-secondary);
 }
 .card-specs .spec-badge .spec-value {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 700;
   color: var(--text-primary);
+  white-space: nowrap;
+}
+
+.card-highlight {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-width: 90px;
+  padding: 10px 16px;
+  background: var(--accent);
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+.card-highlight .highlight-label {
+  font-size: 10px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.8);
+}
+.card-highlight .highlight-value {
+  font-size: 14px;
+  font-weight: 800;
+  color: #fff;
   white-space: nowrap;
 }
 
@@ -198,5 +225,10 @@ main .container {
   }
   .card-info {
     min-width: auto;
+  }
+  .card-highlight {
+    align-self: stretch;
+    flex-direction: row;
+    justify-content: space-between;
   }
 }

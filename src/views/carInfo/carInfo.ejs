@@ -32,14 +32,6 @@
 
                 <!-- 중앙 히어로 콘텐츠 -->
                 <div class="hero-content">
-                    <div class="brand-logo">
-                        <% if (carMeta.logoUrl) { %>
-                            <img src="<%= carMeta.logoUrl %>" alt="<%= carMeta.manufacturerName %>">
-                        <% } else { %>
-                            <span class="brand-initial"><%= (carMeta.manufacturerName || 'C').charAt(0) %></span>
-                        <% } %>
-                    </div>
-                    <div class="hero-divider"></div>
                     <div class="hero-text">
                         <div class="hero-car-name"><%= carMeta.modelName || '' %></div>
                         <div class="hero-gen-name"><%= carMeta.generationName || '' %></div>

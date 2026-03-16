@@ -34,7 +34,15 @@
                     <h3>제조사 선택</h3>
                 </div>
                 <div class="card-grid manufacturer-grid">
-                    <% manufacturers.forEach((manufacturer) => { %>
+                    <div class="section-title">국내 브랜드</div>
+                    <% manufacturers.filter(m => m.countryCode === 'KR').forEach((manufacturer) => { %>
+                        <div class="select-card manufacturer-card" data-seq="<%= manufacturer.manufacturerSeq %>">
+                            <span class="card-name"><%= manufacturer.manufacturerName %></span>
+                            <span class="card-sub"><%= manufacturer.foundedYear %>년 설립</span>
+                        </div>
+                    <% }) %>
+                    <div class="section-title">해외 브랜드</div>
+                    <% manufacturers.filter(m => m.countryCode !== 'KR').forEach((manufacturer) => { %>
                         <div class="select-card manufacturer-card" data-seq="<%= manufacturer.manufacturerSeq %>">
                             <span class="card-name"><%= manufacturer.manufacturerName %></span>
                             <span class="card-sub"><%= manufacturer.foundedYear %>년 설립</span>

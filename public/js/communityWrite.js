@@ -3,6 +3,7 @@ $(() => {
   const postSeq = $(".write-form").data("post-seq");
   const generationSeq = $(".write-form").data("generation-seq");
   const selectedFiles = []; // 새 이미지 파일 배열 (삭제 시 null 처리)
+  const deletedImageSeqs = []; // 수정 모드에서 삭제 마킹된 이미지 seq
 
   // 이미지 선택 버튼
   $("#image-upload-btn").on("click", function () {
@@ -46,34 +47,25 @@ $(() => {
     $item.remove();
   });
 
-  // 기존 이미지 삭제 (수정 모드)
+  // 기존 이미지 삭제 마킹 (수정 모드 — 실제 삭제는 수정 성공 후)
   $(".existing-image-list").on("click", ".image-delete-btn", function () {
     const $item = $(this).closest(".existing-image-item");
     const imageSeq = $item.data("image-seq");
-    showConfirm("이미지를 삭제하시겠습니까?", function () {
-      $.ajax({
-        url: "/community/image/" + imageSeq,
-        method: "DELETE",
-        success: function (data) {
-          if (data.success) {
-            $item.remove();
-          }
-        },
-        error: function (xhr) {
-          if (xhr.status === 401) {
-            showAlert("로그인이 필요합니다.", function () {
-              window.location.href = "/auth/login";
-            });
-            return;
-          }
-          if (xhr.status === 403) {
-            showAlert("삭제 권한이 없습니다.");
-            return;
-          }
-          showAlert("이미지 삭제에 실패했습니다.");
-        },
-      });
-    });
+    $item.addClass("marked-for-deletion");
+    $item.find(".image-delete-btn").hide();
+    $item.append('<button type="button" class="image-undo-btn">되돌리기</button>');
+    deletedImageSeqs.push(imageSeq);
+  });
+
+  // 이미지 삭제 되돌리기
+  $(".existing-image-list").on("click", ".image-undo-btn", function () {
+    const $item = $(this).closest(".existing-image-item");
+    const imageSeq = $item.data("image-seq");
+    $item.removeClass("marked-for-deletion");
+    $(this).remove();
+    $item.find(".image-delete-btn").show();
+    const idx = deletedImageSeqs.indexOf(imageSeq);
+    if (idx !== -1) deletedImageSeqs.splice(idx, 1);
   });
 
   // 게시글 작성/수정
@@ -97,6 +89,12 @@ $(() => {
     formData.append("generationSeq", generationSeq);
     formData.append("title", title);
     formData.append("content", content);
+    formData.append("category", $("#category").val() || "");
+
+    // 삭제 마킹된 이미지 seq (수정 모드)
+    deletedImageSeqs.forEach(function (seq) {
+      formData.append("deletedImageSeqs[]", seq);
+    });
 
     // 새 이미지 파일 추가 (null 제외)
     selectedFiles.forEach(function (file) {

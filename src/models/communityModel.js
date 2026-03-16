@@ -1,7 +1,7 @@
 const dbHelper = require("../utils/dbHelper");
 
 // 게시글 목록 조회
-const getPostList = async (generationSeq, offset, limit, keyword = null, sortType = "latest") => {
+const getPostList = async (generationSeq, offset, limit, keyword = null, sortType = "latest", category = null) => {
   let sql = `
     SELECT post_seq AS postSeq,
            category,
@@ -11,11 +11,17 @@ const getPostList = async (generationSeq, offset, limit, keyword = null, sortTyp
            view_count AS viewCount,
            comment_count AS commentCount,
            like_count AS likeCount,
+           is_edited AS isEdited,
            create_at AS createAt
       FROM posts
      WHERE use_flag = 'Y'
        AND generation_seq = ?`;
   const params = [generationSeq];
+
+  if (category) {
+    sql += ` AND category = ?`;
+    params.push(category);
+  }
 
   if (keyword) {
     sql += ` AND (title LIKE ? OR content LIKE ?)`;
@@ -41,9 +47,14 @@ const getPostList = async (generationSeq, offset, limit, keyword = null, sortTyp
 };
 
 // 게시글 전체 개수
-const getPostCount = async (generationSeq, keyword = null) => {
+const getPostCount = async (generationSeq, keyword = null, category = null) => {
   let sql = `SELECT COUNT(*) AS totalCount FROM posts WHERE use_flag = 'Y' AND generation_seq = ?`;
   const params = [generationSeq];
+
+  if (category) {
+    sql += ` AND category = ?`;
+    params.push(category);
+  }
 
   if (keyword) {
     sql += ` AND (title LIKE ? OR content LIKE ?)`;
@@ -67,6 +78,7 @@ const getPostDetail = async (postSeq) => {
             p.view_count AS viewCount,
             p.comment_count AS commentCount,
             p.like_count AS likeCount,
+            p.is_edited AS isEdited,
             p.create_at AS createAt,
             g.generation_name AS generationName,
             m.model_name AS modelName,
@@ -89,19 +101,24 @@ const increaseViewCount = async (postSeq) => {
 };
 
 // 게시글 작성
-const createPost = async (generationSeq, title, content, author, userSeq) => {
+const createPost = async (generationSeq, title, content, author, userSeq, category = '') => {
   return await dbHelper.query(
-    `INSERT INTO posts (generation_seq, title, content, author, user_seq) VALUES (?, ?, ?, ?, ?)`,
-    [generationSeq, title, content, author, userSeq]
+    `INSERT INTO posts (generation_seq, title, content, author, user_seq, category) VALUES (?, ?, ?, ?, ?, ?)`,
+    [generationSeq, title, content, author, userSeq, category]
   );
 };
 
 // 게시글 수정
-const updatePost = async (postSeq, title, content) => {
-  return await dbHelper.query(
-    `UPDATE posts SET title = ?, content = ? WHERE post_seq = ? AND use_flag = 'Y'`,
-    [title, content, postSeq]
-  );
+const updatePost = async (postSeq, title, content, category = null) => {
+  let sql = `UPDATE posts SET title = ?, content = ?, is_edited = 1`;
+  const params = [title, content];
+  if (category !== null) {
+    sql += `, category = ?`;
+    params.push(category);
+  }
+  sql += ` WHERE post_seq = ? AND use_flag = 'Y'`;
+  params.push(postSeq);
+  return await dbHelper.query(sql, params);
 };
 
 // 게시글 삭제 (soft delete)
@@ -332,11 +349,116 @@ const getGenerationInfo = async (generationSeq) => {
   );
 };
 
+// 인기 게시판 (게시글 수 기준 상위 세대)
+const getPopularBoards = async (limit = 6) => {
+  return await dbHelper.query(
+    `SELECT p.generation_seq AS generationSeq,
+            g.generation_name AS generationName,
+            m.model_name AS modelName,
+            mf.manufacturer_name AS manufacturerName,
+            COUNT(*) AS postCount
+       FROM posts p
+       JOIN generations g ON p.generation_seq = g.generation_seq
+       JOIN models m ON g.model_seq = m.model_seq
+       JOIN manufacturer mf ON m.manufacturer_seq = mf.manufacturer_seq
+      WHERE p.use_flag = 'Y' AND p.generation_seq IS NOT NULL
+      GROUP BY p.generation_seq, g.generation_name, m.model_name, mf.manufacturer_name
+      ORDER BY postCount DESC
+      LIMIT ?`,
+    [limit]
+  );
+};
+
+// 전체 최신 게시글 (차종 정보 포함)
+const getRecentPostsAll = async (limit = 10) => {
+  return await dbHelper.query(
+    `SELECT p.post_seq AS postSeq,
+            p.category,
+            p.title,
+            p.content AS preview,
+            p.author,
+            p.view_count AS viewCount,
+            p.comment_count AS commentCount,
+            p.like_count AS likeCount,
+            p.create_at AS createAt,
+            p.generation_seq AS generationSeq,
+            g.generation_name AS generationName,
+            m.model_name AS modelName,
+            mf.manufacturer_name AS manufacturerName
+       FROM posts p
+       LEFT JOIN generations g ON p.generation_seq = g.generation_seq
+       LEFT JOIN models m ON g.model_seq = m.model_seq
+       LEFT JOIN manufacturer mf ON m.manufacturer_seq = mf.manufacturer_seq
+      WHERE p.use_flag = 'Y'
+      ORDER BY p.create_at DESC
+      LIMIT ?`,
+    [limit]
+  );
+};
+
+// 전체 인기 게시글 (좋아요 순, 차종 정보 포함)
+const getPopularPostsAll = async (limit = 10) => {
+  return await dbHelper.query(
+    `SELECT p.post_seq AS postSeq,
+            p.category,
+            p.title,
+            p.content AS preview,
+            p.author,
+            p.view_count AS viewCount,
+            p.comment_count AS commentCount,
+            p.like_count AS likeCount,
+            p.create_at AS createAt,
+            p.generation_seq AS generationSeq,
+            g.generation_name AS generationName,
+            m.model_name AS modelName,
+            mf.manufacturer_name AS manufacturerName
+       FROM posts p
+       LEFT JOIN generations g ON p.generation_seq = g.generation_seq
+       LEFT JOIN models m ON g.model_seq = m.model_seq
+       LEFT JOIN manufacturer mf ON m.manufacturer_seq = mf.manufacturer_seq
+      WHERE p.use_flag = 'Y'
+      ORDER BY p.like_count DESC, p.view_count DESC, p.create_at DESC
+      LIMIT ?`,
+    [limit]
+  );
+};
+
+// 전체 인기 게시글 (offset 페이지네이션)
+const getPopularPostsAllWithOffset = async (limit = 10, offset = 0) => {
+  return await dbHelper.query(
+    `SELECT p.post_seq AS postSeq,
+            p.category,
+            p.title,
+            p.content AS preview,
+            p.author,
+            p.view_count AS viewCount,
+            p.comment_count AS commentCount,
+            p.like_count AS likeCount,
+            p.create_at AS createAt,
+            p.generation_seq AS generationSeq,
+            g.generation_name AS generationName,
+            m.model_name AS modelName,
+            mf.manufacturer_name AS manufacturerName
+       FROM posts p
+       LEFT JOIN generations g ON p.generation_seq = g.generation_seq
+       LEFT JOIN models m ON g.model_seq = m.model_seq
+       LEFT JOIN manufacturer mf ON m.manufacturer_seq = mf.manufacturer_seq
+      WHERE p.use_flag = 'Y'
+      ORDER BY p.like_count DESC, p.view_count DESC, p.create_at DESC
+      LIMIT ? OFFSET ?`,
+    [limit, offset]
+  );
+};
+
 module.exports = {
   getPostList,
   getPostCount,
   getPostDetail,
   getGenerationInfo,
+  getPopularBoards,
+  getRecentPostsAll,
+  getPopularPostsAll,
+  getPopularPostsAllWithOffset,
   increaseViewCount,
   createPost,
   updatePost,

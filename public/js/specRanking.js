@@ -1,6 +1,13 @@
 $(() => {
+  // 숫자 포맷 (1999 → 1,999), 숫자가 아니면 원본 반환
+  function fmt(v) {
+    if (v == null) return "-";
+    var n = Number(v);
+    return isNaN(n) ? v : n.toLocaleString("ko-KR");
+  }
+
   const unitMap = {
-    efficiency: { label: "연비", key: "fuelEfficiency", unit: "km/L" },
+    efficiency: { label: "연비", key: "fuelEfficiency", raw: true },
     power: { label: "출력", key: "maxPower", unit: "마력" },
     torque: { label: "토크", key: "maxTorque", unit: "kg·m" },
     lightweight: { label: "중량", key: "curbWeight", unit: "kg" },
@@ -41,7 +48,7 @@ $(() => {
 
     list.forEach(function (car, index) {
       const value = car[info.key];
-      const displayValue = value ? value + " " + info.unit : "-";
+      const displayValue = value ? (info.raw ? String(value) : fmt(value) + " " + info.unit) : "-";
       const rankClass = index < 3 ? "rank-top" : "";
 
       const item = `

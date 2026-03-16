@@ -6,6 +6,7 @@ const logger = require("../utils/loggerUtil");
 const { validatePositiveInt } = require("../utils/validateParam");
 
 const PAGE_SIZE = 10;
+const VALID_CATEGORIES = ['자유', '질문', '정비·튜닝', '후기', '사진'];
 
 // 게시글 목록 페이지 (generationSeq 없으면 차종 선택, 있으면 게시글 목록)
 const getPostList = async (req, res) => {
@@ -13,23 +14,30 @@ const getPostList = async (req, res) => {
     const generationSeq = validatePositiveInt(req.query.generationSeq);
 
     if (!generationSeq) {
-      // 차종 선택 페이지: 제조사 목록 서버 렌더
+      // 커뮤니티 메인: 인기 게시판 + 인기글/최신글 피드
+      const popularBoards = await communityService.getPopularBoards(6);
+      const popularPosts = await communityService.getPopularPostsAll(10);
       const manufacturers = await manufacturerModel.getManufacturerList();
-      return res.render("community", { mode: "select", manufacturers });
+      return res.render("community", { mode: "main", popularBoards, popularPosts, manufacturers });
     }
 
     // 세대 정보 조회
     const generationInfo = await communityService.getGenerationInfo(generationSeq);
     if (!generationInfo) {
-      return res.status(404).render("community", { mode: "select", manufacturers: await manufacturerModel.getManufacturerList() });
+      const popularBoards = await communityService.getPopularBoards(6);
+      const popularPosts = await communityService.getPopularPostsAll(10);
+      const recentPosts = await communityService.getRecentPostsAll(10);
+      const manufacturers = await manufacturerModel.getManufacturerList();
+      return res.status(404).render("community", { mode: "main", popularBoards, popularPosts, recentPosts, manufacturers });
     }
 
     const { keyword = "", sort = "latest" } = req.query;
+    const category = VALID_CATEGORIES.includes(req.query.category) ? req.query.category : null;
     const currentPage = Math.max(1, validatePositiveInt(req.query.page) || 1);
     const searchKeyword = keyword.trim() || null;
     const sortType = ["latest", "popular", "views"].includes(sort) ? sort : "latest";
-    const postList = await communityService.getPostList(generationSeq, currentPage, PAGE_SIZE, searchKeyword, sortType);
-    const totalCount = await communityService.getPostCount(generationSeq, searchKeyword);
+    const postList = await communityService.getPostList(generationSeq, currentPage, PAGE_SIZE, searchKeyword, sortType, category);
+    const totalCount = await communityService.getPostCount(generationSeq, searchKeyword, category);
     const totalPages = Math.ceil(totalCount / PAGE_SIZE);
     res.render("community", {
       mode: "list",
@@ -38,6 +46,7 @@ const getPostList = async (req, res) => {
       totalPages,
       keyword: keyword.trim(),
       sort: sortType,
+      category: category || '',
       generationSeq,
       generationInfo,
     });
@@ -52,7 +61,18 @@ const getPostDetail = async (req, res) => {
   try {
     const postSeq = validatePositiveInt(req.params.postSeq);
     if (!postSeq) return res.status(400).json({ error: "잘못된 요청입니다." });
-    const post = await communityService.getPostDetail(postSeq);
+
+    // 조회수 중복 방지: 세션에 이미 본 글이면 조회수 증가 안 함
+    if (!req.session.viewedPosts) req.session.viewedPosts = [];
+    const shouldIncrement = !req.session.viewedPosts.includes(postSeq);
+    if (shouldIncrement) {
+      req.session.viewedPosts.push(postSeq);
+      if (req.session.viewedPosts.length > 100) {
+        req.session.viewedPosts = req.session.viewedPosts.slice(-100);
+      }
+    }
+
+    const post = await communityService.getPostDetail(postSeq, shouldIncrement);
     const commentList = await communityService.getCommentList(postSeq);
     const images = await communityService.getPostImages(postSeq);
     const currentUserSeq = req.session.user ? req.session.user.userSeq : null;
@@ -95,7 +115,7 @@ const getEditForm = async (req, res) => {
   try {
     const postSeq = validatePositiveInt(req.params.postSeq);
     if (!postSeq) return res.status(400).json({ error: "잘못된 요청입니다." });
-    const post = await communityService.getPostDetail(postSeq);
+    const post = await communityService.getPostDetail(postSeq, false);
     const images = await communityService.getPostImages(postSeq);
     const currentUserSeq = req.session.user.userSeq;
     if (post.userSeq !== currentUserSeq) {
@@ -115,11 +135,12 @@ const getEditForm = async (req, res) => {
 // 게시글 작성 처리
 const createPost = async (req, res) => {
   try {
-    const { generationSeq, title, content } = req.body;
+    const { generationSeq, title, content, category } = req.body;
     const validGenerationSeq = validatePositiveInt(generationSeq);
     if (!validGenerationSeq) return res.status(400).json({ error: "차종을 선택해주세요." });
+    const validCategory = VALID_CATEGORIES.includes(category) ? category : '';
     const { userSeq, nickname } = req.session.user;
-    const result = await communityService.createPost(validGenerationSeq, title, content, nickname, userSeq);
+    const result = await communityService.createPost(validGenerationSeq, title, content, nickname, userSeq, validCategory);
     if (req.files && req.files.length > 0) {
       await communityService.savePostImages(result.insertId, req.files, 0);
     }
@@ -135,11 +156,21 @@ const updatePost = async (req, res) => {
   try {
     const postSeq = validatePositiveInt(req.params.postSeq);
     if (!postSeq) return res.status(400).json({ error: "잘못된 요청입니다." });
-    const { title, content } = req.body;
+    const { title, content, category } = req.body;
+    const validCategory = VALID_CATEGORIES.includes(category) ? category : null;
     const { userSeq } = req.session.user;
-    const result = await communityService.updatePost(postSeq, title, content, userSeq);
+    const result = await communityService.updatePost(postSeq, title, content, userSeq, validCategory);
     if (!result.success) {
       return res.status(403).json({ success: false, message: result.message });
+    }
+    // 이미지 지연 삭제: 수정 성공 후 삭제 처리
+    let deletedSeqs = req.body['deletedImageSeqs[]'] || req.body.deletedImageSeqs || [];
+    if (!Array.isArray(deletedSeqs)) deletedSeqs = [deletedSeqs];
+    for (const seq of deletedSeqs) {
+      const imageSeq = validatePositiveInt(seq);
+      if (imageSeq) {
+        await communityService.deletePostImage(imageSeq, userSeq);
+      }
     }
     if (req.files && req.files.length > 0) {
       const existingImages = await communityService.getPostImages(postSeq);
@@ -279,6 +310,19 @@ const createReport = async (req, res) => {
   }
 };
 
+// 인기글 더보기 JSON API
+const getPopularPostsJson = async (req, res) => {
+  try {
+    const offset = Math.max(0, parseInt(req.query.offset) || 0);
+    const limit = 10;
+    const posts = await communityService.getPopularPostsAllWithOffset(limit, offset);
+    res.json({ posts, hasMore: posts.length === limit });
+  } catch (error) {
+    logger.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
 // 차종 선택: 모델 목록 JSON API
 const getModelsJson = async (req, res) => {
   try {
@@ -320,6 +364,7 @@ module.exports = {
   toggleCommentLike,
   createReport,
   toggleBookmark,
+  getPopularPostsJson,
   getModelsJson,
   getGenerationsJson,
 };

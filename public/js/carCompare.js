@@ -1,4 +1,10 @@
 $(() => {
+  function fmt(v) {
+    if (v == null) return "-";
+    var n = Number(v);
+    return isNaN(n) ? v : n.toLocaleString("ko-KR");
+  }
+
   let currentSlot = null;
   const selectedCars = [null, null];
   let manufacturersLoaded = false;
@@ -28,16 +34,27 @@ $(() => {
 
   function loadManufacturers() {
     if (!manufacturersLoaded) {
-      const grid = $("#modal-step-1 .modal-card-grid");
+      const container = $("#modal-step-1 .modal-card-grid");
       $.get("/carCompare/manufacturers", function (data) {
-        data.forEach(function (m) {
-          grid.append(
-            '<div class="select-card" data-seq="' + m.manufacturerSeq + '">' +
-              '<span class="card-name">' + m.manufacturerName + '</span>' +
-              '<span class="card-sub">' + m.foundedYear + '년 설립</span>' +
-            '</div>'
-          );
-        });
+        var domestic = data.filter(function (m) { return m.countryCode === "KR"; });
+        var foreign = data.filter(function (m) { return m.countryCode !== "KR"; });
+
+        function renderCards(list) {
+          list.forEach(function (m) {
+            container.append(
+              '<div class="select-card" data-seq="' + m.manufacturerSeq + '">' +
+                '<span class="card-name">' + m.manufacturerName + '</span>' +
+                '<span class="card-sub">' + m.foundedYear + '년 설립</span>' +
+              '</div>'
+            );
+          });
+        }
+
+        container.append('<div class="section-title">국내 브랜드</div>');
+        renderCards(domestic);
+        container.append('<div class="section-title">해외 브랜드</div>');
+        renderCards(foreign);
+
         manufacturersLoaded = true;
       });
     }
@@ -195,15 +212,8 @@ $(() => {
     slotEl.find(".selected-car-name").text(selectedCars[slot].carName);
     slotEl.find(".selected-trim-name").text(selectedCars[slot].trimName);
 
-    // 실루엣 + 라벨 업데이트
-    var car = selectedCars[slot];
-    $("#viewer-" + slot + " .car-label").text(car.carName);
-    $("#viewer-" + slot + " .car-silhouette").html(getSilhouetteSVG(car.bodyType));
-    $("#model-viewers").removeClass("hidden");
-
-    // 한쪽만 선택된 경우에도 해당 슬롯의 제원 표시
+    // 제원 데이터 미리 채워두기 (표시는 둘 다 선택 시)
     fillSpecData(slot);
-    $("#specs-container").removeClass("hidden");
   }
 
   // 제원 데이터 채우기
@@ -214,7 +224,7 @@ $(() => {
     container.find("td[data-field]").each(function () {
       const field = $(this).data("field");
       const val = spec[field];
-      $(this).text(val != null ? val : "-");
+      $(this).text(val != null ? fmt(val) : "-");
     });
   }
 
@@ -224,5 +234,147 @@ $(() => {
       fillSpecData(slot);
     });
     $("#specs-container").removeClass("hidden");
+    renderRadarChart();
+  }
+
+  // Chart.js 레이더 차트
+  var radarChart = null;
+
+  function renderRadarChart() {
+    var a = selectedCars[0].spec;
+    var b = selectedCars[1].spec;
+
+    var axes = [
+      { label: "출력", valA: parseFloat(a.maxPower), valB: parseFloat(b.maxPower) },
+      { label: "토크", valA: parseFloat(a.maxTorque), valB: parseFloat(b.maxTorque) },
+      { label: "연비", valA: parseFloat(a.fuelEfficiency), valB: parseFloat(b.fuelEfficiency) },
+      { label: "배기량", valA: parseFloat(a.displacement), valB: parseFloat(b.displacement) },
+      { label: "중량", valA: parseFloat(a.curbWeight), valB: parseFloat(b.curbWeight) }
+    ];
+
+    axes.forEach(function (ax) {
+      if (isNaN(ax.valA)) ax.valA = 0;
+      if (isNaN(ax.valB)) ax.valB = 0;
+    });
+
+    var hasData = axes.some(function (ax) { return ax.valA > 0 || ax.valB > 0; });
+    if (!hasData) {
+      $("#radar-section").addClass("hidden");
+      return;
+    }
+
+    // 각 축 정규화 (두 값 중 큰 값 = 100)
+    var dataA = [], dataB = [];
+    axes.forEach(function (ax) {
+      var maxV = Math.max(ax.valA, ax.valB);
+      if (maxV === 0) {
+        dataA.push(0);
+        dataB.push(0);
+      } else {
+        dataA.push(Math.round((ax.valA / maxV) * 100));
+        dataB.push(Math.round((ax.valB / maxV) * 100));
+      }
+    });
+
+    var labels = axes.map(function (ax) { return ax.label; });
+
+    // 기존 차트 파괴
+    if (radarChart) {
+      radarChart.destroy();
+    }
+
+    var ctx = document.getElementById("radar-canvas").getContext("2d");
+
+    var style = getComputedStyle(document.documentElement);
+    var textColor = style.getPropertyValue("--text-secondary").trim() || "#94a3b8";
+    var gridColor = style.getPropertyValue("--border").trim() || "#e2e8f0";
+
+    radarChart = new Chart(ctx, {
+      type: "radar",
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            label: selectedCars[0].carName,
+            data: dataA,
+            backgroundColor: "rgba(99, 102, 241, 0.15)",
+            borderColor: "rgba(99, 102, 241, 1)",
+            borderWidth: 2.5,
+            pointBackgroundColor: "rgba(99, 102, 241, 1)",
+            pointBorderColor: "#fff",
+            pointBorderWidth: 2,
+            pointRadius: 5,
+            pointHoverRadius: 7
+          },
+          {
+            label: selectedCars[1].carName,
+            data: dataB,
+            backgroundColor: "rgba(245, 158, 11, 0.12)",
+            borderColor: "rgba(245, 158, 11, 1)",
+            borderWidth: 2.5,
+            pointBackgroundColor: "rgba(245, 158, 11, 1)",
+            pointBorderColor: "#fff",
+            pointBorderWidth: 2,
+            pointRadius: 5,
+            pointHoverRadius: 7
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        plugins: {
+          legend: {
+            position: "top",
+            labels: {
+              color: textColor,
+              font: { size: 13, weight: "600", family: "Pretendard" },
+              padding: 20,
+              usePointStyle: true,
+              pointStyle: "rectRounded"
+            }
+          },
+          tooltip: {
+            callbacks: {
+              label: function (ctx) {
+                var i = ctx.dataIndex;
+                var ax = axes[i];
+                var val = ctx.datasetIndex === 0 ? ax.valA : ax.valB;
+                return ctx.dataset.label + ": " + fmt(val);
+              }
+            }
+          }
+        },
+        scales: {
+          r: {
+            beginAtZero: true,
+            max: 100,
+            ticks: {
+              display: false,
+              stepSize: 25
+            },
+            grid: {
+              color: gridColor,
+              lineWidth: 1
+            },
+            angleLines: {
+              color: gridColor,
+              lineWidth: 1
+            },
+            pointLabels: {
+              color: textColor,
+              font: { size: 14, weight: "700", family: "Pretendard" },
+              padding: 16
+            }
+          }
+        },
+        animation: {
+          duration: 800,
+          easing: "easeOutQuart"
+        }
+      }
+    });
+
+    $("#radar-section").removeClass("hidden");
   }
 });

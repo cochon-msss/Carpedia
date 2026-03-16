@@ -34,6 +34,17 @@
                     </div>
                 <% } %>
                 <div class="form-group">
+                    <label for="category">카테고리</label>
+                    <select id="category">
+                        <option value="">선택 안 함</option>
+                        <option value="자유" <%= post && post.category === '자유' ? 'selected' : '' %>>자유</option>
+                        <option value="질문" <%= post && post.category === '질문' ? 'selected' : '' %>>질문</option>
+                        <option value="정비·튜닝" <%= post && post.category === '정비·튜닝' ? 'selected' : '' %>>정비·튜닝</option>
+                        <option value="후기" <%= post && post.category === '후기' ? 'selected' : '' %>>후기</option>
+                        <option value="사진" <%= post && post.category === '사진' ? 'selected' : '' %>>사진</option>
+                    </select>
+                </div>
+                <div class="form-group">
                     <label for="title">제목</label>
                     <input type="text" id="title" placeholder="제목을 입력하세요" maxlength="200" value="<%= post ? post.title : '' %>">
                 </div>

@@ -1,7 +1,7 @@
 const dbHelper = require("../utils/dbHelper");
 
 // 차량 추천 목록 조회
-const getRecommendList = async (bodyType, fuelType, sortBy) => {
+const getRecommendList = async (filters) => {
   const baseQuery = `
     SELECT m.model_name AS modelName,
            mf.manufacturer_name AS manufacturerName,
@@ -31,23 +31,31 @@ const getRecommendList = async (bodyType, fuelType, sortBy) => {
   const conditions = [];
   const params = [];
 
-  if (bodyType) {
+  if (filters.bodyType) {
     conditions.push("AND m.body_type = ?");
-    params.push(bodyType);
+    params.push(filters.bodyType);
   }
 
-  if (fuelType) {
+  if (filters.fuelType) {
     conditions.push("AND es.fuel_type LIKE ?");
-    params.push(`%${fuelType}%`);
+    params.push(`%${filters.fuelType}%`);
   }
+
+  if (filters.drivetrain) {
+    conditions.push("AND cs.drivetrain = ?");
+    params.push(filters.drivetrain);
+  }
+
 
   // 정렬 기준
   const orderMap = {
     efficiency: "CAST(ps.fuel_efficiency AS DECIMAL(10,1)) DESC",
     power: "CAST(es.max_power AS UNSIGNED) DESC",
+    torque: "CAST(es.max_torque AS UNSIGNED) DESC",
     lightweight: "CAST(ds.curb_weight AS UNSIGNED) ASC",
+    displacement: "CAST(es.displacement AS UNSIGNED) DESC",
   };
-  const orderBy = orderMap[sortBy] || orderMap.efficiency;
+  const orderBy = orderMap[filters.sortBy] || orderMap.efficiency;
 
   const sql = `${baseQuery} ${conditions.join(" ")} ORDER BY ${orderBy} LIMIT 20`;
   return await dbHelper.query(sql, params);

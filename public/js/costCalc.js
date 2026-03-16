@@ -185,7 +185,7 @@ $(() => {
     // 자동 추출 값 표시
     $("#spec-fuel-type").text(spec.fuelType || "-");
     $("#spec-fuel-efficiency").text(spec.fuelEfficiency ? spec.fuelEfficiency + " km/L" : "-");
-    $("#spec-displacement").text(spec.displacement ? spec.displacement + " cc" : "-");
+    $("#spec-displacement").text(spec.displacement ? Number(spec.displacement).toLocaleString("ko-KR") + " cc" : "-");
 
     // 연료타입에 따른 유가 기본값 세팅
     const fuelType = spec.fuelType || "";

@@ -198,8 +198,18 @@ $(() => {
       targetType: $(this).data("target-type"),
       targetSeq: $(this).data("target-seq"),
     };
-    $(".report-reason").val("");
+    $("input[name='reportCategory']").prop("checked", false);
+    $(".report-reason").val("").addClass("hidden");
     $(".report-modal-overlay").removeClass("hidden");
+  });
+
+  // 신고 카테고리 라디오 변경
+  $(document).on("change", "input[name='reportCategory']", function () {
+    if ($(this).val() === "기타") {
+      $(".report-reason").removeClass("hidden").focus();
+    } else {
+      $(".report-reason").addClass("hidden").val("");
+    }
   });
 
   $(".report-cancel").on("click", function () {
@@ -213,10 +223,21 @@ $(() => {
   });
 
   $(".report-submit").on("click", function () {
-    const reason = $(".report-reason").val().trim();
-    if (!reason) {
-      showAlert("신고 사유를 입력하세요.");
+    const selectedCategory = $("input[name='reportCategory']:checked").val();
+    if (!selectedCategory) {
+      showAlert("신고 사유를 선택하세요.");
       return;
+    }
+    let reason;
+    if (selectedCategory === "기타") {
+      const detail = $(".report-reason").val().trim();
+      if (!detail) {
+        showAlert("상세 사유를 입력하세요.");
+        return;
+      }
+      reason = "[기타] " + detail;
+    } else {
+      reason = "[" + selectedCategory + "]";
     }
     const $btn = $(this);
     $btn.prop("disabled", true);

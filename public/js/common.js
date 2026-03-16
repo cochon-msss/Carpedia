@@ -107,6 +107,19 @@ $(() => {
     });
   }
 
+  // 현재 페이지 네비게이션 활성화
+  const navMap = {
+    "/carCompare": ".compare",
+    "/costCalc": ".cost-calc",
+    "/carRecommend": ".car-recommend",
+    "/specRanking": ".spec-ranking",
+    "/community": ".community",
+  };
+  const currentPath = "/" + window.location.pathname.split("/")[1];
+  if (navMap[currentPath]) {
+    $(`.nav-menu ${navMap[currentPath]}`).addClass("active");
+  }
+
   // 네비게이션
   $(".compare").on("click", function () {
     window.location.href = `/carCompare`;
