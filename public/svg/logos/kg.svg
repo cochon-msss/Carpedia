@@ -1,0 +1,5 @@
+<svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- KG Mobility: Stylized KG text -->
+  <text x="100" y="118" text-anchor="middle" font-family="Arial, sans-serif" font-size="64" font-weight="bold" fill="white" letter-spacing="2">KG</text>
+  <line x1="40" y1="138" x2="160" y2="138" stroke="white" stroke-width="2.5"/>
+</svg>

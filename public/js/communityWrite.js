@@ -1,6 +1,7 @@
 $(() => {
   const isEditMode = $(".write-form").data("edit-mode") === true || $(".write-form").data("edit-mode") === "true";
   const postSeq = $(".write-form").data("post-seq");
+  const generationSeq = $(".write-form").data("generation-seq");
   const selectedFiles = []; // 새 이미지 파일 배열 (삭제 시 null 처리)
 
   // 이미지 선택 버튼
@@ -78,7 +79,6 @@ $(() => {
   // 게시글 작성/수정
   $(".submit-btn").on("click", function () {
     const $btn = $(this);
-    const category = $("#category").val();
     const title = $("#title").val().trim();
     const content = $("#content").val().trim();
 
@@ -94,7 +94,7 @@ $(() => {
     $btn.prop("disabled", true);
 
     const formData = new FormData();
-    formData.append("category", category);
+    formData.append("generationSeq", generationSeq);
     formData.append("title", title);
     formData.append("content", content);
 
@@ -177,7 +177,7 @@ $(() => {
       if (isEditMode) {
         window.location.href = "/communityDetail/" + postSeq;
       } else {
-        window.location.href = "/community";
+        window.location.href = "/community?generationSeq=" + generationSeq;
       }
     });
   });

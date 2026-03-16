@@ -1,0 +1,5 @@
+<svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Renault: Diamond shape -->
+  <path d="M100 30 L155 100 L100 170 L45 100 Z" stroke="white" stroke-width="5" fill="none" stroke-linejoin="round"/>
+  <path d="M100 50 L143 100 L100 150 L57 100 Z" stroke="white" stroke-width="2.5" fill="none" stroke-linejoin="round" opacity="0.5"/>
+</svg>

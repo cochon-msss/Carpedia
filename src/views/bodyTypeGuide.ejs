@@ -1,0 +1,98 @@
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="/svg/favicon.svg">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/common.css">
+    <link rel="stylesheet" type="text/css" href="/css/bodyTypeGuide.css">
+    <script src="/js/jquery-3.6.0.js"></script>
+    <script src="/js/common.js"></script>
+    <title>차체 유형 가이드 : 카피디아</title>
+</head>
+
+<body>
+    <%- include('./includes/header') %>
+    <main>
+        <div class="guide-header">
+            <h2>차체 유형 가이드</h2>
+            <p>자동차의 차체 유형별 특징을 한눈에 알아보세요</p>
+        </div>
+
+        <div class="body-type-grid">
+            <div class="body-type-card">
+                <div class="card-silhouette">
+                    <%- include('./includes/silhouette', { bodyType: '세단' }) %>
+                </div>
+                <div class="card-info">
+                    <h3>세단 <span class="en-name">Sedan</span></h3>
+                    <p>3박스 구조로 엔진룸, 승객실, 트렁크가 분리된 전통적인 차체 형태입니다. 안정적인 승차감과 넉넉한 트렁크 공간이 특징입니다.</p>
+                </div>
+            </div>
+
+            <div class="body-type-card">
+                <div class="card-silhouette">
+                    <%- include('./includes/silhouette', { bodyType: 'SUV' }) %>
+                </div>
+                <div class="card-info">
+                    <h3>SUV <span class="en-name">Sport Utility Vehicle</span></h3>
+                    <p>높은 차체와 넓은 실내 공간을 갖추고, 오프로드 주행에도 대응할 수 있는 다목적 차량입니다. 시야가 높아 운전이 편안합니다.</p>
+                </div>
+            </div>
+
+            <div class="body-type-card">
+                <div class="card-silhouette">
+                    <%- include('./includes/silhouette', { bodyType: '해치백' }) %>
+                </div>
+                <div class="card-info">
+                    <h3>해치백 <span class="en-name">Hatchback</span></h3>
+                    <p>2박스 구조로 트렁크와 승객실이 통합되어 있으며, 뒷문이 위로 열리는 형태입니다. 컴팩트하면서도 유연한 적재 공간을 제공합니다.</p>
+                </div>
+            </div>
+
+            <div class="body-type-card">
+                <div class="card-silhouette">
+                    <%- include('./includes/silhouette', { bodyType: '쿠페' }) %>
+                </div>
+                <div class="card-info">
+                    <h3>쿠페 <span class="en-name">Coupe</span></h3>
+                    <p>낮은 루프라인과 유려한 디자인이 특징인 스포티한 차체입니다. 일반적으로 2도어 구조이며, 주행 성능과 디자인에 중점을 둡니다.</p>
+                </div>
+            </div>
+
+            <div class="body-type-card">
+                <div class="card-silhouette">
+                    <%- include('./includes/silhouette', { bodyType: '왜건' }) %>
+                </div>
+                <div class="card-info">
+                    <h3>왜건 <span class="en-name">Wagon</span></h3>
+                    <p>세단을 기반으로 루프를 뒤쪽까지 연장하여 적재 공간을 확대한 차체입니다. 세단의 승차감과 넓은 짐 공간을 동시에 제공합니다.</p>
+                </div>
+            </div>
+
+            <div class="body-type-card">
+                <div class="card-silhouette">
+                    <%- include('./includes/silhouette', { bodyType: '미니밴' }) %>
+                </div>
+                <div class="card-info">
+                    <h3>미니밴 <span class="en-name">Minivan</span></h3>
+                    <p>넓은 실내 공간과 슬라이딩 도어를 갖춘 다인승 차량입니다. 가족 단위 이동이나 대인원 수송에 최적화되어 있습니다.</p>
+                </div>
+            </div>
+
+            <div class="body-type-card">
+                <div class="card-silhouette">
+                    <%- include('./includes/silhouette', { bodyType: '트럭' }) %>
+                </div>
+                <div class="card-info">
+                    <h3>트럭 <span class="en-name">Truck</span></h3>
+                    <p>캡(운전실)과 적재함이 분리된 구조로, 화물 운반에 특화된 차체입니다. 견고한 프레임과 강력한 견인 능력이 특징입니다.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>

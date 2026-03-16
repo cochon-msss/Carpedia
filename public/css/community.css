@@ -14,6 +14,28 @@
   font-size: 24px;
   font-weight: bold;
 }
+.community-container .community-header .header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.community-container .community-header .header-left .back-to-select {
+  font-size: 14px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  padding: 6px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  transition: 0.2s;
+}
+.community-container .community-header .header-left .back-to-select:hover {
+  color: var(--text-primary);
+  border-color: var(--text-primary);
+}
+.community-container .community-header .header-left .generation-title {
+  font-size: 22px;
+  font-weight: bold;
+}
 .community-container .community-header .write-btn {
   padding: 10px 20px;
   border: none;
@@ -28,24 +50,80 @@
 .community-container .community-header .write-btn:hover {
   background: var(--text-secondary);
 }
-.community-container .community-content .post-filter {
+.community-container .vehicle-select .select-step.hidden {
+  display: none;
+}
+.community-container .vehicle-select .select-step .step-header {
   display: flex;
-  gap: 10px;
-  margin-bottom: 15px;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
 }
-.community-container .community-content .post-filter button {
-  padding: 8px 12px;
-  border: 2px solid var(--border);
-  border-radius: 6px;
-  background: var(--bg-card);
+.community-container .vehicle-select .select-step .step-title {
+  font-size: 18px;
+  font-weight: 600;
   color: var(--text-primary);
-  cursor: pointer;
-  transition: 0.3s;
+  margin-bottom: 16px;
 }
-.community-container .community-content .post-filter button.active, .community-container .community-content .post-filter button:hover {
-  background: var(--text-primary);
-  color: var(--bg-card);
+.step-header .community-container .vehicle-select .select-step .step-title {
+  margin-bottom: 0;
+}
+.community-container .vehicle-select .select-step .back-step-btn {
+  padding: 8px 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  font-size: 13px;
+  cursor: pointer;
+  transition: 0.2s;
+  white-space: nowrap;
+}
+.community-container .vehicle-select .select-step .back-step-btn:hover {
+  color: var(--text-primary);
   border-color: var(--text-primary);
+}
+.community-container .vehicle-select .select-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 12px;
+}
+.community-container .vehicle-select .select-grid .select-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 20px 12px;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  background: var(--bg-card);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.community-container .vehicle-select .select-grid .select-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+  box-shadow: var(--shadow-md);
+}
+.community-container .vehicle-select .select-grid .select-card .card-logo {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
+.community-container .vehicle-select .select-grid .select-card .card-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-align: center;
+  word-break: keep-all;
+}
+.community-container .vehicle-select .select-grid .no-items {
+  grid-column: 1/-1;
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text-light);
+  font-size: 14px;
 }
 .community-container .community-content .post-sort {
   display: flex;
@@ -124,9 +202,6 @@
   box-shadow: var(--shadow-md);
   cursor: pointer;
 }
-.community-container .community-content .post-list .post-card .post-category-badge {
-  margin-bottom: 8px;
-}
 .community-container .community-content .post-list .post-card .post-title {
   font-size: 16px;
   font-weight: 700;
@@ -164,7 +239,7 @@
   gap: 12px;
 }
 
-.post-category-badge {
+.post-vehicle-badge {
   display: inline-block;
   font-size: 11px;
   font-weight: 600;
@@ -217,12 +292,16 @@
   margin-bottom: 6px;
   color: var(--text-primary);
 }
-.write-form .form-group .author-display {
+.write-form .form-group .author-display,
+.write-form .form-group .generation-display {
   display: block;
   font-size: 14px;
   font-weight: 600;
   color: var(--text-primary);
   padding: 10px 0;
+}
+.write-form .form-group .generation-display {
+  color: var(--accent);
 }
 .write-form .form-group input, .write-form .form-group select, .write-form .form-group textarea {
   width: 100%;

@@ -9,8 +9,8 @@
     href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
   <link rel="stylesheet" type="text/css" href="/css/common.css">
   <link rel="stylesheet" type="text/css" href="/css/carCompare.css">
-  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
   <script src="/js/jquery-3.6.0.js"></script>
+  <script src="/js/silhouettes.js"></script>
   <script defer src="/js/common.js"></script>
   <script defer src="/js/carCompare.js"></script>
   <title>비교하기 : 카피디아</title>
@@ -64,39 +64,15 @@
         </div>
       </div>
 
-      <!-- 3D 모델 뷰어 -->
+      <!-- 차량 실루엣 -->
       <div class="car_images hidden" id="model-viewers">
         <div class="car_image" id="viewer-0">
           <span class="car-label">차량 A</span>
-          <model-viewer
-            src="/models/sample-car.glb"
-            alt="3D 자동차 모델"
-            auto-rotate
-            camera-controls
-            rotation-per-second="30deg"
-            camera-orbit="45deg 65deg 105%"
-            min-camera-orbit="auto auto 50%"
-            max-camera-orbit="auto auto 200%"
-            shadow-intensity="1"
-            environment-image="neutral"
-            exposure="1">
-          </model-viewer>
+          <div class="car-silhouette"></div>
         </div>
         <div class="car_image" id="viewer-1">
           <span class="car-label">차량 B</span>
-          <model-viewer
-            src="/models/sample-car.glb"
-            alt="3D 자동차 모델"
-            auto-rotate
-            camera-controls
-            rotation-per-second="30deg"
-            camera-orbit="45deg 65deg 105%"
-            min-camera-orbit="auto auto 50%"
-            max-camera-orbit="auto auto 200%"
-            shadow-intensity="1"
-            environment-image="neutral"
-            exposure="1">
-          </model-viewer>
+          <div class="car-silhouette"></div>
         </div>
       </div>
 

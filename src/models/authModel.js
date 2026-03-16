@@ -7,6 +7,7 @@ const findByEmail = async (email) => {
             user_email AS email,
             user_pw AS password,
             nick_name AS nickname,
+            role,
             create_at AS createAt
        FROM users
       WHERE user_email = ? AND use_flag = 'Y'`,

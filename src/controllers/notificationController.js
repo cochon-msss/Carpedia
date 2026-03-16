@@ -1,13 +1,13 @@
 const notificationService = require("../services/notificationService");
 const logger = require("../utils/loggerUtil");
+const { validatePositiveInt } = require("../utils/validateParam");
 
 const PAGE_SIZE = 20;
 
 // 알림 페이지 렌더링
 const getNotificationPage = async (req, res) => {
   try {
-    const { page = 1 } = req.query;
-    const currentPage = parseInt(page);
+    const currentPage = Math.max(1, validatePositiveInt(req.query.page) || 1);
     const { userSeq } = req.session.user;
     const notificationList = await notificationService.getNotificationList(userSeq, currentPage, PAGE_SIZE);
     const totalCount = await notificationService.getNotificationCount(userSeq);
@@ -34,10 +34,11 @@ const getUnreadCount = async (req, res) => {
 // 단건 읽음 처리 + 게시글 이동
 const markAsReadAndRedirect = async (req, res) => {
   try {
-    const { notificationSeq } = req.params;
+    const notificationSeq = validatePositiveInt(req.params.notificationSeq);
+    if (!notificationSeq) return res.status(400).json({ error: "잘못된 요청입니다." });
     const { userSeq } = req.session.user;
     await notificationService.markAsRead(notificationSeq, userSeq);
-    const { referenceSeq } = req.query;
+    const referenceSeq = validatePositiveInt(req.query.referenceSeq);
     if (referenceSeq) {
       return res.redirect("/communityDetail/" + referenceSeq);
     }

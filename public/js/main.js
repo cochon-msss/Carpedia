@@ -14,9 +14,10 @@ $(() => {
         modelGrid.empty();
 
         data.forEach((model) => {
+          var iconSvg = typeof getSilhouetteSVG === 'function' ? getSilhouetteSVG(model.bodyType, 'icon') : '';
           modelGrid.append(`
             <div class="select-card model-card" data-seq="${model.modelSeq}">
-              <span class="card-badge">${model.bodyType}</span>
+              <span class="card-badge"><span class="card-body-icon">${iconSvg}</span>${model.bodyType}</span>
               <span class="card-name">${model.modelName}</span>
               <span class="card-sub">${model.segment}</span>
             </div>

@@ -42,11 +42,19 @@ const getCarInfoDetail = async (trimSeq) => {
 // 자동차 상세 목록 조회
 const getTrimList = async (generationSeq) => {
   return await dbHelper.query(
-    `SELECT trim_seq AS trimSeq,
-            generation_seq AS generationSeq,
-            trim_name AS trimName
-        FROM trims
-        WHERE generation_seq = ?`,
+    `SELECT t.trim_seq AS trimSeq,
+            t.generation_seq AS generationSeq,
+            t.trim_name AS trimName,
+            g.generation_name AS generationName,
+            m.model_name AS modelName,
+            m.body_type AS bodyType,
+            mfr.manufacturer_name AS manufacturerName,
+            mfr.logo_url AS logoUrl
+        FROM trims t
+        INNER JOIN generations g USING(generation_seq)
+        INNER JOIN models m USING(model_seq)
+        INNER JOIN manufacturer mfr USING(manufacturer_seq)
+        WHERE t.generation_seq = ?`,
     [generationSeq]
   );
 };

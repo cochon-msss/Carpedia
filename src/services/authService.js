@@ -41,7 +41,7 @@ const login = async (email, password) => {
     }
     return {
       success: true,
-      user: { userSeq: user.userSeq, email: user.email, nickname: user.nickname },
+      user: { userSeq: user.userSeq, email: user.email, nickname: user.nickname, role: user.role },
     };
   } catch (error) {
     logger.error(error);

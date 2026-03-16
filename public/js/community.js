@@ -1,10 +1,85 @@
 $(() => {
+  const generationSeq = $(".community-content").data("generation-seq");
+
+  // === 차종 선택 모드 ===
+
+  // 제조사 클릭 → 모델 목록 AJAX
+  $(document).on("click", ".manufacturer-card", function () {
+    const seq = $(this).data("seq");
+    $.ajax({
+      url: "/community/models/" + seq,
+      method: "GET",
+      success: function (models) {
+        const $grid = $("#model-grid").empty();
+        if (models.length === 0) {
+          $grid.append('<p class="no-items">등록된 모델이 없습니다.</p>');
+        } else {
+          models.forEach(function (m) {
+            $grid.append(
+              '<button class="select-card model-card" data-seq="' + m.modelSeq + '">' +
+              '<span class="card-name">' + m.modelName + '</span>' +
+              '</button>'
+            );
+          });
+        }
+        $("#step-manufacturer").addClass("hidden");
+        $("#step-model").removeClass("hidden");
+      },
+      error: function () {
+        showAlert("모델 목록을 불러오는데 실패했습니다.");
+      },
+    });
+  });
+
+  // 모델 클릭 → 세대 목록 AJAX
+  $(document).on("click", ".model-card", function () {
+    const seq = $(this).data("seq");
+    $.ajax({
+      url: "/community/generations/" + seq,
+      method: "GET",
+      success: function (generations) {
+        const $grid = $("#generation-grid").empty();
+        if (generations.length === 0) {
+          $grid.append('<p class="no-items">등록된 세대가 없습니다.</p>');
+        } else {
+          generations.forEach(function (g) {
+            $grid.append(
+              '<button class="select-card generation-card" data-seq="' + g.generationSeq + '">' +
+              '<span class="card-name">' + g.generationName + '</span>' +
+              '</button>'
+            );
+          });
+        }
+        $("#step-model").addClass("hidden");
+        $("#step-generation").removeClass("hidden");
+      },
+      error: function () {
+        showAlert("세대 목록을 불러오는데 실패했습니다.");
+      },
+    });
+  });
+
+  // 세대 클릭 → 게시판 이동
+  $(document).on("click", ".generation-card", function () {
+    const seq = $(this).data("seq");
+    window.location.href = "/community?generationSeq=" + seq;
+  });
+
+  // 뒤로가기 버튼
+  $(document).on("click", ".back-step-btn", function () {
+    const target = $(this).data("target");
+    $(".select-step").addClass("hidden");
+    $("#step-" + target).removeClass("hidden");
+  });
+
+  // === 게시글 목록 모드 ===
+
   function getSort() {
     return $(".post-sort button.active").data("sort") || "latest";
   }
 
-  function buildUrl(category, page, keyword, sort) {
-    let url = "/community?category=" + encodeURIComponent(category) + "&page=" + page;
+  function buildUrl(page, keyword, sort) {
+    let url = "/community?generationSeq=" + generationSeq + "&page=" + page;
     if (keyword) url += "&keyword=" + encodeURIComponent(keyword);
     if (sort && sort !== "latest") url += "&sort=" + sort;
     return url;
@@ -23,23 +98,14 @@ $(() => {
 
   function performSearch() {
     const keyword = $(".search-input").val().trim();
-    const category = $(".post-filter button.active").data("category");
-    window.location.href = buildUrl(category, 1, keyword, getSort());
+    window.location.href = buildUrl(1, keyword, getSort());
   }
-
-  // 카테고리 필터
-  $(".post-filter button").on("click", function () {
-    const category = $(this).data("category");
-    const keyword = $(".search-input").val().trim();
-    window.location.href = buildUrl(category, 1, keyword, getSort());
-  });
 
   // 정렬 버튼
   $(".post-sort button").on("click", function () {
     const sort = $(this).data("sort");
-    const category = $(".post-filter button.active").data("category");
     const keyword = $(".search-input").val().trim();
-    window.location.href = buildUrl(category, 1, keyword, sort);
+    window.location.href = buildUrl(1, keyword, sort);
   });
 
   // 게시글 클릭 → 상세 페이지
@@ -56,14 +122,14 @@ $(() => {
       });
       return;
     }
-    window.location.href = "/community/write";
+    const gSeq = $(this).data("generation-seq");
+    window.location.href = "/community/write?generationSeq=" + gSeq;
   });
 
   // 페이지네이션
   $(document).on("click", ".page-btn", function () {
     const page = $(this).data("page");
-    const category = $(".post-filter button.active").data("category");
     const keyword = $(".search-input").val().trim();
-    window.location.href = buildUrl(category, page, keyword, getSort());
+    window.location.href = buildUrl(page, keyword, getSort());
   });
 });

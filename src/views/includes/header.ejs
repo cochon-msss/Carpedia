@@ -1,8 +1,10 @@
+<meta name="csrf-token" content="<%= csrfToken %>">
 <header>
     <div class="header-container">
         <div class="logo">
             <img class="mainLogo" src="/svg/mainLogo.svg" />
         </div>
+        <% if (!user || user.role !== 'admin') { %>
         <nav class="nav-menu">
             <div class="compare">
                 <span>비교하기</span>
@@ -16,18 +18,26 @@
             <div class="spec-ranking">
                 <span>제원 랭킹</span>
             </div>
+            <div class="body-type-guide">
+                <span>차체 유형</span>
+            </div>
             <div class="community">
                 <span>커뮤니티</span>
             </div>
         </nav>
+        <% } %>
         <div class="user-menu">
             <% if (user) { %>
                 <span class="user-nickname"><%= user.nickname %></span>
+                <% if (user.role === 'admin') { %>
+                <button type="button" class="admin-btn">관리자</button>
+                <% } else { %>
                 <div class="notification-bell" title="알림">
                     <span class="bell-icon">🔔</span>
                     <span class="notification-badge hidden">0</span>
                 </div>
                 <button type="button" class="mypage-btn">마이페이지</button>
+                <% } %>
                 <button type="button" class="logout-btn">로그아웃</button>
             <% } else { %>
                 <button type="button" class="login-link">로그인</button>

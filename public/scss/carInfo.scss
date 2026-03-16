@@ -15,76 +15,134 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: rgba(255, 255, 255, 0.25);
-  font-size: 16px;
-  font-weight: 500;
   position: relative;
   overflow: hidden;
+}
 
-  model-viewer {
+// 브랜드 그라데이션 오버레이
+.brand-gradient {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(ellipse at 30% 50%, rgba(99, 102, 241, 0.12) 0%, transparent 60%),
+              radial-gradient(ellipse at 70% 60%, rgba(99, 102, 241, 0.06) 0%, transparent 50%);
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+// 파티클 캔버스
+#particleCanvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+// 배경 실루엣 워터마크
+.bg-silhouette {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  max-width: 600px;
+  opacity: 0.06;
+  pointer-events: none;
+
+  svg {
     width: 100%;
-    height: 100%;
-    --poster-color: transparent;
-  }
-
-  .model-loading {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-    color: rgba(255, 255, 255, 0.5);
-
-    .loading-spinner {
-      width: 36px;
-      height: 36px;
-      border: 3px solid rgba(255, 255, 255, 0.15);
-      border-top-color: var(--accent);
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-    }
-
-    p { font-size: 13px; font-weight: 500; }
-  }
-
-  .model-fallback {
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    color: rgba(255, 255, 255, 0.25);
-    pointer-events: none;
-    z-index: 0;
-
-    p { font-size: 16px; font-weight: 600; }
-    span { font-size: 12px; color: rgba(255, 255, 255, 0.15); }
+    height: auto;
   }
 }
 
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
-.viewer-controls {
+// 중앙 히어로 콘텐츠
+.hero-content {
+  position: relative;
+  z-index: 2;
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  text-align: center;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.brand-logo {
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
   justify-content: center;
-  gap: 24px;
-  padding: 10px 0;
-  background: var(--bg-secondary);
-  border-bottom: 1px solid var(--border);
-  transition: background-color 0.3s;
+  animation: logoGlow 3s ease-in-out infinite;
 
-  .control-hint {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 12px;
-    color: var(--text-light);
-
-    svg { color: var(--text-light); }
+  img {
+    max-width: 90px;
+    max-height: 90px;
+    object-fit: contain;
   }
+
+  .brand-initial {
+    font-size: 48px;
+    font-weight: 800;
+    color: #fff;
+    opacity: 0.8;
+  }
+}
+
+@keyframes logoGlow {
+  0%, 100% { filter: drop-shadow(0 0 15px rgba(99, 102, 241, 0.3)); }
+  50% { filter: drop-shadow(0 0 35px rgba(99, 102, 241, 0.6)); }
+}
+
+.hero-divider {
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.6), transparent);
+  border-radius: 1px;
+}
+
+.hero-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.hero-car-name {
+  font-size: 32px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+}
+
+.hero-gen-name {
+  font-size: 16px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+// 차체 유형 뱃지
+.body-type-badge {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  background: rgba(99, 102, 241, 0.15);
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 100px;
+  border: 1px solid rgba(99, 102, 241, 0.25);
+  z-index: 2;
 }
 
 .engine_category {

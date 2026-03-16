@@ -1,0 +1,192 @@
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="/svg/favicon.svg">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+  <link rel="stylesheet" type="text/css" href="/css/common.css">
+  <link rel="stylesheet" type="text/css" href="/css/admin.css">
+  <script src="/js/jquery-3.6.0.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script defer src="/js/common.js"></script>
+  <script defer src="/js/admin.js"></script>
+  <title>관리자 : 카피디아</title>
+</head>
+<body>
+  <%- include('./includes/header') %>
+  <main>
+    <div class="admin-container">
+      <h1 class="admin-title">관리자 대시보드</h1>
+
+      <!-- 요약 카드 -->
+      <div class="summary-cards">
+        <div class="summary-card">
+          <div class="summary-icon visits-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <div class="summary-info">
+            <span class="summary-value" id="todayVisits">-</span>
+            <span class="summary-label">오늘 방문수</span>
+          </div>
+        </div>
+        <div class="summary-card">
+          <div class="summary-icon users-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+          <div class="summary-info">
+            <span class="summary-value" id="totalUsers">-</span>
+            <span class="summary-label">전체 사용자</span>
+          </div>
+        </div>
+        <div class="summary-card">
+          <div class="summary-icon posts-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          </div>
+          <div class="summary-info">
+            <span class="summary-value" id="totalPosts">-</span>
+            <span class="summary-label">전체 게시글</span>
+          </div>
+        </div>
+        <div class="summary-card">
+          <div class="summary-icon reports-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          </div>
+          <div class="summary-info">
+            <span class="summary-value" id="pendingReports">-</span>
+            <span class="summary-label">미처리 신고</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 탭 네비게이션 -->
+      <div class="admin-tabs">
+        <button type="button" class="admin-tab active" data-tab="visits">방문 통계</button>
+        <button type="button" class="admin-tab" data-tab="signups">가입자 추이</button>
+        <button type="button" class="admin-tab" data-tab="activity">커뮤니티 활동</button>
+        <button type="button" class="admin-tab" data-tab="reports">신고 관리</button>
+        <button type="button" class="admin-tab" data-tab="users">사용자 관리</button>
+        <button type="button" class="admin-tab" data-tab="logs">로그 뷰어</button>
+      </div>
+
+      <!-- 방문 통계 탭 -->
+      <div class="tab-content active" id="tab-visits">
+        <div class="chart-controls">
+          <button type="button" class="period-btn active" data-days="7">최근 7일</button>
+          <button type="button" class="period-btn" data-days="30">최근 30일</button>
+        </div>
+        <div class="charts-grid">
+          <div class="chart-card">
+            <h3 class="chart-title">일별 방문 추이</h3>
+            <div class="chart-wrapper">
+              <canvas id="visitLineChart"></canvas>
+            </div>
+          </div>
+          <div class="chart-card">
+            <h3 class="chart-title">시간대별 방문 분포</h3>
+            <div class="chart-wrapper">
+              <canvas id="hourlyBarChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 가입자 추이 탭 -->
+      <div class="tab-content" id="tab-signups">
+        <div class="chart-controls">
+          <button type="button" class="signup-period-btn active" data-days="7">최근 7일</button>
+          <button type="button" class="signup-period-btn" data-days="30">최근 30일</button>
+        </div>
+        <div class="chart-card">
+          <h3 class="chart-title">일별 신규 가입자</h3>
+          <div class="chart-wrapper">
+            <canvas id="signupLineChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- 커뮤니티 활동 탭 -->
+      <div class="tab-content" id="tab-activity">
+        <div class="activity-grid">
+          <div class="activity-card">
+            <h3 class="activity-card-title">최근 게시글</h3>
+            <div class="activity-list" id="recentPostsList">
+              <p class="empty-message">로딩 중...</p>
+            </div>
+          </div>
+          <div class="activity-card">
+            <h3 class="activity-card-title">최근 댓글</h3>
+            <div class="activity-list" id="recentCommentsList">
+              <p class="empty-message">로딩 중...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 신고 관리 탭 -->
+      <div class="tab-content" id="tab-reports">
+        <div class="report-table-wrapper">
+          <table class="report-table">
+            <thead>
+              <tr>
+                <th>번호</th>
+                <th>유형</th>
+                <th>대상 내용</th>
+                <th>신고 사유</th>
+                <th>신고자</th>
+                <th>신고일</th>
+                <th>상태</th>
+                <th>처리</th>
+              </tr>
+            </thead>
+            <tbody id="reportTableBody">
+              <tr><td colspan="8" class="empty-message">로딩 중...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 사용자 관리 탭 -->
+      <div class="tab-content" id="tab-users">
+        <div class="user-controls">
+          <input type="text" id="userSearchInput" class="user-search-input" placeholder="이메일 또는 닉네임 검색...">
+          <button type="button" id="userSearchBtn" class="load-log-btn">검색</button>
+        </div>
+        <div class="report-table-wrapper">
+          <table class="report-table">
+            <thead>
+              <tr>
+                <th>번호</th>
+                <th>이메일</th>
+                <th>닉네임</th>
+                <th>가입일</th>
+                <th>상태</th>
+                <th>관리</th>
+              </tr>
+            </thead>
+            <tbody id="userTableBody">
+              <tr><td colspan="6" class="empty-message">로딩 중...</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="pagination" id="userPagination"></div>
+      </div>
+
+      <!-- 로그 뷰어 탭 -->
+      <div class="tab-content" id="tab-logs">
+        <div class="log-controls">
+          <input type="date" id="logDate" class="log-date-input">
+          <select id="logType" class="log-type-select">
+            <option value="service">Service</option>
+            <option value="access">Access</option>
+          </select>
+          <button type="button" id="loadLogBtn" class="load-log-btn">조회</button>
+        </div>
+        <div class="log-viewer">
+          <pre id="logContent">날짜를 선택하고 조회 버튼을 클릭하세요.</pre>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

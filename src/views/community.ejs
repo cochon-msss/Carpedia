@@ -19,59 +19,92 @@
     <%- include('./includes/header') %>
     <main>
         <div class="community-container">
-            <div class="community-header">
-                <h1>커뮤니티</h1>
-                <button type="button" class="write-btn<%= user ? '' : ' login-required' %>">글쓰기</button>
-            </div>
-            <div class="community-content">
-                <div class="post-filter">
-                    <button class="<%= category === '전체' ? 'active' : '' %>" data-category="전체">전체</button>
-                    <button class="<%= category === '자유 게시판' ? 'active' : '' %>" data-category="자유 게시판">자유 게시판</button>
-                    <button class="<%= category === '정보 공유' ? 'active' : '' %>" data-category="정보 공유">정보 공유</button>
-                    <button class="<%= category === 'Q&A' ? 'active' : '' %>" data-category="Q&A">Q&A</button>
+            <% if (mode === 'select') { %>
+                <!-- 차종 선택 페이지 -->
+                <div class="community-header">
+                    <h1>커뮤니티 - 차종 선택</h1>
                 </div>
-                <div class="post-sort">
-                    <button class="<%= sort === 'latest' ? 'active' : '' %>" data-sort="latest">최신순</button>
-                    <button class="<%= sort === 'popular' ? 'active' : '' %>" data-sort="popular">인기순</button>
-                    <button class="<%= sort === 'views' ? 'active' : '' %>" data-sort="views">조회순</button>
+                <div class="vehicle-select">
+                    <div class="select-step" id="step-manufacturer">
+                        <h2 class="step-title">제조사를 선택하세요</h2>
+                        <div class="select-grid">
+                            <% manufacturers.forEach((mfr) => { %>
+                                <button class="select-card manufacturer-card" data-seq="<%= mfr.manufacturerSeq %>">
+                                    <% if (mfr.logoUrl) { %>
+                                        <img src="<%= mfr.logoUrl %>" alt="<%= mfr.manufacturerName %>" class="card-logo">
+                                    <% } %>
+                                    <span class="card-name"><%= mfr.manufacturerName %></span>
+                                </button>
+                            <% }) %>
+                        </div>
+                    </div>
+                    <div class="select-step hidden" id="step-model">
+                        <div class="step-header">
+                            <button type="button" class="back-step-btn" data-target="manufacturer">← 뒤로</button>
+                            <h2 class="step-title">모델을 선택하세요</h2>
+                        </div>
+                        <div class="select-grid" id="model-grid"></div>
+                    </div>
+                    <div class="select-step hidden" id="step-generation">
+                        <div class="step-header">
+                            <button type="button" class="back-step-btn" data-target="model">← 뒤로</button>
+                            <h2 class="step-title">세대를 선택하세요</h2>
+                        </div>
+                        <div class="select-grid" id="generation-grid"></div>
+                    </div>
                 </div>
-                <div class="post-search">
-                    <input type="text" class="search-input" placeholder="제목 또는 내용으로 검색"
-                           value="<%= typeof keyword !== 'undefined' && keyword ? keyword : '' %>">
-                    <button type="button" class="search-btn">검색</button>
+            <% } else { %>
+                <!-- 게시글 목록 페이지 -->
+                <div class="community-header">
+                    <div class="header-left">
+                        <a href="/community" class="back-to-select">← 차종 선택</a>
+                        <h1 class="generation-title"><%= generationInfo.manufacturerName %> <%= generationInfo.modelName %> <%= generationInfo.generationName %></h1>
+                    </div>
+                    <button type="button" class="write-btn<%= user ? '' : ' login-required' %>" data-generation-seq="<%= generationSeq %>">글쓰기</button>
                 </div>
-                <div class="post-list">
-                    <% if (postList && postList.length > 0) { %>
-                        <% postList.forEach((post) => { %>
-                            <div class="post-card" data-seq="<%= post.postSeq %>">
-                                <span class="post-category-badge"><%= post.category %></span>
-                                <h3 class="post-title"><%= post.title %></h3>
-                                <p class="post-preview"><%= post.preview ? post.preview.substring(0, 100) : '' %></p>
-                                <div class="post-meta">
-                                    <span class="post-author"><%= post.author %></span>
-                                    <span class="post-date"><%= new Date(post.createAt).toLocaleDateString('ko-KR') %></span>
-                                    <div class="post-stats">
-                                        <span>♥ <%= post.likeCount %></span>
-                                        <span>댓글 <%= post.commentCount %></span>
-                                        <span>조회 <%= post.viewCount %></span>
+                <div class="community-content" data-generation-seq="<%= generationSeq %>">
+                    <div class="post-sort">
+                        <button class="<%= sort === 'latest' ? 'active' : '' %>" data-sort="latest">최신순</button>
+                        <button class="<%= sort === 'popular' ? 'active' : '' %>" data-sort="popular">인기순</button>
+                        <button class="<%= sort === 'views' ? 'active' : '' %>" data-sort="views">조회순</button>
+                    </div>
+                    <div class="post-search">
+                        <input type="text" class="search-input" placeholder="제목 또는 내용으로 검색"
+                               value="<%= typeof keyword !== 'undefined' && keyword ? keyword : '' %>">
+                        <button type="button" class="search-btn">검색</button>
+                    </div>
+                    <div class="post-list">
+                        <% if (postList && postList.length > 0) { %>
+                            <% postList.forEach((post) => { %>
+                                <div class="post-card" data-seq="<%= post.postSeq %>">
+                                    <h3 class="post-title"><%= post.title %></h3>
+                                    <p class="post-preview"><%= post.preview ? post.preview.substring(0, 100) : '' %></p>
+                                    <div class="post-meta">
+                                        <span class="post-author"><%= post.author %></span>
+                                        <span class="post-date"><%= new Date(post.createAt).toLocaleDateString('ko-KR') %></span>
+                                        <div class="post-stats">
+                                            <span>♥ <%= post.likeCount %></span>
+                                            <span>댓글 <%= post.commentCount %></span>
+                                            <span>조회 <%= post.viewCount %></span>
+                                        </div>
                                     </div>
                                 </div>
+                            <% }) %>
+                        <% } else { %>
+                            <div class="no-posts">
+                                <p><%= (typeof keyword !== 'undefined' && keyword) ? '"' + keyword + '" 검색 결과가 없습니다.' : '게시글이 없습니다. 첫 게시글을 작성해보세요!' %></p>
                             </div>
-                        <% }) %>
-                    <% } else { %>
-                        <div class="no-posts">
-                            <p><%= (typeof keyword !== 'undefined' && keyword) ? '"' + keyword + '" 검색 결과가 없습니다.' : '게시글이 없습니다.' %></p>
+                        <% } %>
+                    </div>
+                    <% if (totalPages > 1) { %>
+                        <div class="pagination">
+                            <% for (let i = 1; i <= totalPages; i++) { %>
+                                <button class="page-btn <%= i === currentPage ? 'active' : '' %>" data-page="<%= i %>"><%= i %></button>
+                            <% } %>
                         </div>
                     <% } %>
                 </div>
-                <% if (totalPages > 1) { %>
-                    <div class="pagination">
-                        <% for (let i = 1; i <= totalPages; i++) { %>
-                            <button class="page-btn <%= i === currentPage ? 'active' : '' %>" data-page="<%= i %>"><%= i %></button>
-                        <% } %>
-                    </div>
-                <% } %>
-            </div>
+            <% } %>
         </div>
     </main>
 </body>

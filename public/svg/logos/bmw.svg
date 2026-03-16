@@ -1,0 +1,9 @@
+<svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- BMW: Roundel -->
+  <circle cx="100" cy="100" r="85" stroke="white" stroke-width="5" fill="none"/>
+  <circle cx="100" cy="100" r="68" stroke="white" stroke-width="2.5" fill="none"/>
+  <line x1="100" y1="32" x2="100" y2="168" stroke="white" stroke-width="2.5"/>
+  <line x1="32" y1="100" x2="168" y2="100" stroke="white" stroke-width="2.5"/>
+  <!-- BMW text at top -->
+  <text x="100" y="26" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="white">BMW</text>
+</svg>

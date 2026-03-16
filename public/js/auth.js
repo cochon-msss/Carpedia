@@ -1,4 +1,12 @@
 $(() => {
+  // Enter 키로 로그인/회원가입
+  $(document).on("keydown", function (e) {
+    if (e.key === "Enter") {
+      if ($(".login-btn").length) $(".login-btn").click();
+      else if ($(".register-btn").length) $(".register-btn").click();
+    }
+  });
+
   // 로그인
   $(".login-btn").on("click", function () {
     const email = $("#email").val().trim();
@@ -20,7 +28,7 @@ $(() => {
       data: JSON.stringify({ email, password }),
       success: function (data) {
         if (data.success) {
-          window.location.href = "/";
+          window.location.href = data.role === "admin" ? "/admin" : "/";
         }
       },
       error: function (xhr) {

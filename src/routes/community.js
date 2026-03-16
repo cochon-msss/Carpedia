@@ -16,9 +16,13 @@ const {
   toggleCommentLike,
   createReport,
   toggleBookmark,
+  getModelsJson,
+  getGenerationsJson,
 } = require("../controllers/communityController");
 
 router.get("/", getPostList);
+router.get("/models/:manufacturerSeq", getModelsJson);
+router.get("/generations/:modelSeq", getGenerationsJson);
 router.get("/write", requireLogin, getWriteForm);
 router.get("/:postSeq/edit", requireLogin, getEditForm);
 router.post("/write", requireLoginApi, upload.array("images", 20), createPost);

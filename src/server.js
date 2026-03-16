@@ -1,3 +1,4 @@
+const express = require("express");
 const fs = require("fs");
 const http = require("http");
 const https = require("https");
@@ -13,8 +14,15 @@ const options = {
   cert: fs.readFileSync(process.env.SSL_CERT_PATH),
 };
 
-http.createServer(app).listen(HTTP_PORT, () => {
-  logger.info("HTTP Server listening on " + HTTP_PORT);
+// HTTP → HTTPS 리다이렉트 서버
+const redirectApp = express();
+redirectApp.use((req, res) => {
+  const host = req.headers.host ? req.headers.host.replace(/:\d+$/, "") : "localhost";
+  res.redirect(301, "https://" + host + ":" + HTTPS_PORT + req.url);
+});
+
+http.createServer(redirectApp).listen(HTTP_PORT, () => {
+  logger.info("HTTP redirect server listening on " + HTTP_PORT);
 });
 
 https.createServer(options, app).listen(HTTPS_PORT, () => {

@@ -1,0 +1,6 @@
+<svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Hyundai: Stylized H in oval -->
+  <ellipse cx="100" cy="100" rx="88" ry="72" stroke="white" stroke-width="6" fill="none"/>
+  <path d="M62 60 Q62 100 100 100 Q138 100 138 60" stroke="white" stroke-width="6" fill="none" stroke-linecap="round"/>
+  <path d="M62 140 Q62 100 100 100 Q138 100 138 140" stroke="white" stroke-width="6" fill="none" stroke-linecap="round"/>
+</svg>

@@ -99,6 +99,14 @@ function showConfirm(message, onConfirm, onCancel) {
 }
 
 $(() => {
+  // CSRF 토큰 설정 — 모든 AJAX 요청에 X-CSRF-Token 헤더 자동 첨부
+  const csrfToken = $('meta[name="csrf-token"]').attr("content");
+  if (csrfToken) {
+    $.ajaxSetup({
+      headers: { "X-CSRF-Token": csrfToken },
+    });
+  }
+
   // 네비게이션
   $(".compare").on("click", function () {
     window.location.href = `/carCompare`;
@@ -118,6 +126,10 @@ $(() => {
 
   $(".spec-ranking").on("click", function () {
     window.location.href = `/specRanking`;
+  });
+
+  $(".body-type-guide").on("click", function () {
+    window.location.href = `/bodyTypeGuide`;
   });
 
   $(".community").on("click", function () {
@@ -150,6 +162,11 @@ $(() => {
 
   $(".notification-bell").on("click", function () {
     window.location.href = "/notification";
+  });
+
+  // 관리자 페이지
+  $(".admin-btn").on("click", function () {
+    window.location.href = "/admin";
   });
 
   // 마이페이지

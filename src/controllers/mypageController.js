@@ -1,13 +1,13 @@
 const bookmarkService = require("../services/bookmarkService");
 const logger = require("../utils/loggerUtil");
+const { validatePositiveInt } = require("../utils/validateParam");
 
 const PAGE_SIZE = 10;
 
 // 마이페이지 렌더링
 const getMypage = async (req, res) => {
   try {
-    const { page = 1 } = req.query;
-    const currentPage = parseInt(page);
+    const currentPage = Math.max(1, validatePositiveInt(req.query.page) || 1);
     const { userSeq } = req.session.user;
     const bookmarkList = await bookmarkService.getBookmarkList(userSeq, currentPage, PAGE_SIZE);
     const totalCount = await bookmarkService.getBookmarkCount(userSeq);

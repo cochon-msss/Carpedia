@@ -22,19 +22,17 @@
             <div class="community-header">
                 <h1><%= editMode ? '글 수정' : '글쓰기' %></h1>
             </div>
-            <div class="write-form" data-edit-mode="<%= editMode %>" data-post-seq="<%= post ? post.postSeq : '' %>">
+            <div class="write-form" data-edit-mode="<%= editMode %>" data-post-seq="<%= post ? post.postSeq : '' %>" data-generation-seq="<%= generationSeq %>">
                 <div class="form-group">
                     <label>작성자</label>
                     <span class="author-display"><%= user.nickname %></span>
                 </div>
-                <div class="form-group">
-                    <label for="category">카테고리</label>
-                    <select id="category">
-                        <option value="자유 게시판" <%= (post && post.category === '자유 게시판') ? 'selected' : '' %>>자유 게시판</option>
-                        <option value="정보 공유" <%= (post && post.category === '정보 공유') ? 'selected' : '' %>>정보 공유</option>
-                        <option value="Q&A" <%= (post && post.category === 'Q&A') ? 'selected' : '' %>>Q&A</option>
-                    </select>
-                </div>
+                <% if (generationInfo) { %>
+                    <div class="form-group">
+                        <label>차종</label>
+                        <span class="generation-display"><%= generationInfo.manufacturerName %> <%= generationInfo.modelName %> <%= generationInfo.generationName %></span>
+                    </div>
+                <% } %>
                 <div class="form-group">
                     <label for="title">제목</label>
                     <input type="text" id="title" placeholder="제목을 입력하세요" maxlength="200" value="<%= post ? post.title : '' %>">

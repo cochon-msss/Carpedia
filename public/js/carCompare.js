@@ -4,6 +4,7 @@ $(() => {
   let manufacturersLoaded = false;
   let currentGenerationSeq = null;
   let currentCarName = null;
+  let currentBodyType = null;
 
   // 신규 선택
   $(document).on("click", ".btn-select-car", function () {
@@ -110,7 +111,7 @@ $(() => {
     $.get("/model/" + seq, function (data) {
       data.forEach(function (model) {
         grid.append(
-          '<div class="select-card" data-seq="' + model.modelSeq + '" data-name="' + model.modelName + '">' +
+          '<div class="select-card" data-seq="' + model.modelSeq + '" data-name="' + model.modelName + '" data-body-type="' + model.bodyType + '">' +
             '<span class="card-badge">' + model.bodyType + '</span>' +
             '<span class="card-name">' + model.modelName + '</span>' +
             '<span class="card-sub">' + model.segment + '</span>' +
@@ -125,6 +126,7 @@ $(() => {
   $(document).on("click", "#modal-step-2 .select-card", function () {
     const seq = $(this).data("seq");
     const modelName = $(this).data("name");
+    currentBodyType = $(this).data("body-type");
     $("#modal-step-2 .select-card").removeClass("active");
     $(this).addClass("active");
 
@@ -173,7 +175,8 @@ $(() => {
         spec: spec,
         carName: carName,
         trimName: trimName,
-        generationSeq: currentGenerationSeq
+        generationSeq: currentGenerationSeq,
+        bodyType: currentBodyType
       };
       updateSlotDisplay(currentSlot);
       $("#car-select-modal").addClass("hidden");
@@ -192,8 +195,10 @@ $(() => {
     slotEl.find(".selected-car-name").text(selectedCars[slot].carName);
     slotEl.find(".selected-trim-name").text(selectedCars[slot].trimName);
 
-    // 3D 뷰어 라벨 업데이트
-    $("#viewer-" + slot + " .car-label").text(selectedCars[slot].carName);
+    // 실루엣 + 라벨 업데이트
+    var car = selectedCars[slot];
+    $("#viewer-" + slot + " .car-label").text(car.carName);
+    $("#viewer-" + slot + " .car-silhouette").html(getSilhouetteSVG(car.bodyType));
     $("#model-viewers").removeClass("hidden");
 
     // 한쪽만 선택된 경우에도 해당 슬롯의 제원 표시

@@ -111,10 +111,28 @@ main .container {
   font-weight: 700;
   z-index: 1;
 }
-.car_images .car_image model-viewer {
+.car_images .car_image .car-silhouette {
   width: 100%;
   height: 100%;
-  --poster-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+.car_images .car_image .car-silhouette svg {
+  width: 280px;
+  max-width: 80%;
+  height: auto;
+  filter: drop-shadow(0 0 20px rgba(99, 102, 241, 0.3));
+  animation: breathe 3s ease-in-out infinite;
+}
+@keyframes breathe {
+  0%, 100% {
+    filter: drop-shadow(0 0 15px rgba(99, 102, 241, 0.2));
+  }
+  50% {
+    filter: drop-shadow(0 0 30px rgba(99, 102, 241, 0.45));
+  }
 }
 
 .specs_container {

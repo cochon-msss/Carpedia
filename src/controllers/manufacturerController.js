@@ -1,5 +1,6 @@
 const manufacturerService = require("../services/manufacturerService");
 const logger = require("../utils/loggerUtil");
+const { validatePositiveInt } = require("../utils/validateParam");
 
 // 제조사 목록 조회
 const getManufacturerList = async (req, res) => {
@@ -15,7 +16,8 @@ const getManufacturerList = async (req, res) => {
 // 모델 목록 조회
 const getModelList = async (req, res) => {
   try {
-    const { manufacturerSeq } = req.params;
+    const manufacturerSeq = validatePositiveInt(req.params.manufacturerSeq);
+    if (!manufacturerSeq) return res.status(400).json({ error: "잘못된 요청입니다." });
     const modelList = await manufacturerService.getModelList(manufacturerSeq);
     res.json(modelList);
   } catch (error) {
@@ -27,10 +29,9 @@ const getModelList = async (req, res) => {
 // 세부 모델 목록 조회
 const getGenerationList = async (req, res) => {
   try {
-    const { modelSeq } = req.params;
-    const generationList = await manufacturerService.getGenerationList(
-      modelSeq
-    );
+    const modelSeq = validatePositiveInt(req.params.modelSeq);
+    if (!modelSeq) return res.status(400).json({ error: "잘못된 요청입니다." });
+    const generationList = await manufacturerService.getGenerationList(modelSeq);
     res.json(generationList);
   } catch (error) {
     logger.error(error);

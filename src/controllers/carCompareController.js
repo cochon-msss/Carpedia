@@ -1,6 +1,7 @@
 const manufacturerService = require("../services/manufacturerService");
 const carInfoService = require("../services/carInfoService");
 const logger = require("../utils/loggerUtil");
+const { validatePositiveInt } = require("../utils/validateParam");
 
 // 비교 페이지 렌더링
 const getComparePage = async (req, res) => {
@@ -26,7 +27,8 @@ const getManufacturerListJson = async (req, res) => {
 // 트림 목록 JSON
 const getTrimListJson = async (req, res) => {
   try {
-    const { generationSeq } = req.query;
+    const generationSeq = validatePositiveInt(req.query.generationSeq);
+    if (!generationSeq) return res.status(400).json({ error: "잘못된 요청입니다." });
     const trimList = await carInfoService.getTrimList(generationSeq);
     res.json(trimList);
   } catch (error) {
@@ -38,7 +40,8 @@ const getTrimListJson = async (req, res) => {
 // 트림 상세 제원 JSON
 const getCarSpecJson = async (req, res) => {
   try {
-    const { trimSeq } = req.query;
+    const trimSeq = validatePositiveInt(req.query.trimSeq);
+    if (!trimSeq) return res.status(400).json({ error: "잘못된 요청입니다." });
     const [specDetail] = await carInfoService.getCarInfoDetail(trimSeq);
     res.json(specDetail);
   } catch (error) {

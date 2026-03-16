@@ -1,0 +1,8 @@
+<svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Honda: Stylized H -->
+  <path d="M50 45 L50 155" stroke="white" stroke-width="8" stroke-linecap="round"/>
+  <path d="M150 45 L150 155" stroke="white" stroke-width="8" stroke-linecap="round"/>
+  <path d="M55 50 Q100 35 145 50" stroke="white" stroke-width="6" fill="none" stroke-linecap="round"/>
+  <path d="M55 150 Q100 165 145 150" stroke="white" stroke-width="6" fill="none" stroke-linecap="round"/>
+  <path d="M50 100 L150 100" stroke="white" stroke-width="5" stroke-linecap="round"/>
+</svg>

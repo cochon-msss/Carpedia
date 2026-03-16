@@ -1,5 +1,6 @@
 $(() => {
   const postSeq = $(".community-detail").data("post-seq");
+  const generationSeq = $(".community-detail").data("generation-seq");
   let parentCommentSeq = null;
 
   // 답글 버튼 클릭
@@ -99,7 +100,11 @@ $(() => {
 
   // 목록으로
   $(".back-btn").on("click", function () {
-    window.location.href = "/community";
+    if (generationSeq) {
+      window.location.href = "/community?generationSeq=" + generationSeq;
+    } else {
+      window.location.href = "/community";
+    }
   });
 
   // 수정 버튼
@@ -116,7 +121,11 @@ $(() => {
         success: function (data) {
           if (data.success) {
             showAlert("게시글이 삭제되었습니다.", function () {
-              window.location.href = "/community";
+              if (generationSeq) {
+                window.location.href = "/community?generationSeq=" + generationSeq;
+              } else {
+                window.location.href = "/community";
+              }
             });
           }
         },

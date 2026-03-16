@@ -5,19 +5,19 @@ const notificationService = require("./notificationService");
 const logger = require("../utils/loggerUtil");
 
 // 게시글 목록 조회
-const getPostList = async (category, page, pageSize, keyword = null, sortType = "latest") => {
+const getPostList = async (generationSeq, page, pageSize, keyword = null, sortType = "latest") => {
   try {
     const offset = (page - 1) * pageSize;
-    return await communityModel.getPostList(category, offset, pageSize, keyword, sortType);
+    return await communityModel.getPostList(generationSeq, offset, pageSize, keyword, sortType);
   } catch (error) {
     logger.error(error);
   }
 };
 
 // 게시글 전체 개수
-const getPostCount = async (category, keyword = null) => {
+const getPostCount = async (generationSeq, keyword = null) => {
   try {
-    const result = await communityModel.getPostCount(category, keyword);
+    const result = await communityModel.getPostCount(generationSeq, keyword);
     return result[0].totalCount;
   } catch (error) {
     logger.error(error);
@@ -35,17 +35,28 @@ const getPostDetail = async (postSeq) => {
   }
 };
 
-// 게시글 작성
-const createPost = async (category, title, content, author, userSeq) => {
+// 세대 정보 조회
+const getGenerationInfo = async (generationSeq) => {
   try {
-    return await communityModel.createPost(category, title, content, author, userSeq);
+    const result = await communityModel.getGenerationInfo(generationSeq);
+    return result[0] || null;
+  } catch (error) {
+    logger.error(error);
+    return null;
+  }
+};
+
+// 게시글 작성
+const createPost = async (generationSeq, title, content, author, userSeq) => {
+  try {
+    return await communityModel.createPost(generationSeq, title, content, author, userSeq);
   } catch (error) {
     logger.error(error);
   }
 };
 
 // 게시글 수정
-const updatePost = async (postSeq, category, title, content, userSeq) => {
+const updatePost = async (postSeq, title, content, userSeq) => {
   try {
     const post = await communityModel.getPostDetail(postSeq);
     if (!post || post.length === 0) {
@@ -54,7 +65,7 @@ const updatePost = async (postSeq, category, title, content, userSeq) => {
     if (post[0].userSeq !== userSeq) {
       return { success: false, message: "수정 권한이 없습니다." };
     }
-    await communityModel.updatePost(postSeq, category, title, content);
+    await communityModel.updatePost(postSeq, title, content);
     return { success: true };
   } catch (error) {
     logger.error(error);
@@ -301,6 +312,7 @@ module.exports = {
   getPostList,
   getPostCount,
   getPostDetail,
+  getGenerationInfo,
   createPost,
   updatePost,
   deletePost,

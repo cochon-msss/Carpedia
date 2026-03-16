@@ -1,8 +1,10 @@
 const winston = require("winston");
 const winstonDaily = require("winston-daily-rotate-file");
 
+const STATIC_EXTENSIONS = /\.(css|js|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot|map|webp|glb)$/i;
+
 const logger = winston.createLogger({
-  level: "info", // 로그 레벨
+  level: "info",
   format: winston.format.combine(
     winston.format.label({ label: "[carpedia access]" }),
     winston.format.colorize(),
@@ -14,7 +16,7 @@ const logger = winston.createLogger({
     })
   ),
   transports: [
-    new winston.transports.Console(), //콘솔에 출력
+    new winston.transports.Console(),
     new winstonDaily({
       dirname: "logs/access",
       filename: `%DATE%_access.log`,
@@ -25,6 +27,17 @@ const logger = winston.createLogger({
 });
 
 module.exports = (req, res, next) => {
-  logger.info(`${req.method} ${req.url}`);
+  // 정적 파일 요청은 로그 제외
+  if (STATIC_EXTENSIONS.test(req.path)) {
+    return next();
+  }
+
+  const startTime = Date.now();
+
+  res.on("finish", () => {
+    const duration = Date.now() - startTime;
+    logger.info(`${req.method} ${req.url} ${res.statusCode} ${duration}ms`);
+  });
+
   next();
 };

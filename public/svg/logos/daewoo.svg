@@ -1,0 +1,6 @@
+<svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- 대우자동차: Stylized circle emblem -->
+  <circle cx="100" cy="100" r="80" stroke="white" stroke-width="4" fill="none"/>
+  <circle cx="100" cy="100" r="55" stroke="white" stroke-width="3" fill="none" opacity="0.5"/>
+  <text x="100" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="40" font-weight="bold" fill="white">DW</text>
+</svg>

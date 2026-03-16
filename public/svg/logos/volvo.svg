@@ -1,0 +1,10 @@
+<svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Volvo: Circle with arrow (Mars symbol) + diagonal bar -->
+  <circle cx="100" cy="108" r="68" stroke="white" stroke-width="5" fill="none"/>
+  <!-- Arrow pointing upper-right (iron/Mars symbol) -->
+  <line x1="148" y1="60" x2="170" y2="38" stroke="white" stroke-width="5" stroke-linecap="round"/>
+  <line x1="170" y1="38" x2="150" y2="38" stroke="white" stroke-width="5" stroke-linecap="round"/>
+  <line x1="170" y1="38" x2="170" y2="58" stroke="white" stroke-width="5" stroke-linecap="round"/>
+  <!-- Diagonal bar across circle -->
+  <line x1="46" y1="78" x2="154" y2="78" stroke="white" stroke-width="4" stroke-linecap="round"/>
+</svg>

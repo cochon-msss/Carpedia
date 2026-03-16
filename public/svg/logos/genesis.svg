@@ -1,0 +1,12 @@
+<svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Genesis: Wing emblem with center line -->
+  <path d="M100 55 L100 145" stroke="white" stroke-width="3" stroke-linecap="round"/>
+  <!-- Left wings -->
+  <path d="M100 80 Q80 72 55 70 Q35 68 20 75 Q35 72 55 74 Q78 77 95 85" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M100 92 Q75 84 50 82 Q30 80 15 90 Q32 85 52 86 Q76 89 95 97" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.7"/>
+  <!-- Right wings -->
+  <path d="M100 80 Q120 72 145 70 Q165 68 180 75 Q165 72 145 74 Q122 77 105 85" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M100 92 Q125 84 150 82 Q170 80 185 90 Q168 85 148 86 Q124 89 105 97" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.7"/>
+  <!-- Shield outline -->
+  <path d="M70 55 Q70 48 80 42 Q90 36 100 34 Q110 36 120 42 Q130 48 130 55 L130 130 Q130 145 100 155 Q70 145 70 130 Z" stroke="white" stroke-width="2" fill="none" opacity="0.35"/>
+</svg>

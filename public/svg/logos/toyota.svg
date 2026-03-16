@@ -1,0 +1,6 @@
+<svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Toyota: Three overlapping ovals -->
+  <ellipse cx="100" cy="100" rx="88" ry="60" stroke="white" stroke-width="4" fill="none"/>
+  <ellipse cx="100" cy="95" rx="50" ry="35" stroke="white" stroke-width="4" fill="none"/>
+  <ellipse cx="100" cy="95" rx="20" ry="50" stroke="white" stroke-width="4" fill="none"/>
+</svg>

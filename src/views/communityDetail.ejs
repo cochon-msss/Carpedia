@@ -18,9 +18,11 @@
 <body>
     <%- include('./includes/header') %>
     <main>
-        <div class="community-detail" data-post-seq="<%= post.postSeq %>">
+        <div class="community-detail" data-post-seq="<%= post.postSeq %>" data-generation-seq="<%= post.generationSeq || '' %>">
             <div class="post-header">
-                <span class="post-category-badge"><%= post.category %></span>
+                <% if (post.manufacturerName && post.modelName && post.generationName) { %>
+                    <span class="post-vehicle-badge"><%= post.manufacturerName %> <%= post.modelName %> <%= post.generationName %></span>
+                <% } %>
                 <h1 class="post-title"><%= post.title %></h1>
                 <div class="post-meta">
                     <span class="author"><%= post.author %></span>
@@ -29,7 +31,7 @@
                 </div>
             </div>
             <div class="post-content">
-                <p><%- post.content.replace(/\n/g, '<br>') %></p>
+                <p><%- escapeHtml(post.content).replace(/\n/g, '<br>') %></p>
                 <% if (images && images.length > 0) { %>
                     <div class="post-images">
                         <% images.forEach((img) => { %>
